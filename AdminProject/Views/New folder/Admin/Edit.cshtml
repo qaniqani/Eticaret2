@@ -1,0 +1,71 @@
+﻿@model AdminProject.Infrastructure.Models.Admin
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Admin</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Edit" method="post">
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: John Doe", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Username">Username</label>
+                                @Html.TextBoxFor(model => model.Username, new { placeholder = "Sample: johndoe", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                @Html.TextBoxFor(model => model.Password, new { @type = "password", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Password Again</label>
+                                @Html.TextBox("Password2", "", new {@type = "password", @class = "form-control", required = "required"})
+                            </div>
+                            <div class="form-group">
+                                <label for="MasterMenu">Authorization</label>
+                                <div class="skin skin-line">
+                                    <ul class="list">
+                                        <li>
+                                            <input type="checkbox" id="MasterMenu" name="MasterMenu" value="true" @(Model.Authorization.Contains("Master") ? "checked=\"checked\"" : "")>
+                                            <label for="MasterMenu">Master Menu</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="MediaMenu" name="MediaMenu" value="true" @(Model.Authorization.Contains("Media") ? "checked=\"checked\"" : "")>
+                                            <label for="MediaMenu">Media Menu</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="SettingMenu" name="SettingMenu" value="true" @(Model.Authorization.Contains("Setting") ? "checked=\"checked\"" : "")>
+                                            <label for="SettingMenu">Setting Menu</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

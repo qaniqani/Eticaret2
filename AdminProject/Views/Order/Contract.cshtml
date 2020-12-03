@@ -1,0 +1,102 @@
+﻿@using AdminProject.Infrastructure.Models
+@{
+    ViewBag.Title = "Ödeme Seçenekleri";
+    ViewBag.Description = "Ödeme seçeneklerinde kredi kartı, havale, eft veya kapıda ödeme seçeneklerini kullanabilirsiniz.";
+    ViewBag.Keyword = "kredi kartı, havale, eft, kapıda ödeme, kargo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table.creditCard tr {
+        line-height: 63px !important;
+    }
+
+    table.creditCard td {
+        padding-right: 5px !important;
+    }
+
+    .btn {
+        line-height: 38px !important;
+    }
+</style>
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Sipariş Özeti</h4>
+        <div class="row">
+            <div class="col-md-8 ct-u-paddingBottom50 ct-u-paddingTop20">
+                <div class="col-md-12">
+                    <table class="ct-wishList ct-js-wishList ct-js-cartShop ct-u-marginBoth30">
+                        <thead>
+                        <tr>
+                            <th class="ct-wishList-image"></th>
+                            <th class="ct-wishList-description">Ürün Adı</th>
+                            <th class="ct-wishList-price">Birim Fiyat</th>
+                            <th class="ct-wishList-quantity">Adet</th>
+                            <th class="ct-wishList-total">Toplam</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in ViewBag.Baskets.ProductList)
+                        {
+                            <tr>
+                                <td class="ct-wishList-image"><img src="@item.MinPicture" alt="@item.ProductName"></td>
+                                <td class="ct-wishList-description"><a class="ct-wishList-itemLink" href="@item.Url" target="_blank">@item.ProductName</a></td>
+                                <td class="ct-wishList-price">
+                                    @if (item.DiscountAmount <= 0)
+                                    {
+                                        @item.Price.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i>
+                                    }
+                                    else
+                                    {
+                                        <span><del>@item.Price.ToString("n2") </del> @item.DiscountPrice.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                    }
+                                </td>
+                                <td class="ct-wishList-quantity">@item.Unit</td>
+                                <td class="ct-wishList-total">@item.TotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <h2>Mesafeli Satış Sözleşmesi</h2>
+                <div class="contract-box">
+                    @Html.Raw(ViewBag.Distance)
+                </div>
+                <div class="clearfix"></div>
+                <hr class="ct-u-marginBoth20" />
+                <h2>Cayma Hakkı</h2>
+                <div class="contract-box">
+                    @Html.Raw(ViewBag.Withdraw)
+                </div>
+                <div class="clearfix"></div>
+                <hr class="ct-u-marginBoth20" />
+                <h2>Ön Bilgilendirme Formu</h2>
+                <div class="contract-box">
+                    @Html.Raw(ViewBag.Information)
+                </div>
+                <div class="clearfix"></div>
+                <form action="@ViewBag.Url" method="post">
+                    <hr class="ct-u-marginBoth20" />
+                    <h2>Sipariş Notunuz</h2>
+                    <div class="contract-box">
+                        <textarea class="form-control" name="orderNote" style="height:80px"></textarea>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr class="ct-u-marginBoth20" />
+                    <div class="col-md-5 col-lg-offset-7">
+                        <button class="btn btn-success lightWhite">Ödemeye Git <i class="fa fa-long-arrow-right fa-fw ct-u-paddingLeft10"></i></button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("OrderSummary")
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

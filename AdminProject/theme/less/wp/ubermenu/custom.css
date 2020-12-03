@@ -1,0 +1,248 @@
+/*
+*
+*
+******* CREATE IT VARIABLES *******
+*
+*
+*/
+.ct-m-imageCenter {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.ubermenu {
+  position: static;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target {
+  color: #000000;
+  position: relative;
+  font-size: 14px;
+  padding: 29px 35px 26px;
+  text-transform: uppercase;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target:not(:last-child):before {
+  content: "|";
+  position: absolute;
+  display: block;
+  top: 29px;
+  right: -12px;
+  font-size: 10px;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target:after {
+  content: "\f103";
+}
+.ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target:hover {
+  color: #888888;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item:first-child > .ubermenu-target {
+  padding-left: 0;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item.active > .ubermenu-target {
+  color: #888888;
+}
+@media (max-width: 991px) {
+  .ubermenu .ubermenu-nav > .ubermenu-item {
+    margin: 0;
+  }
+}
+.ubermenu a {
+  color: inherit;
+}
+.ubermenu a:hover,
+.ubermenu a:focus,
+.ubermenu a:active {
+  color: #337ab7;
+}
+.ubermenu a,
+.ubermenu .ubermenu-accessible input:not(:hover):focus,
+.ubermenu .ubermenu-accessible:not(:hover) .ubermenu-target:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ubermenu .ubermenu-divider {
+  padding: 0 !important;
+  width: 100%;
+}
+.ubermenu .ubermenu-custom-content-padded {
+  padding: 10px 20px;
+}
+.ubermenu .ubermenu-submenu {
+  background-color: #fff;
+  padding: 0 10px;
+}
+.ubermenu .ubermenu-submenu a {
+  color: #000000;
+}
+.ubermenu .ubermenu-submenu a span,
+.ubermenu .ubermenu-submenu a i {
+  color: inherit;
+}
+.ubermenu .ubermenu-submenu .ubermenu-target:after {
+  display: none;
+}
+.ubermenu .ubermenu-submenu .ubermenu-target:before {
+  font-family: fontawesome;
+  position: absolute;
+  margin-left: -15px;
+}
+.ubermenu .ubermenu-submenu .ubermenu-item.ubermenu-active > .ubermenu-submenu-type-flyout {
+  top: 3px;
+}
+.ubermenu .ubermenu-submenu .ubermenu-item-header .ubermenu-target {
+  color: #000000;
+}
+.ubermenu .ubermenu-submenu .ubermenu-item-header .ubermenu-target:before {
+  display: none;
+}
+.ubermenu .ubermenu-submenu .ubermenu-submenu-type-flyout {
+  clip: auto;
+}
+.ubermenu .ubermenu-submenu-type-flyout {
+  padding: 10px 27px;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-item {
+  text-align: left;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-item:not(:first-child) {
+  border-top: 1px solid #f4f4f4;
+}
+.ubermenu .ubermenu-submenu-type-flyout a {
+  text-transform: uppercase;
+  padding: 14px 0;
+  background-color: #ffffff;
+  color: #000000;
+}
+.ubermenu .ubermenu-submenu-type-flyout a:hover {
+  color: #888888;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-submenu {
+  top: 6px;
+  margin-left: 28px;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-submenu:before {
+  content: "";
+  width: 20px;
+  position: absolute;
+  left: -15px;
+  height: 47px;
+  top: 0;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-submenu:after {
+  content: "";
+  display: none;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5.5px 7px 5.5px 0;
+  border-color: transparent blue transparent transparent;
+  position: absolute;
+  left: -7px;
+  top: 14px;
+}
+.ubermenu .ubermenu-submenu-type-flyout .ubermenu-has-submenu-drop > .ubermenu-target:before {
+  right: 0;
+  content: "\f103";
+}
+.ubermenu .ubermenu-submenu-type-stack > .ubermenu-item-normal > .ubermenu-target {
+  padding: 10px 15px;
+}
+.ubermenu .ubermenu-item-type-column > .ubermenu-submenu-type-stack > .ubermenu-item-normal:first-child {
+  margin-top: 0;
+}
+.ubermenu .ubermenu-active > .ubermenu-submenu.ubermenu-submenu-type-mega {
+  -webkit-box-shadow: 0 0 5px #c6c6c6;
+  -moz-box-shadow: 0 0 5px #c6c6c6;
+  box-shadow: 0 0 5px #c6c6c6;
+  margin-top: 2px;
+  padding: 35px 27px 40px 27px;
+}
+.ubermenu .ubermenu-active > .ubermenu-submenu.ubermenu-submenu-type-mega > .ubermenu-item > .ubermenu-target {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.ubermenu .ubermenu-active > .ubermenu-submenu.ubermenu-submenu-type-mega > .ubermenu-item > .ubermenu-submenu > .ubermenu-item > .ubermenu-target:before {
+  content: "\f105";
+  display: block;
+}
+.ubermenu-nojs.ubermenu-transition-shift .ubermenu-item:hover > .ubermenu-submenu-drop,
+.ubermenu-transition-shift .ubermenu-item.ubermenu-active > .ubermenu-submenu-drop {
+  -webkit-box-shadow: 0 0 5px #c6c6c6;
+  -moz-box-shadow: 0 0 5px #c6c6c6;
+  box-shadow: 0 0 5px #c6c6c6;
+  margin-top: 2px;
+}
+.ct-menuMobile .ubermenu .ubermenu-nav {
+  width: 100%;
+}
+.ct-menuMobile .ubermenu .ubermenu-nav > .ubermenu-item {
+  display: block;
+  float: none;
+}
+.ct-menuMobile .ubermenu .ubermenu-nav > .ubermenu-item .ubermenu-target {
+  line-height: 40px;
+}
+.ct-menuMobile .ubermenu .ubermenu-nav > .ubermenu-item .ubermenu-target span {
+  font-weight: normal;
+  text-transform: none;
+}
+.ct-menuMobile .ubermenu .ubermenu-nav > .ubermenu-item .ubermenu-submenu li {
+  width: 100%;
+}
+.ct-menuMobile .ubermenu-responsive.ubermenu-responsive-collapse {
+  max-height: none !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+.ct-menuMobile .ubermenu-responsive-toggle {
+  color: #000;
+  font-size: 17px;
+}
+@media (max-width: 992px) {
+  .ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target {
+    padding: 29px 29px 26px;
+  }
+}
+@media screen and (max-width: 959px) {
+  .ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target {
+    font-size: 18px;
+    text-align: center;
+    padding: 29px 35px 26px;
+    padding-left: 0;
+    letter-spacing: 4px;
+  }
+  .ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target:not(:last-child):before {
+    display: none;
+  }
+  .ubermenu .ubermenu-nav > .ubermenu-item > .ubermenu-target:after {
+    right: 40px;
+  }
+  .ubermenu .ubermenu-item-level-0 > .ubermenu-submenu-drop {
+    clip: auto;
+  }
+  .ct-navbar-search {
+    bottom: 0;
+  }
+  .ubermenu-responsive-default.ubermenu-responsive.ubermenu-responsive-collapse {
+    max-height: 0;
+    overflow: hidden!important;
+    visibility: visible;
+    display: none;
+  }
+  .navbar .ubermenu-responsive-toggle {
+    color: #000;
+    font-size: 19px;
+    padding: 0;
+    float: left;
+    display: inline-block;
+    line-height: 74px;
+  }
+}

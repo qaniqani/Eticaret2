@@ -1,0 +1,68 @@
+﻿@using AdminProject.Helpers
+@model List<AdminProject.Infrastructure.Models.Order>
+
+@{
+    ViewBag.Title = "Siparişleriniz";
+    ViewBag.Description = "Üyeliğinize ait siparişlerinizi buradan görebilirsiniz.";
+    ViewBag.Keyword = "üyelik, sipariş, kargolar, kargo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .table{font-size:12px;}
+</style>
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ct-u-paddingBottom50">
+                @{
+                    Html.RenderPartial("UserMenu");
+                }
+            </div>
+
+            <div class="col-md-9 ct-u-paddingBottom50">
+                <div class="col-md-12">
+                    <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Siparişleriniz</h4>
+                </div>
+
+                <div class="col-md-12 ct-u-paddingTop30 ct-u-paddingBottom30">
+                    <table class="table filterTable">
+                        <thead>
+                            <tr>
+                                <td>Sipariş No</td>
+                                <td>Kargo No</td>
+                                <td>Sipariş Tutarı</td>
+                                <td>Kdv Tutarı</td>
+                                <td>İndirim Tutarı</td>
+                                <td>Ödeme Tipi</td>
+                                <td>Sipariş Durumu</td>
+                                <td>#</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.OrderNr</td>
+                                <td>@item.CargoNr</td>
+                                <td>@item.TotalAmount</td>
+                                <td>@item.KdvAmount</td>
+                                <td>@item.DiscountAmount</td>
+                                <td>@Utility.AllPayConvert[item.PayType]</td>
+                                <td>@Utility.AllOrderConvert[item.OrderType]</td>
+                                <td>
+                                    <a href="/user/order/@item.Id/detail" data-fancybox-type="iframe" class="btn btn-warning btn-sms userOrderDetail"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

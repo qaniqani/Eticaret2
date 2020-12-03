@@ -1,0 +1,138 @@
+﻿@model string
+@if (Model.Contains("Master"))
+{
+    <ul class="topnav menu-left-nest">
+        <li>
+            <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                <span class="widget-menu"></span>
+                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+            </a>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Menu App">
+                <i class="icon-document-edit"></i>
+                <span>Menu</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Menu/Add" title="Menu Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Menu/List" title="Menu List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Content App">
+                <i class="icon-document-edit"></i>
+                <span>Content</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Content/Add" title="Content Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Content/List" title="Content List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+}
+@if (Model.Contains("Media"))
+{
+    <ul class="topnav menu-left-nest">
+        <li>
+            <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                <span class="design-kit"></span>
+                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+            </a>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Gallery App">
+                <i class="icon-document-edit"></i>
+                <span>Gallery</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Gallery/Add" title="Gallery Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Gallery/List" title="Gallery List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Slider App">
+                <i class="icon-document-edit"></i>
+                <span>Slider</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Slider/Add" title="Slider Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Slider/List" title="Slider List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="File App">
+                <i class="icon-document-edit"></i>
+                <span>File/ Picture</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/File/Add" title="File Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/File/List" title="File List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+}
+@if (Model.Contains("Setting"))
+{
+    <ul id="menu-showhide" class="topnav menu-left-nest">
+        <li>
+            <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                <span class="component"></span>
+                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+            </a>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Admin App">
+                <i class="icon-document-edit"></i>
+                <span>Admin</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Admin/Add" title="Admin Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Admin/List" title="Admin List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="#" title="Language App">
+                <i class="icon-document-edit"></i>
+                <span>Language</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Language/Add" title="Language Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                </li>
+                <li>
+                    <a class="tooltip-tip2 ajax-load" href="/Language/List" title="Language List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="tooltip-tip ajax-load" href="/Settings" title="Settings App">
+                <i class="icon-document-edit"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+    </ul>
+}

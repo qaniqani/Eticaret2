@@ -1,0 +1,74 @@
+﻿@model AdminProject.Infrastructure.Models.Campaign
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<script>
+    $(document).ready(function() {
+        $('#StartDate').datepicker();
+        $('#EndDate').datepicker();
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Campaign</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Campaign/Edit/@Model.Id" method="post">
+                            <div class="form-group">
+                                <label for="CampaignType">Campaign Type</label>
+                                @Html.DropDownListFor(model => model.CampaignType, ViewBag.CampaignList as SelectList, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: Cargo Campaign", @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Detail">Detail</label>
+                                @Html.TextAreaFor(model => model.Detail, new { @class = "richEditor" })
+                            </div>
+                            <div class="form-group">
+                                <label for="DiscountAmountCriterion">Max Discount Amount Criterion (TL)</label>
+                                @Html.TextBoxFor(model => model.DiscountAmountCriterion, "{0:0}", new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="DiscountLimit">Discount Limit (TL)</label>
+                                @Html.TextBoxFor(model => model.DiscountLimit, "{0:0}", new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="DiscountOdd">Discount Odd (%)</label>
+                                @Html.TextBoxFor(model => model.DiscountOdd, "{0:0}", new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="StartDate">Start Date</label>
+                                <input type="text" id="StartDate" name="StartDate" placeholder="Start Date - dd.MM.yyyy" class="form-control validate[required]" data-date-format="dd.mm.yyyy" value="@Model.StartDate.ToString("dd.MM.yyyy")" />
+                            </div>
+                            <div class="form-group">
+                                <label for="EndDate">End Date</label>
+                                <input type="text" id="EndDate" name="EndDate" placeholder="End Date - dd.MM.yyyy" class="form-control validate[required]" data-date-format="dd.mm.yyyy" value="@Model.EndDate.ToString("dd.MM.yyyy")" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

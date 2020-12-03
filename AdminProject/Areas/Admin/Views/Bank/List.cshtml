@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Bank>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Banks
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-2 pull-right">
+                            <input class="form-control" id="filter" placeholder="Search..." type="text">
+                        </div>
+                    </div>
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="20" data-filter="#filter" data-filter-text-only="true">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Exchange
+                                </th>
+                                <th>
+                                    IBAN
+                                </th>
+                                <th>
+                                    Account Code
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var bank in Model)
+                                {
+                                    <tr>
+                                        <td>@bank.Name</td>
+                                        <td>@bank.ExchangeType</td>
+                                        <td>@bank.Iban</td>
+                                        <td>@bank.AccountNo</td>
+                                        <td>
+                                            <span class="@(bank.Status == AdminProject.Models.StatusTypes.Active ? "status-metro status-active" : "status-metro status-suspended")">
+                                                @(bank.Status == AdminProject.Models.StatusTypes.Active ? "Active" : "Deactive")
+                                            </span>
+                                        </td>
+                                        <td style="width:150px;">
+                                            <a href="/Admin/Bank/Edit/@bank.Id">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="/Admin/Bank/Delete/@bank.Id" onclick="return confirm('Are you sure you want to continue?')">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

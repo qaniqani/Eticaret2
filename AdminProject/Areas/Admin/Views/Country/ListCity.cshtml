@@ -1,0 +1,110 @@
+﻿@using AdminProject.Infrastructure.Models
+@model IEnumerable<Country>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>Country</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#country">
+                            <span class="entypo-down-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="country">
+                    <form action="/Admin/Country/ListCity" method="get">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:100px">Countries</td>
+                                <td style="width:200px">
+                                    <select name="countryId" class="form-control">
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td style="margin-left:5px">
+                                    <button class="btn btn-default">Get Citys</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Citys
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="30">
+                        <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Sequence Nr
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                #
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @{
+                            foreach (var city in (IEnumerable<City>)ViewBag.Citys)
+                            {
+                                <tr>
+                                    <td>@city.Id</td>
+                                    <td>@city.Name</td>
+                                    <td>@city.SequenceNr</td>
+                                    <td>
+                                        <span class="@(city.Status == AdminProject.Models.StatusTypes.Active ? "status-metro status-active" : "status-metro status-suspended")">
+                                                @(city.Status == AdminProject.Models.StatusTypes.Active ? "Active" : "Deactive")
+                                            </span>
+                                    </td>
+                                    <td style="width: 150px;">
+                                        <a href="/Admin/Country/EditCity/@city.Id">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="/Admin/Country/DeleteCity/@city.Id" onclick="return confirm('Are you sure you want to continue?')">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

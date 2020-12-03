@@ -1,0 +1,78 @@
+﻿@using AdminProject.Services.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/loader-style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/extra-pages.css">
+
+    <link rel="shortcut icon" href="/assets/ico/minus.png">
+</head>
+<body style="background: none repeat scroll 0 0 #fff !important;">
+    <!--  PAPER WRAP -->
+    <!-- CONTENT -->
+    <div class="content-wrap" style="padding:0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            Order Products
+                        </h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Unit</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Stock Type</th>
+                                    <th>Product Type</th>
+                                    <th>Discount</th>
+                                    <th>Is Kdv?</th>
+                                    <th>Kdv</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in (List<ProductDto>)ViewBag.Products)
+                                {
+                                    <tr>
+                                        <td>@item.Code</td>
+                                        <td>@item.Unit</td>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.ProductPrice.ToString("n2") TL</td>
+                                        <td>@item.StockType</td>
+                                        <td>@item.ProductType</td>
+                                        <td>@item.DiscountOdd.ToString("0")</td>
+                                        <td>@(item.IsKdv ? "Evet" : "Hayır")</td>
+                                        <td>@item.KdvOdd.ToString("0")</td>
+                                        <td>@item.TotalAmount.ToString("n2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

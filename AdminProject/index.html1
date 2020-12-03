@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Pek Yakında | Payidar.com.tr</title>
+	<meta charset="utf-8" />
+    <style>
+        body{ font-family: 'Times New Roman'; width:100%; height:100%;display: block;position: fixed;}
+        .container{width:100%; height:100%;display: block;text-align: center; position:relative}
+        img{ position: absolute; top:50%;left: 50%; margin-left:-332px; margin-top:-67px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="payidar.jpg" />
+</div>
+</body>
+</html>

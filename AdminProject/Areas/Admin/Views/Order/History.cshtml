@@ -1,0 +1,88 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Services.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/loader-style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/extra-pages.css">
+
+    <link rel="shortcut icon" href="/assets/ico/minus.png">
+</head>
+<body style="background: none repeat scroll 0 0 #fff !important;">
+    <!--  PAPER WRAP -->
+    <!-- CONTENT -->
+    <div class="content-wrap" style="padding:0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            Order History
+                        </h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table footable metro-blue">
+                            <thead>
+                                <tr>
+                                    <th>Order Nr</th>
+                                    <th>Customer</th>
+                                    <th>Location</th>
+                                    <th>Cargo Nr</th>
+                                    <th>Order Status</th>
+                                    <th>Pay Type</th>
+                                    <th>Create Date</th>
+                                    <th>Update Date</th>
+                                    <th>User Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var order in ((PagerList<OrderSearchResultDto>)ViewBag.Orders).List)
+                                    {
+                                        <tr>
+                                            <td>@order.OrderNr </td>
+                                            <td>@order.Name @order.Surname</td>
+                                            <td>@order.Country/ @order.City/ @order.Region </td>
+                                            <td>@order.CargoNr </td>
+                                            <td>@Utility.AllOrderConvert[order.OrderType] </td>
+                                            <td>@Utility.AllPayConvert[order.PayType] </td>
+                                            <td>@order.CreateDate.ToString("dd.MM.yyyy HH:mm") </td>
+                                            <td>@order.UpdateDate.ToString("dd.MM.yyyy HH:mm") </td>
+                                            <td>@order.UpdateUserId </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="9">
+                                        <div style="color:black; text-align:center;">
+                                            There are var @(((PagerList<OrderSearchResultDto>)ViewBag.Orders).TotalCount.ToString()) records in total.
+</div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

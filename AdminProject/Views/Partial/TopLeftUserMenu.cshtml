@@ -1,0 +1,14 @@
+﻿@using AdminProject.Helpers
+<ul class="list-unstyled">
+    <li><i class="fa fa-fw fa-phone"></i> İletişim: 0(850) 302 34 29</li>
+    @if (Utility.UserCheck() == null)
+    {
+        <li><a href="/user/login"><i class="fa fa-fw fa-user"></i> Giriş</a></li>
+        <li><a href="/user/create"><i class="fa fa-fw fa-pencil"></i> Hesap Oluştur</a></li>
+    }
+    else
+    {
+        <li><a href="/user/my-account"><i class="fa fa-fw fa-user"></i> @Utility.UserCheck().Name @Utility.UserCheck().Surname</a></li>
+        <li><a href="/user/logout"><i class="fa fa-fw fa-close"></i> Çıkış</a></li>
+    }
+</ul>

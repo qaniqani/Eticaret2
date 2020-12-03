@@ -1,0 +1,576 @@
+﻿@using AdminProject.Helpers
+@model AdminProject.Models.ProductDetailDto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.Product.Name + " - " + Model.Product.Code;
+    ViewBag.Description = Model.Product.SeoDescription + " - " + Model.Product.Code;
+    ViewBag.Keyword = Model.Product.SeoKeyword;
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = Model.Product.Name + " - " + Model.Product.Code;
+    ViewBag.Description = Model.Product.SeoDescription + " - " + Model.Product.Code;
+    ViewBag.Image = "https://payidar.com.tr";
+    var picture = Model.Pictures.FirstOrDefault(a => a.IsShowcase);
+    if (picture != null)
+    {
+        ViewBag.Image += picture.BigPicture;
+    }
+    else
+    {
+        var firstPic = Model.Pictures.FirstOrDefault();
+        ViewBag.Image += firstPic != null ? firstPic.BigPicture : "/theme/images/content/logo.png";
+    }
+}
+
+<!--content wrapper-->
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">@Model.Product.Name</h4>
+                <div class="ct-productSection ct-u-paddingBoth50">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="ct-productGallery ct-js-popupGallery" data-snap-ignore="true">
+                                <div id="sync1" class="owl-carousel">
+                                    @foreach (var item in Model.Pictures)
+                                    {
+                                    <div class="item">
+                                        <a href="@item.BigPicture" class="ct-js-magnificPopupImage"><img src="@item.BigPicture" alt="@Model.Product.Name"></a>
+                                    </div>
+                                    }
+                                </div>
+                                <div id="sync2" class="owl-carousel ct-u-paddingBoth20">
+                                    @foreach (var item in Model.Pictures)
+                                    {
+                                    <div class="item">
+                                        <img src="@item.MinPicture" alt="@Model.Product.Name">
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="ct-socialSection ct-u-paddingTop10">
+                                <span>Paylaş:</span>
+                                <ul class="ct-socials ct-socials--small ct-socials--black list-inline list-unstyled">
+                                    <li><a href="#" data-toggle="tooltip" title="Arkadaşına gönder."><i class="fa fa-envelope"></i></a></li>
+                                    <li><a href="//www.facebook.com/payidarcomtr" data-toggle="tooltip" title="facebook'ta paylaş'."><i class="fa fa-facebook fa-fw"></i></a></li>
+                                    <li><a href="//www.instagram.com/payidarcomtr" data-toggle="tooltip" title="instagram'da paylaş'."><i class="fa fa-instagram fa-fw"></i></a></li>
+                                    <li><a href="//www.twitter.com/payidarcomtr" data-toggle="tooltip" title="twitter'da paylaş'."><i class="fa fa-twitter fa-fw"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="ct-productCustomization">
+                                <div class="ct-code ct-u-paddingBoth10">
+                                    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.payidar.com.tr&amp;layout=standard&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp" style="overflow: hidden; max-width: 100%; height: 30px" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                                    <div class="clearfix"></div>
+                                    <div class="pull-left ct-u-paddingRight15">
+                                        <span class="ct-code-grey">@Model.Product.BrandName</span>
+                                        <span class="ct-code-black">Kodu</span>
+                                        <span class="ct-code-grey">@Model.Product.Code</span>
+
+                                        <input type="hidden" name="favProductId" id="favProductId" value="@Model.Product.Id" />
+                                        <input type="hidden" name="favProductName" id="favProductName" value="@Model.Product.Name" />
+                                        <input type="hidden" name="favProductUrl" id="favProductUrl" value="@ViewBag.Url" />
+
+                                        @if (Utility.UserCheck() != null)
+                                        {
+                                        <input type="hidden" name="favUserId" id="favUserId" value="@Utility.UserCheck().Id" />
+                                        }
+                                        <a href="javascript:;" class="btn btn-favorite btn-default addFavorite">Favorilerine Ekle</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                @foreach (var item in Model.Categories)
+                                {
+                                <h6><a href="/product/@item.Url/list" style="color: #000;">@item.Name </a></h6>
+                                }
+                                <div class="ct-price">
+                                    @if (Model.Product.IsDiscountApplied)
+                                    {
+                                    <span class="ct-u-size24"><del>@Model.Product.ProductPrice.ToString("n2") TL</del></span>
+                                    <span class="ct-u-colorBlack ct-u-size40">@Model.Product.DiscountPrice.ToString("n2") TL</span>
+                                    <span class="ct-u-size15">%@Model.Product.DiscountOdd İndirim</span>
+                                    }
+                                    else
+                                    {
+                                    <span class="ct-u-colorBlack ct-u-size40">@Model.Product.ProductPrice.ToString("n2") TL</span>
+                                    }
+                                </div>
+                                <div class="ct-code ct-u-paddingBoth10">
+                                    <div class="pull-left ct-u-paddingRight15">
+                                        <span class="ct-code-grey">KDV Oranı</span>
+                                        <span class="ct-code-black">%@Model.Product.KdvOdd.ToString("n")</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="ct-code ct-u-paddingBoth20">
+                                    <div class="pull-left ct-u-paddingRight15">
+                                        <span class="ct-code-grey">Stok Durumu</span>
+                                        <span class="ct-code-black">@Model.Product.StockTypeText </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                @if (Model.Product.StockType != AdminProject.Models.StockTypes.OutStock)
+                                {
+                                <div class="ct-productQuantity">
+                                    @foreach (var item in Model.Measures)
+                                    {
+                                        <div class="col-sm-4 ct-u-paddingBottom10" style="padding: 0">@item.MeasureName:</div>
+                                        <div class="col-sm-8 ct-u-paddingBottom10">
+                                            <select class="size" data-measure-name="@item.MeasureName">
+                                                @foreach (var measure in item.Items)
+                                                    {
+                                                        <option value="@measure.Text">@measure.Text</option>
+                                                    }
+                                            </select>
+                                        </div>
+                                        <div class="clear"></div>
+                                    }
+                                    <div class="col-sm-4 ct-u-paddingBottom10" style="padding: 0">Adet:</div>
+                                    <div class="col-sm-8 ct-u-paddingBottom10">
+                                        <select id="unit" class="basketUnit">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="ct-u-paddingBoth20">
+                                    <input type="hidden" class="basketId" value="@Model.Product.Id" />
+                                    <input type="hidden" class="basketName" value="@Model.Product.Name" />
+                                    <a class="btn btn-sm btn-default addBasket" href="javascript:;" role="button"><i class="fa fa-shopping-cart"></i> Sepete Ekle</a>
+                                    <div class="ct-or text-uppercase ct-u-paddingBottom20">
+                                        veya
+                                    </div>
+                                    <a class="btn btn-sm btn-default ct-u-size18 text-uppercase addBasket" data-redirect="/basket" href="javascript:;" role="button">Kasaya Git <i class="fa fa-long-arrow-right ct-u-paddingLeft10"></i></a>
+                                </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="ct-u-paddingTop20 ct-u-paddingBottom30">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Ürün Açıklaması</a></li>
+                        <li role="presentation"><a href="#specification" aria-controls="specification" role="tab" data-toggle="tab">Ürün Özellikleri</a></li>
+                        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Yorumlar</a></li>
+                        @*<li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">Bize Sorun?</a></li>*@
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="description">
+                            <div class="adjust-text">
+                                @Html.Raw(Model.Product.Description)
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="specification">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table ct-table ct-u-marginBoth20">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Ürünün Genel Özellikleri</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Product.Properties)
+                                            {
+                                            <tr>
+                                                <td>@item.PropertyName</td>
+                                                <td>@item.PropertyValue</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="reviews">
+                            <h4 class="ct-fw-600 ct-u-paddingBottom30 ct-u-marginBottom0 ct-u-paddingTop30">@Model.Comments.Count Yorum</h4>
+
+                            @foreach (var item in Model.Comments)
+                            {
+                                <div class="ct-feedback ct-u-paddingTop30">
+                                    <span class="pull-left">@item.DateTime </span><span></span>
+                                    <span class="pull-right"><i class="fa fa-pencil fa-fw"></i>  Gönderen: <a href="#" class="author">@item.UserNameSurname</a></span>
+                                    <div class="clearfix"></div>
+                                    <div class="ct-feedbackDescription ct-u-paddingBottom20">
+                                        @item.Comment
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="ct-feedback ct-u-paddingTop25">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if (Utility.UserCheck() == null)
+                                        {
+                                            <h2 id="commentLogin" class="ct-fw-600 ct-u-paddingBottom20 ct-u-marginBottom0">Üye girişi yaparak yorum yazabilirsiniz.</h2>
+                                        }
+                                        else
+                                        {
+                                            <h2 id="commentSuccess" style="display:none;" class="ct-fw-600 ct-u-paddingBottom20 ct-u-marginBottom0">Geri bildiriminiz için teşekkür ederiz. Yorumunuz kontrol edildikten sonra yayınlanacaktır.</h2>
+                                            <div id="commentForm" class="form-horizontal ct-u-paddingTop30">
+                                                <h4 class="ct-fw-600 ct-u-paddingBottom20 ct-u-marginBottom0">Yorumunuzu yazarak, sizde başkalarına yardımcı olabilirsiniz.</h4>
+                                                <div class="ct-u-size16">Tüm alanlar zorunludur.</div>
+                                                <div class="form-group">
+                                                    <label for="commentMessage" class="col-sm-3 control-label">Yorumunuz:</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea id="commentMessage" class="form-control" rows="6" required></textarea>
+                                                        <span>Başka ürün referansları, fiyat bilgisi, kişisel bilgiler, küfür, hakaret, iltihabi olayan veya telif hakkıyla korunan yorumlar ve içerikler yasaktır.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nameSurname" class="col-sm-3 control-label">İsim Soyiminiz:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="nameSurname" value="@Utility.UserCheck().Name @Utility.UserCheck().Surname" disabled>
+                                                        <span>(İsim ve soyisminizi yazınız)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ct-u-paddingTop30">
+                                                    <a href="javascript:;" id="btnCommentSend" class="btn btn-default">Gönder <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div role="tabpanel" class="tab-pane tab-pane-inner" id="questions">
+                            <div role="tabpanel">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs pull-left ct-u-marginBottom20" role="tablist">
+                                    <li role="presentation" class="active"><a href="#featured" aria-controls="featured" role="tab" data-toggle="tab">Featured Q&amp;A</a></li>
+                                    <li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">View All Q&amp;A</a></li>
+                                </ul>
+                                <div class="ct-dividedTabSearch pull-right">
+                                    <form role="form" action="#">
+                                        <div class="input-group">
+                                            <input type="email" class="form-control" placeholder="Search All Questions For This Product">
+                                            <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-fw fa-long-arrow-right"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="featured">
+                                        <h5>Questions With Most Answers</h5>
+                                        <div class="panel-group ct-u-marginBottom40" id="accordion2" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingOne">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> What country was it made in?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 1 answer</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseOne">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <span>Asked 2 months ago</span>
+                                                                <p class="text-justify">If so, please let me know if it fit. I called to request an additional link and they said no. Many years ago I ended up buying 2 of the watch I wanted so I could add links but I won't do that again. I am shocked they didn't make this in an 8" or a little bigger since the large in other watches and bracelets always sell out. Thanks to anybody that can help!</p>
+                                                            </div>
+                                                            <div class="ct-questionImage">
+                                                                <a href="#">
+                                                                    <img src="/theme/images/content/user-rounded-image.jpg" class="img-rounded" alt="User Rounded Image">
+                                                                    <span>Dana Kevis</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="ct-u-paddingTop20 ct-bottomBox">
+                                                                <button class="btn btn-default">Answer this question</button>
+                                                                <div>
+                                                                    <a href="#"><i class="fa fa-fw fa-flag"></i> (Report as Inappropriate)</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingTwo">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Is the goldtone more 14K or 18K looking?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 1 answer</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <span>Asked 2 months ago</span>
+                                                                <p class="text-justify">If so, please let me know if it fit. I called to request an additional link and they said no. Many years ago I ended up buying 2 of the watch I wanted so I could add links but I won't do that again. I am shocked they didn't make this in an 8" or a little bigger since the large in other watches and bracelets always sell out. Thanks to anybody that can help!</p>
+                                                            </div>
+                                                            <div class="ct-questionImage">
+                                                                <a href="#">
+                                                                    <img src="/theme/images/content/user-rounded-image.jpg" class="img-rounded" alt="User Rounded Image">
+                                                                    <span>Dana Kevis</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="ct-u-paddingTop20 ct-bottomBox">
+                                                                <button class="btn btn-default">Answer this question</button>
+                                                                <div>
+                                                                    <a href="#"><i class="fa fa-fw fa-flag"></i> (Report as Inappropriate)</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingThree">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Fit a 6" wrist? What is band made of?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 1 answer</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <span>Asked 2 months ago</span>
+                                                                <p class="text-justify">If so, please let me know if it fit. I called to request an additional link and they said no. Many years ago I ended up buying 2 of the watch I wanted so I could add links but I won't do that again. I am shocked they didn't make this in an 8" or a little bigger since the large in other watches and bracelets always sell out. Thanks to anybody that can help!</p>
+                                                            </div>
+                                                            <div class="ct-questionImage">
+                                                                <a href="#">
+                                                                    <img src="/theme/images/content/user-rounded-image.jpg" class="img-rounded" alt="User Rounded Image">
+                                                                    <span>Dana Kevis</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="ct-u-paddingTop20 ct-bottomBox">
+                                                                <button class="btn btn-default">Answer this question</button>
+                                                                <div>
+                                                                    <a href="#"><i class="fa fa-fw fa-flag"></i> (Report as Inappropriate)</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5>Can you answer these questions?</h5>
+                                        <div class="panel-group ct-u-marginBottom40" id="accordion3" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingFour">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Where is the watch made?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingFive">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Imported from where?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingSix">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> About this watch</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-default btn-md" type="submit">Ask a Question</button>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="all">
+                                        <div class="panel-group ct-u-marginBottom10" id="accordion4" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingSeven">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Where is the watch made?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingEight">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Has anybody ordered this that would normally order an 8"?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingNine">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> About this watch</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingTen">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Can additional links be purchased for this band?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingEleven">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                                            <span class="pull-left"><i class="fa fa-fw fa-long-arrow-right"></i> Has anybody ordered this that would normally order an 8"?</span>
+                                                            <span class="pull-right"><i class="fa fa-fw fa-comment"></i> 0 answers</span>
+                                                            <span class="clearfix"></span>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+                                                    <div class="panel-body">
+                                                        <div class="ct-question">
+                                                            <div class="ct-questionDescription">
+                                                                <p class="text-justify">There are no answers for this question yet.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ct-pagination text-right ct-u-paddingBottom20 ct-u-bgcolor-transparent">
+                                            <div class="ct-pages">
+                                                <span>Page:</span>
+                                                <ul class="ct-numerPages list-unstyled list-inline">
+                                                    <li><a class="active" href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                </ul>
+                                                <a class="ct-rightArrow" href="#"><i class="fa fa-long-arrow-right fa-fw"></i></a>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-default btn-md" type="submit">Ask a Question</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="ct-headerBox text-left ct-u-borderBottom3 ct-u-paddingBottom15 ct-u-paddingTop55">Bu ürüne bakanlar, bu ürünlere de baktılar</h4>
+        <div class="ct-u-paddingBottom50 ct-u-paddingTop35">
+            @{
+                Html.RenderAction("LastedViewItems", "Product");
+            }
+        </div>
+    </div>
+
+    @Html.Partial("../Partial/Bulletin")
+</div>

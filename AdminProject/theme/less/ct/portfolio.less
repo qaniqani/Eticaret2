@@ -1,0 +1,273 @@
+
+.ct-gallery--hover .ct-portfolio-image{
+
+  overflow: hidden;
+  position: relative;
+
+  .ct-portfolio-image-link{
+    display: none;
+    position: absolute;
+    z-index: 800;
+    bottom: 5%;
+    right: 7%;
+    font-size: 33px;
+  }
+
+  &:after{
+      content: "";
+      width: 100%;
+      height:100%;
+      right: 0px;
+      top: 0px;
+      display: block;
+      background: -webkit-linear-gradient(to left top, rgba(0,0,0,0.7) 50%, transparent 50%);
+      background: -o-linear-gradient(to left top, rgba(0,0,0,0.7) 50%, transparent 50%);
+      background: -moz-linear-gradient(to left top, rgba(0,0,0,0.7) 50%, transparent 50%);
+      background: linear-gradient(to left top, rgba(0,0,0,0.7) 50%, transparent 50%);
+      position: absolute;
+      -webkit-transform:  translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+      transition: transform 0.35s;
+  }
+
+  &:before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+    content: '';
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-110%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-110%,0);
+    z-index: 600;
+  }
+
+  .ct-portfolio-image-title{
+    position: absolute;
+    display: none;
+    bottom: 20%;
+    right: 7%;
+    font-size: 16px;
+    z-index: 700;
+    width: 180px;
+    color: @color-secondary;
+    text-align: right;
+  }
+
+  &:hover{
+    &:after{
+      transition: transform 0.35s;
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    &:before{
+      -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,110%,0);
+      transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,110%,0);
+    }
+
+    .ct-portfolio-image-title{
+      display: inline-block;
+      -webkit-animation-name: fadeInUp;
+      animation-name: fadeInUp;
+      -webkit-animation-duration: .5s;
+      animation-duration: .5s;
+      animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+    }
+
+    .ct-portfolio-image-link{
+      display: inline-block;
+      -webkit-animation-name: fadeInRight;
+      animation-name: fadeInRight;
+      -webkit-animation-duration: .5s;
+      animation-duration: .5s;
+      animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+    }
+  }
+}
+
+.ct-gallery-filters{
+  margin:0;
+
+  li{
+    position: relative;
+    a{
+      color: @color-default !important;
+      padding:0 5px;
+
+      &:hover{
+        color: @color-hover-link !important;
+      }
+
+      &.active{
+        font-weight: 600;
+
+        &:hover{
+          color: @color-default !important;
+        }
+      }
+    }
+
+    &:not(:last-child){
+      &:after{
+        position: absolute;
+        top:0;
+        right:-5px;
+        content: "/";
+        color: #b8b8b8;
+      }
+    }
+  }
+}
+
+.ct-gallery{
+  .wp-pagenavi{
+    display: none;
+  }
+}
+
+.ct-gallery{
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  &.is-loaded:before{
+    display: none;
+  }
+  &:before{
+    content: url('../../images/rings.svg');
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -22px;
+    margin-top: -22px;
+  }
+}
+
+.ct-gallery.ct-gallery--withSpacing .ct-gallery-item .ct-gallery-itemInner{
+  padding-left: 12.5px;
+  padding-right: 12.5px;
+  padding-bottom: 24px;
+}
+
+.ct-gallery-item.ct-gallery-item--masonry{
+  position: relative;
+  width: 20%;
+  float: left;
+  margin-top: -1px;
+  overflow: hidden;
+  .project-thumb{
+    width: 100%;
+  }
+  img{
+    width: 100%;
+  }
+
+  &:hover .area-hover{
+    .ct-m-opacity(1);
+
+    .cat-links{
+      top: 0;
+      .ct-m-opacity(1);
+    }
+    .entry-title{
+      top: 0;
+      .ct-m-opacity(1);
+    }
+  }
+}
+
+.ct-gallery.ct-gallery--col5 .ct-gallery-item.ct-gallery-item--masonry{
+  width: 20%;
+  &.ct-gallery-item--wide, &.ct-gallery-item--big{
+    width: 40%;
+  }
+}
+.ct-gallery.ct-gallery--col4 .ct-gallery-item.ct-gallery-item--masonry{
+  width: 25%;
+  &.ct-gallery-item--wide, &.ct-gallery-item--big{
+    width: 50%;
+  }
+}
+.ct-gallery.ct-gallery--col3 .ct-gallery-item.ct-gallery-item--masonry{
+  width: 33.33%;
+  &.ct-gallery-item--wide, &.ct-gallery-item--big{
+    width: 66.66%;
+  }
+}
+.ct-gallery.ct-gallery--col2 .ct-gallery-item.ct-gallery-item--masonry{
+  width: 50%;
+  &.ct-gallery-item--wide, &.ct-gallery-item--big{
+    width: 100%;
+  }
+}
+.ct-gallery.ct-gallery--col1 .ct-gallery-item.ct-gallery-item--masonry{
+  width: 100%;
+}
+
+@media(max-width: @screen-sm-max){
+  .ct-gallery.ct-gallery--col5 .ct-gallery-item.ct-gallery-item--masonry, .ct-gallery.ct-gallery--col4 .ct-gallery-item.ct-gallery-item--masonry, .ct-gallery.ct-gallery--col3 .ct-gallery-item.ct-gallery-item--masonry{
+    width: 50%;
+    &.ct-gallery-item--wide, &.ct-gallery-item--big{
+      width: 66.66%;
+    }
+  }
+}
+@media(max-width: @screen-xs-max){
+  .ct-gallery.ct-gallery--col5 .ct-gallery-item.ct-gallery-item--masonry, .ct-gallery.ct-gallery--col4 .ct-gallery-item.ct-gallery-item--masonry, .ct-gallery.ct-gallery--col3 .ct-gallery-item.ct-gallery-item--masonry, .ct-gallery.ct-gallery--col2 .ct-gallery-item.ct-gallery-item--masonry{
+    width: 100%;
+    &.ct-gallery-item--wide, &.ct-gallery-item--big{
+      width: 100%;
+    }
+  }
+}
+
+@media(max-width: @screen-sm){
+  .ct-gallery-filters li {
+    padding-bottom: 7px;
+
+    a{
+      padding: 0 10px;
+    }
+  }
+}
+
+#infscr-loading {
+  z-index: 3000;
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  margin-left: -100px;
+  text-align: center;
+  > div{
+    width: 200px;
+    padding: 20px 0;
+    background-color: #222222;
+  }
+}
+#infscr-loading img {
+  display: none !important;
+}
+
+#infscr-loading div{
+  position: relative;
+  bottom: auto;
+  left: auto;
+}
+
+#infscr-loading > div{
+  position: absolute;
+  bottom: -38px;
+  left: 8px;
+}
+
+.gallerymessage{
+  padding: 7px 15px;
+  color: #ffffff;
+}

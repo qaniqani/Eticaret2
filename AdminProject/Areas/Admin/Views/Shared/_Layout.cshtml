@@ -1,0 +1,336 @@
+﻿@using AdminProject.Helpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <title>Admin Panel</title>
+    @Styles.Render("~/css")
+    @Scripts.Render("~/main-effect")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/minus.png">
+
+</head>
+<body>
+    <!-- TOP NAVBAR -->
+    <nav role="navigation" class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="entypo-menu"></span>
+                </button>
+                <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+                    <span class="entypo-list-add"></span>
+                </button>
+
+
+                <div id="logo-mobile" class="visible-xs">
+                    <h1>
+                        Nvision
+                        <span>v1.0</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <div id="nt-title-container" class="navbar-left running-text visible-lg">
+                    <ul class="date-top">
+                        <li class="entypo-calendar" style="margin-right:5px"></li>
+                        <li id="Date"></li>
+                    </ul>
+                    <ul id="digital-clock" class="digital">
+                        <li class="entypo-clock" style="margin-right:5px"></li>
+                        <li class="hour"></li>
+                        <li>:</li>
+                        <li class="min"></li>
+                        <li>:</li>
+                        <li class="sec"></li>
+                        <li class="meridiem"></li>
+                    </ul>
+                </div>
+                <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            Hi, @if (Utility.SessionCheck() != null)
+                                {
+                                    @Html.Raw(Utility.SessionCheck().Name)
+                                } <b class="caret"></b>
+                        </a>
+                        <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
+                            <li>
+                                <a href="/Admin/Admin/Edit/@if (Utility.SessionCheck() != null)
+                                {
+                                    @Html.Raw(Utility.SessionCheck().Id)
+                                }">
+                                    <span class="entypo-vcard"></span>&#160;&#160;Account Setting
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/Admin/Login/Logout">
+                                    <span class="entypo-logout"></span>&#160;&#160;Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- /END OF TOP NAVBAR -->
+    <!-- SIDE MENU -->
+    <div id="skin-select">
+        <div id="logo">
+            <h1>
+                <a href="/Admin" style="color:#fff;">Nvision</a>
+                <span>v1.2</span>
+            </h1>
+        </div>
+        <a id="toggle">
+            <span class="entypo-menu"></span>
+        </a>
+        <div class="skin-part">
+            <div id="tree-wrap">
+                <div class="side-bar">
+                    <ul class="topnav menu-left-nest" style="display:none;">
+                        @{
+                            Html.RenderAction("LoadLanguages", "Default");
+                        }
+                        @*@Html.Partial("/Views/Partial/Language.cshtml", ViewData["Languages"])*@
+                    </ul>
+
+                    @{
+                        Html.RenderAction("Authorizations", "Default");
+                    }
+
+                    @*<div class="side-dash">
+                        <h3>
+                            <span>Device</span>
+                        </h3>
+                        <ul class="side-dashh-list">
+                            <li>
+                                Avg. Traffic
+                                <span>
+                                    25k<i style="color: #44BBC1;" class="fa fa-arrow-circle-up"></i>
+                                </span>
+                            </li>
+                            <li>
+                                Visitors
+                                <span>
+                                    80%<i style="color: #AB6DB0;" class="fa fa-arrow-circle-down"></i>
+                                </span>
+                            </li>
+                            <li>
+                                Convertion Rate
+                                <span>
+                                    13m<i style="color: #19A1F9;" class="fa fa-arrow-circle-up"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF SIDE MENU -->
+    <!--  PAPER WRAP -->
+    <div class="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <!-- CONTENT -->
+            <!--TITLE -->
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-document-edit"></i>
+                            <span>
+                                Nvision Software
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="tittle-middle-header">
+                            <div class="alert">
+                                <span class="tittle-alert entypo-info-circled"></span>
+                                Welcome back,&nbsp;
+                                <strong>
+                                    @if (Utility.SessionCheck() != null)
+                                         {
+                                             @Html.Raw(Utility.SessionCheck().Name)
+                                         }
+                                </strong>&nbsp;&nbsp;@*Your last sig in at Yesterday, 16:54 PM*@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ TITLE -->
+            <!-- BREADCRUMB -->
+            <ul id="breadcrumb">
+                <li>
+                    <span class="entypo-home"></span>
+                </li>
+                <li>
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#" title="@TempData["PageSub"]">@TempData["PageSub"]</a>
+                </li>
+                <li>
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#" title="@TempData["PageSub1"]">@TempData["PageSub1"]</a>
+                </li>
+            </ul>
+
+            @Html.MyValidationSummary()
+
+            @{
+                if (TempData["Success"] != null)
+                {
+                    <div class="body-nest" id="alert">
+                        <div class="alert alert-success">
+                            <button data-dismiss="alert" class="close" type="button">×</button>
+                            <span class="entypo-thumbs-up"></span>
+                            <strong>Success!</strong>&nbsp;&nbsp;@Html.Raw(TempData["Success"])
+                        </div>
+                    </div>
+                }
+
+                if (TempData["Warning"] != null)
+                {
+                    <div class="body-nest" id="alert">
+                        <div class="alert alert-warning">
+                            <button data-dismiss="alert" class="close" type="button">×</button>
+                            <span class="entypo-cancel-circled"></span>
+                            <strong>Info!</strong>&nbsp;&nbsp;@Html.Raw(TempData["Warning"])
+                        </div>
+                    </div>
+                }
+            }
+
+            <!-- END OF BREADCRUMB -->
+            @RenderBody()
+
+            <!-- /END OF CONTENT -->
+            <!-- FOOTER -->
+            <div class="footer-space"></div>
+            <div id="footer">
+                <div class="devider-footer-left"></div>
+                <div class="time">
+                    <p id="spanDate"></p>
+                    <p id="clock"></p>
+                </div>
+                <div class="copyright">
+                   &nbsp;&nbsp; Copyright &copy; 2017 <a href="https://nvisionsoft.net">Nvision Soft</a> All Rights Reserved
+                </div>
+                <div class="devider-footer"></div>
+            </div>
+            <!-- / END OF FOOTER -->
+        </div>
+    </div>
+    <!--  END OF PAPER WRAP -->
+    <!-- RIGHT SLIDER CONTENT -->
+    <div class="sb-slidebar sb-right">
+        <div class="right-wrapper">
+            <div class="row">
+                <h3>
+                    <span><i class="entypo-gauge"></i>&nbsp;&nbsp;MAIN WIDGET</span>
+                </h3>
+                <div class="col-sm-12">
+                    <div class="widget-knob">
+                        <span class="chart" style="position:relative" data-percent="86">
+                            <span class="percent"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>Distance traveled</b>
+                        <br>
+                        <i>86% to the check point</i>
+                    </div>
+                    <div class="widget-knob">
+                        <span class="speed-car" style="position:relative" data-percent="60">
+                            <span class="percent2"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>The average speed</b>
+                        <br>
+                        <i>30KM/h avarage speed</i>
+                    </div>
+
+                    <div class="widget-knob">
+                        <span class="overall" style="position:relative" data-percent="25">
+                            <span class="percent3"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>Overall result</b>
+                        <br>
+                        <i>30KM/h avarage Result</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF RIGHT SLIDER CONTENT-->
+    <!-- MAIN EFFECT -->
+    @*<script type="text/javascript" src="/assets/js/preloader.js"></script>
+        <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+        <script type="text/javascript" src="/assets/js/load.js"></script>
+        <script type="text/javascript" src="/assets/js/main.js"></script>
+         /MAIN EFFECT
+        <script type="text/javascript" src="/assets/js/iCheck/jquery.icheck.js"></script>
+        <script type="text/javascript" src="/assets/js/switch/bootstrap-switch.js"></script>*@
+    <!--  PLUGIN -->
+    <script>
+        $(document).ready(function () {
+            //CHECKBOX PRETTYFY
+            $('.skin-flat input').iCheck({
+                checkboxClass: 'icheckbox_flat-red',
+                radioClass: 'iradio_flat-red'
+            });
+            $('.skin-line input').each(function () {
+                var self = $(this),
+                    label = self.next(),
+                    label_text = label.text();
+
+                label.remove();
+                self.iCheck({
+                    checkboxClass: 'icheckbox_line-blue',
+                    radioClass: 'iradio_line-blue',
+                    insert: '<div class="icheck_line-icon"></div>' + label_text
+                });
+            });
+            //Switch Button
+
+            $('.make-switch').bootstrapSwitch('setSizeClass', 'switch-small');
+        });
+    </script>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

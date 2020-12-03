@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Content>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Order";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-md-6">
+            <form role="form" action="/Admin/Content/Order" method="post">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            Content Order
+                        </h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <p class="lead well">Please note that other languages when the data update.</p>
+                        <div class="table-order">
+                            <table class="table-striped footable metro-blue" data-page-size="10">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Index
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Url
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var content in Model)
+                                        {
+                                            <tr class="ui-state-default">
+                                                @Html.Hidden("id", content.Id, new { @class = "itemId" })
+                                                @Html.Hidden("order", content.Id + "|" + content.SequenceNumber, new { @class = "hiddenField" })
+                                                <td class="index">@content.SequenceNumber</td>
+                                                <td>@content.Name</td>
+                                                <td>@content.Url</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="pagination pagination-centered"></div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Save</h6>
+                    </div>
+                    <div class="body-nest">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@using AdminProject.Models
+@{
+    var result = (BasketListDto) ViewBag.Baskets;
+}
+
+<div class="ct-cartRightSection ct-cartRightSection--bordered ct-u-marginTop30">
+    <div class="ct-u-paddingBottom30">
+        <div class="ct-u-size16 ct-fw-600 pull-left">Sipariş Özeti</div>
+        <div class="ct-u-size14 pull-right"><a href="/basket" class="ct-u-editCart">Sepete Dön</a></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="ct-cartRightSection-currentCart">
+        @foreach (var item in result.ProductList)
+        {
+            <div class="ct-u-paddingTop10">
+                <img class="pull-left" src="@item.MinPicture" alt="@item.ProductName">
+                <div class="ct-u-size14 ct-u-paddingTop10">
+                    <a href="/product/@item.Url/detail">@item.ProductName</a>
+                </div>
+                <div class="ct-u-size16 ct-u-paddingTop20">
+                    <span class="ct-fw-600">@item.TotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <hr>
+        }
+    </div>
+    <div class="ct-u-size15">
+        <div class="ct-u-paddingBottom30 ct-u-paddingTop30">
+            <span class="pull-left">Kargo Ücreti</span>
+            <span class="pull-right">@result.BasketTotalSum.CargoAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+            <div class="clearfix"></div>
+        </div>
+        <div>
+            <span class="pull-left">Toplam</span>
+            <span class="pull-right ct-u-size20">@((result.BasketTotalSum.TotalAmount + result.BasketTotalSum.CargoAmount).ToString("n2")) <i class="fa fa-try" aria-hidden="true"></i></span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

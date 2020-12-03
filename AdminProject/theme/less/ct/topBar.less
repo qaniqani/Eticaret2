@@ -1,0 +1,265 @@
+.ct-topBar{
+  .dropdown-menu > li > a{
+    padding:16px;
+    margin:0;
+  }
+
+  .btn-group.open .dropdown-toggle{
+    color: @color-hover-link;
+  }
+
+  font-size:14px;
+  color:@topbar-background-color;
+  background-color:@topbar-text-color;
+  line-height: 1;
+  position: relative;
+  z-index: 9999;
+
+  .ct-topBar-navigation{
+    display: inline-block;
+    list-style-type: none;
+    padding:0;
+
+    > ul{
+      margin:0;
+
+      li{
+        padding:0;
+        display: inline-block;
+        position: relative;
+
+        a {
+          color:@topbar-background-color;
+          display: block;
+          padding: 18px 0;
+
+          &:hover, &:active{
+            color:@color-hover-link;
+            text-decoration: none;
+          }
+        }
+        &:first-child{
+          padding-right:12px;
+        }
+        &:nth-child(2){
+          padding: 0 12px;
+        }
+        &:nth-child(3){
+          padding-left: 12px;
+        }
+
+        &:not(:first-child){
+          &:before{
+            content: "|";
+            position: absolute;
+            color: @color-separator-topBar;
+            top:36%;
+            left: -5px;
+          }
+        }
+      }
+    }
+
+  }
+  .ct-topBar-basket{
+    display: inline-block;
+    padding:0;
+    margin: 0;
+    line-height: 1;
+    position:relative;
+    color:@color-default;
+
+    > a{
+      color:@topbar-background-color;
+      display: inline-block;
+      padding: 18px 12px 18px 0;
+      vertical-align: middle;
+
+      .ct-m-transition(all, 0.2s, ease);
+
+      &:hover, &:active{
+        color:@color-hover-link;
+        text-decoration: none;
+      }
+    }
+    .ct-topBar-basket-info{
+      visibility:hidden;
+      position:absolute;
+      top:60px;
+      left:0;
+      padding: 7px 20px;
+      width: 350px;
+      min-height:80px;
+      font-size:15px;
+      background-color:  @topbar-background-color;
+      .ct-m-boxShadow(@shadow-box);
+      .ct-m-opacity(0);
+      .ct-m-transition(all, 0.5s, ease);
+      z-index: 9999;
+    }
+    &:hover .ct-topBar-basket-info{
+      visibility: visible;
+      .ct-m-opacity(1);
+
+      &:before{
+        //Extra place under Cart to have activated block of shop cart
+        content: "";
+        width:100%;
+        height:10px;
+        position:absolute;
+        top:-10px;
+        left:0;
+      }
+    }
+  }
+  .btn-group{
+    margin-left: 5px;
+    position: relative;
+
+    .btn{
+      background-color: @topbar-text-color;
+      color: @topbar-background-color;
+      padding: 0 10px;
+      font-size:14px;
+
+      .ct-m-transition(all, 0.2s, ease);
+
+      &:hover{
+        color:@color-hover-link;
+      }
+    }
+    .dropdown-menu{
+      background-color: @topbar-background-color;
+      border:none;
+      .ct-m-boxShadow(@shadow-box);
+
+      li > {
+        a{
+          color: @topbar-text-color;
+        }
+      }
+    }
+
+    &:before{
+      content: "|";
+      color: @color-separator-topBar;
+      position: absolute;
+      z-index: 100;
+      top: 36%;
+      right: 100%;
+    }
+  }
+}
+
+
+.ct-cartItem{
+  padding:14px 0;
+  border-bottom: 1px solid #f3f3f3;
+
+  > a{
+    //Importants are needed for IE, ie doesn't see this color
+    color:@topbar-text-color !important;
+
+    &:hover{
+      color: @color-hover-link !important;
+      img{
+        .ct-m-grayscale(100%);
+      }
+    }
+  }
+  .ct-cartItem-image{
+    width:90px;
+    height:90px;
+    margin-right: 13px;
+    border:@border-image;
+    position: relative;
+
+    img{
+      .ct-m-imageCenter;
+    }
+  }
+  .ct-cartItem-title{
+    line-height: 20px;
+  }
+  .ct-cartItem-price{
+    margin-top: 18px;
+    font-size: 22px;
+  }
+}
+
+.ct-cartSubtotal{
+  color: @topbar-text-color;
+  padding: 17px 0;
+  border-bottom: 1px solid #f3f3f3;
+}
+.ct-cartGoNext .btn{
+  font-size:14px;
+}
+
+.ct-topBar--grey{
+  background: #f0f0f0;
+  color: #000 !important;
+
+  .ct-topBar-navigation{
+    ul li a{
+      color: #000;
+      &:hover{
+        color: #000;
+      }
+    }
+  }
+
+  .ct-topBar-basket{
+    > a{
+      color: #000;
+      &:hover{
+        color: #000;
+      }
+    }
+  }
+
+  .btn-group{
+    .btn{
+      background-color: #f0f0f0;
+      color: #000;
+      &:hover{
+        color: #000;
+      }
+    }
+  }
+
+  .btn-group.open .dropdown-toggle{
+    .ct-m-boxShadow(none);
+  }
+}
+
+
+// Media QUERY fot tablets
+@media(max-width: @screen-sm-max){
+  .ct-topBar-basket-cart, .ct-topBar-basket-price{
+    display: none;
+  }
+}
+
+@media(max-width: @screen-md-max){
+  .ct-topBar {
+    .ct-topBar-basket {
+      .ct-topBar-basket-info {
+        left: auto;
+        right: 0;
+      }
+    }
+    .btn-group{
+      .dropdown-menu{
+        left:auto;
+        right:0;
+      }
+    }
+  }
+}
+
+@media(max-width: @screen-xs-max){
+  .ct-topBar{
+    display: none;
+  }
+}

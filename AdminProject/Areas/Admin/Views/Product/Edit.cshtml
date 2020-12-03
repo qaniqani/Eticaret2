@@ -1,0 +1,281 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Infrastructure.Models
+@using AdminProject.Models
+@using AdminProject.Services.Models
+@model Product
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<script src="/assets/js/product.MultiFile.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        productSetMeasures();
+        productSetCategories();
+        $(".delete-property-row").click(function() {
+            $(this).parent().parent().remove();
+        });
+    })
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>
+                        Product Wizard
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <form role="form" action="/Admin/Product/Edit/@Model.Id" method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(model => model.Id)
+                        <div id="wizard">
+                            <h2>Product Information</h2>
+                            <section>
+                                <div class="form-group">
+                                    <label for="Code">Stock Code</label>
+                                    @Html.TextBoxFor(model => model.Code, new {@class = "form-control validate[required]", style = "width:200px;"})
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">Product Name</label>
+                                    @Html.TextBoxFor(model => model.Name, new {@class = "form-control validate[required]"})
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    @Html.TextAreaFor(model => model.Description, new {@class = "form-update richEditor"})
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="SeoKeyword">Keyword (SEO)</label>
+                                    @Html.TextBoxFor(model => model.SeoKeyword, new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="SeoDescription">Description (SEO)</label>
+                                    @Html.TextBoxFor(model => model.SeoDescription, new { @class = "form-control" })
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="BrandId">Brand</label>
+                                    @Html.DropDownListFor(model => model.BrandId, ViewBag.BrandList as SelectList, new { @class = "form-control", style = "width:200px;" })
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="GroupType">Product Group Type</label>
+                                    @Html.DropDownListFor(model => model.GroupType, ViewBag.ProductGroupList as SelectList, new { @class = "form-control", style = "width:200px;" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ProductType">Product Type</label>
+                                    @Html.DropDownListFor(model => model.ProductType, ViewBag.ProductList as SelectList, new {@class = "form-control", style = "width:200px;"})
+                                </div>
+                                <div class="form-group">
+                                    <label for="StockType">Stock Type</label>
+                                    @Html.DropDownListFor(model => model.StockType, ViewBag.StockList as SelectList, new {@class = "form-control", style = "width:200px;"})
+                                </div>
+                                <div class="form-group">
+                                    <label for="PurchasePrice">Purchase Price (TL)</label>
+                                    @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "form-control validate[required]", style = "width:200px;" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="Price">Price (TL)</label>
+                                    @Html.TextBox("Price", Model.Price, new { @class = "form-control validate[required]", style = "width:200px;" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="DiscountOdd">Discount Odd (%)</label>
+                                    @Html.TextBox("DiscountOdd", Model.DiscountOdd.ToString("0"), new { @class = "form-control validate[required]", style = "width:200px;" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="KdvOdd">Kdv Odd (%)</label>
+                                    @Html.TextBox("KdvOdd", Model.KdvOdd.ToString("0"), new { @class = "form-control validate[required]", style = "width:200px;" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="IsKdv">Is Kdv?</label>
+                                    @Html.CheckBoxFor(model => model.IsKdv)
+                                </div>
+                                <div class="form-group">
+                                    <label for="StockNr">Stock Number</label>
+                                    @Html.TextBox("StockNr", Model.StockNr.ToString("0"), new { @class = "form-control validate[required]", style = "width:200px;" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Status">Status</label>
+                                    @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new {@class = "form-control", style = "width:200px;"})
+                                </div>
+                                <div class="form-group">
+                                    <label for="CreateDate">Create Date</label>
+                                    @Html.DisplayFor(model => model.CreateDate)
+                                </div>
+                                <div class="form-group">
+                                    <label for="UpdateDate">Update Date</label>
+                                    @Html.DisplayFor(model => model.UpdateDate)
+                                </div>
+                                <div class="form-group">
+                                    <label for="SingleHit">Singular Hit</label>
+                                    @Html.DisplayFor(model => model.SingleHit)
+                                </div>
+                                <div class="form-group">
+                                    <label for="PluralHit">Plural Hit</label>
+                                    @Html.DisplayFor(model => model.PluralHit)
+                                </div>
+                            </section>
+                            <h2>Select Category</h2>
+                            <section>
+                                <input type="hidden" id="categoryIds" value="@ViewBag.ProductCategories" />
+                                <div id="treecontrol">
+                                    <a href="#" title="Collapse the entire tree below"> Collapse All</a> |
+                                    <a href="#" title="Expand the entire tree below"> Expand All</a> |
+                                    <a href="#" title="Toggle the tree below, opening closed branches, closing open branches">Toggle All</a>
+                                </div>
+
+                                @Html.Raw(Utility.RenderUlMenu(ViewBag.Category as IEnumerable<MenuItem>).Insert(3, "  id=\"categorySelect\" class=\"treeview - red\""))
+
+                            </section>
+                            <h2>Select Properties</h2>
+                            <section>
+                                <div class="col-sm-6">
+                                    <h6>Existing Properties</h6>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var property in (List<ProductPropertyModel>)ViewBag.ProductProperties)
+                                            {
+                                                <tr>
+                                                    <td>@property.PropertyName <input type="hidden" name="PropertyName" value="@property.PropertyName" /></td>
+                                                    <td><input type="text" name="PropertyValue" class="form-control" value="@property.PropertyValue" /> </td>
+                                                    <td><a href="javascript:;" class="btn btn-danger delete-property-row">X</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="clearfix"></div>
+                                @{
+                                    var list = (List<PropertyListDto>)ViewBag.PropertyList;
+                                    for (var i = 0; i < list.Count; i++)
+                                    {
+                                        var property = list[i];
+                                        <div class="col-sm-3">
+                                            <h3>@property.Name</h3>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Value</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in property.PropertyItem)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Name <input type="hidden" name="PropertyName" value="@item.Name" /></td>
+                                                            <td><input type="text" name="PropertyValue" class="form-control" /> </td>
+                                                            <td><a href="javascript:;" class="btn btn-danger delete-property-row">X</a></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        if ((i + 1) % 4 == 0)
+                                        {
+                                            <div class="clearfix"></div>
+                                        }
+                                    }
+                                }
+                            </section>
+                            <h2>Select Pictures</h2>
+                            <section>
+                                <div class="form-group productPicture">
+                                    <input type="file" name="PictureUpload" class="multi with-preview max-20 accept-gif|jpg|png|jpeg|bmp maxsize-10240" />
+                                </div>
+                                <div class="form-group MultiFile-list">
+                                    @{
+                                        var pictures = ViewBag.ProductPictures as List<Picture>;
+                                        if (pictures != null && pictures.Any())
+                                        {
+                                            for (var i = 0; i < pictures.Count; i++)
+                                            {
+                                                var item = pictures[i];
+
+                                                <div id="image-@item.Id" class="col-md-3">
+                                                    <div class="MultiFile-label full-width pull-left">
+                                                        <a href="javascript:;" class="MultiFile-remove" data-id="@item.Id" style="top: 0; left: 0;">X</a>
+                                                        <span class="MultiFileImg">
+                                                            <img src="@item.MinPicture" style="max-height: 100px; max-width: 150px;" />
+                                                        </span>
+                                                        <span>
+                                                            <input type="radio" class="productPictureShowcase" value="old-@item.Id" name="showcase" @(item.IsShowcase ? "checked" : "") /> Is Showcase?
+                                                            <input type="hidden" id="EditPictureId" name="EditPictureId" value="@item.Id" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </section>
+                            <h2>Select Measures</h2>
+                            <section>
+                                <input type="hidden" id="measureIds" value="@ViewBag.ProductMeasures" />
+
+                                <table class="table-striped footable-res footable metro-blue" data-page-size="20">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                #
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var measure in ViewBag.Measures)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-value="@measure.Id" class="productSelectMeasure measure-@measure.Id" />
+                                                        <input type="hidden" name="measureId" class="measure-value-@measure.Id" />
+                                                    </td>
+                                                    <td>@measure.Name</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="pagination pagination-centered"></div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="form-group" style="margin-top: 20px; float: right;">
+                                    <button type="submit" class="btn btn-success"><i class="icon icon-checkmark"></i> Update Product</button>
+                                </div>
+                            </section>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

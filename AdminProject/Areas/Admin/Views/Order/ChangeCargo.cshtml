@@ -1,0 +1,64 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Services.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/loader-style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/extra-pages.css">
+
+    <link rel="shortcut icon" href="/assets/ico/minus.png">
+</head>
+<body style="background: none repeat scroll 0 0 #fff !important;">
+    <!--  PAPER WRAP -->
+    <!-- CONTENT -->
+    <div class="content-wrap" style="padding:0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            Change Cargo Number
+                        </h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <form action="/Admin/Order/ChangeCargo/@ViewBag.Id" method="post">
+                            <table class="table footable metro-blue">
+                                <thead>
+                                    <tr>
+                                        <th>Order Nr</th>
+                                        <th>Cargo Nr</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@ViewBag.OrderNr</td>
+                                        <td><input type="text" name="cargoNr" class="form-control" value="@ViewBag.CargoNr" /></td>
+                                        <td><button type="submit" class="btn btn-success" onclick="window.parent.location.href = '/Admin/Order/List'">Save</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model AdminProject.Infrastructure.Models.PropertyItem
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Add Property Item</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Property/AddItem/@Model.PropertyId" method="post">
+                            <input type="hidden" value="@Model.PropertyId" name="PropertyId" />
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: John Doe", @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="SequenceNr">Sequence Number</label>
+                                @Html.TextBoxFor(model => model.SequenceNr, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

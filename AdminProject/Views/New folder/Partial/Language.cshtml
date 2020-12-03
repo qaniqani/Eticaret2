@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Language>
+<li>
+    <div class="dark">
+        <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+            <span class="language-menu"></span>
+            <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+        </a>
+    </div>
+</li>
+<li>
+    <form action="/Language/Change">
+        <select class="language" id="Language" name="Language" onchange="this.form.submit()">
+            @{
+                if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        var selected = ViewData["SelectedLanguage"].ToString();
+                        if (selected == item.UrlTag)
+                        {
+                            <option value="@item.UrlTag" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.UrlTag">@item.Name</option>
+                        }
+                    }
+                }
+            }
+        </select>
+        @*<input type="text" name="search" value="" class="search rounded id_search" placeholder="Search Menu..." autofocus />*@
+    </form>
+</li>

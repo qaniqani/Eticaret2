@@ -1,0 +1,258 @@
+﻿@model AdminProject.Services.Models.UserDetailView
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "View";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="well profile">
+                <div class="col-sm-12">
+                    <div class="col-xs-12 col-sm-4 text-center">
+                        <ul class="list-group">
+                            <li class="list-group-item text-left">
+                                <span class="entypo-user"></span>&nbsp;&nbsp;Profile
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Tc No</strong>
+                                </span>@Model.User.TcNr
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Name Surname</strong>
+                                </span>@Model.User.Name @Model.User.Surname
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>E-Mail</strong>
+                                </span>@Model.User.Email
+                            </li>
+                            @*<li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Birth Date</strong>
+                                </span>@Model.User.BirthDate.ToString("dd.MM.yyyy")
+                            </li>*@
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Gender</strong>
+                                </span>@Model.User.Gender
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Gsm</strong>
+                                </span>@Model.User.Gsm
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Phone</strong>
+                                </span>@Model.User.Phone
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Create Date</strong>
+                                </span>@Model.User.CreateDate.ToString("dd.MM.yyyy HH:mm:ss")
+                            </li>
+                            <li class="list-group-item text-right">
+                                <span class="pull-left">
+                                    <strong>Update Date</strong>
+                                </span>@Model.User.UpdateDate.ToString("dd.MM.yyyy HH:mm:ss")
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-8 profile-name">
+                        <h2>
+                            @Model.User.Name @Model.User.Surname - @Model.User.Country
+                            <span class="pull-right social-profile">
+                                <a href="#" onclick="window.history.back();" class="btn btn-warning">Back</a>
+                            </span>
+                        </h2>
+                        <hr>
+
+                        <dl class="dl-horizontal-profile">
+                            <dt>Location</dt>
+                            <dd>@Model.User.Country/ @Model.User.City/ @Model.User.Region</dd>
+
+                            <dt>Address</dt>
+                            <dd>@(string.IsNullOrEmpty(Model.User.Address) ? "-" : Model.User.Address)</dd>
+
+                            <dd><hr></dd>
+                            <dt class="margin-height" id="address">Delivery Addresses</dt>
+                            <dd>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>Save Name</td>
+                                        <td>Tc Nr</td>
+                                        <td>Name Surname</td>
+                                        <td>Location</td>
+                                        <td>Address</td>
+                                        <td>Gsm</td>
+                                        <td>Phone</td>
+                                        <td>Status</td>
+                                    </tr>
+                                    </thead>
+                                    @foreach (var address in Model.Address)
+                                    {
+                                        <tr>
+                                            <td>@address.AddressSaveName </td>
+                                            <td>@address.TcNr </td>
+                                            <td>@address.NameSurname </td>
+                                            <td>@address.City/ @address.Region </td>
+                                            <td>@address.AddressDetail </td>
+                                            <td>@address.Gsm </td>
+                                            <td>@address.Phone </td>
+                                            <td>@address.Status.ToString() </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </dd>
+
+                            <dd><hr></dd>
+                            <dt class="margin-height">Order</dt>
+                            <dd>
+                                <table class="table">
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @order.OrderNr
+                                            </td>
+                                            <td>
+                                                @order.CreateDate
+                                            </td>
+                                            <td>
+                                                @order.Description
+                                            </td>
+                                            <td>
+                                                <a href="/Admin/Order/View/@order.Id" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="Detail Order View"><i class="entypo-user"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </dd>
+                            
+                            <dd><hr></dd>
+                            <dt class="margin-height">Invoices</dt>
+                            <dd>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Save Name</th>
+                                        <th>Invoice Type</th>
+                                        <th>Status</th>
+                                        <th>#</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var invoice in Model.Invoices)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @invoice.InvoiceSaveName
+                                            </td>
+                                            <td>
+                                                @invoice.InvoiceType
+                                            </td>
+                                            <td>
+                                                @invoice.Status
+                                            </td>
+                                            <td>
+                                                <a href="/Admin/Invoice/View/@invoice.Id" class="btn btn-default commentDetail fancy" data-fancybox-type="iframe" data-toggle="tooltip" data-placement="top" title="Detail Invoice View"><i class="entypo-user"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </dd>
+                            
+                            <dd><hr></dd>
+                            <dt class="margin-height">Comments</dt>
+                            <dd>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Detail</th>
+                                            <th>Status</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var comment in Model.Comments)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @comment.Comment.DateTime.ToString("dd.MM.yyyy HH:mm:ss")
+                                                </td>
+                                                <td>
+                                                    <div class="col-md-12 commentDetail" style="cursor: pointer" data-toggle="tooltip" data-placement="top" title="@comment.Comment.Detail">Detail</div>
+                                                </td>
+                                                <td>
+                                                    @comment.Comment.Status.ToString()
+                                                </td>
+                                                <td>
+                                                    <a href="/Admin/Comment/List?name=@Model.User.Name&surname=@Model.User.Surname" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="Detail Comment"><i class="entypo-user"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                
+                <div class="col-xs-12 divider text-center">
+                    <div class="col-xs-12 col-sm-3 emphasis">
+                        <h2>
+                            <strong>@Model.Orders.Count()</strong>
+                        </h2>
+                        <p>
+                            <small>Total Order</small>
+                        </p>
+                        <a href="/Admin/Order/List" class="btn btn-success btn-block">
+                            <span class="fa fa-plus-circle"></span>&nbsp;&nbsp;Go To Orders
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 emphasis">
+                        <h2>
+                            <strong>@Model.Invoices.Count()</strong>
+                        </h2>
+                        <p>
+                            <small>Total Invoice</small>
+                        </p>
+                        <a href="/Admin/User/Invoice/@Model.User.Id" class="btn btn-info btn-block">
+                            <span class="fa fa-user"></span>&nbsp;&nbsp;Go To Invoices
+                        </a>
+                    </div>
+                    <div class="col-sm-3 emphasis">
+                        <h2>
+                            <strong>@Model.Address.Count()</strong>
+                        </h2>
+                        <p>
+                            <small>Total Address</small>
+                        </p>
+                        <a href="#address" class="btn btn-default btn-block">
+                            <span class="fa fa-user"></span>&nbsp;&nbsp;Go To Address
+                        </a>
+                    </div>
+                    <div class="col-sm-3 emphasis">
+                        <h2>
+                            <strong>@Model.Comments.Count()</strong>
+                        </h2>
+                        <p>
+                            <small>Total Comment</small>
+                        </p>
+                        <a href="/Admin/User/Comment/@Model.User.Id" class="btn btn-default btn-block">
+                            <span class="fa fa-user"></span>&nbsp;&nbsp;Go To Comments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

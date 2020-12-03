@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Admin>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Admins
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <p class="lead well">Please note that other languages when the data update.</p>
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Username
+                                </th>
+                                <th>
+                                    Last Login Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var admin in Model)
+                                {
+                                    <tr>
+                                        <td>@admin.Name</td>
+                                        <td>@admin.Username</td>
+                                        <td>@string.Format("{0:dd.MM.yyyy HH:mm:ss}", admin.LastLoginDate)</td>
+                                        <td>
+                                            <span class="@(admin.Status == AdminProject.Models.StatusTypes.Active ? "status-metro status-active" : "status-metro status-suspended")">
+                                                @(admin.Status == AdminProject.Models.StatusTypes.Active ? "Active" : "Deactive")
+                                            </span>
+                                        </td>
+                                        <td style="width:150px;">
+                                            <a href="/Admin/Edit/@admin.Id">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="/Admin/Delete/@admin.Id" onclick="return confirm('Are you sure you want to continue?')">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

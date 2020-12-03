@@ -1,0 +1,80 @@
+﻿@model AdminProject.Infrastructure.Models.Settings
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Modified";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Settings</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Settings/Index" method="post">
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control validate[required,minSize[10]", required = "required", maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control", maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Keyword">Keyword</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="MailAddress">Mail Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.MailAddress, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="MailPassword">Mail Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.MailPassword, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Smtp">SMTP</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.Smtp, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Port">Port</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                    @Html.TextBoxFor(model => model.Port, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

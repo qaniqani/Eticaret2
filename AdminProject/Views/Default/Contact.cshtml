@@ -1,0 +1,97 @@
+﻿@using reCAPTCHA.MVC
+@{
+    ViewBag.Title = "İletişim | Payidar.com.tr";
+    ViewBag.Description = "Payidar.com.tr ile iletişim bilgileri ve iletişim formuyla irtibat kurabilirsiniz.";
+    ViewBag.Keyword = "iletişim, iletişim formu, iletişim bilgileri, telefon, adres";
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = "İletişim | Payidar.com.tr";
+    ViewBag.Description = "Payidar.com.tr ile iletişim bilgileri ve iletişim formuyla irtibat kurabilirsiniz.";
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="col-md-12">
+            <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop50">İletişim Bilgilerimiz</h4>
+            <div class="ct-u-size16 ct-fw-700 ct-u-paddingBottom20 ct-u-paddingTop30">Sizden duymak istiyoruz. Sorunuz tam olarak nedir?</div>
+
+            <ul class="ct-contactAddress list-unstyled ct-u-size16 ct-u-paddingBottom20">
+                <li>
+                    <div class="ct-addressReference"><i class="fa fa-location-arrow"></i> Adres Bilgilerimiz:</div>
+                    <div class="ct-addressDataReference">
+                        <span>Kayışdağı Mh. Akyazı Cd. No:42/C</span><br>
+                        <span>Posta Kodu: 34900</span><br>
+                        <span>Ataşehir, İstanbul</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="ct-addressReference"><i class="fa fa-phone"></i> Telefon:</div>
+                    <div class="ct-addressDataReference">
+                        <span>0(850) 302 34 29</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="ct-addressReference"><i class="fa fa-envelope"></i> Email Adresimiz:</div>
+                    <div class="ct-addressDataReference">
+                        <a href="#"><span>info@payidar.com.tr</span></a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="ct-googleMap" data-location="New York" data-zoom="12" data-height="500"></div>
+
+            <div class="ct-u-size16 ct-fw-700 ct-u-paddingBottom40 ct-u-paddingTop50">Zorunlu alanlar (*).</div>
+            <div class="ct-contactForm">
+                <form class="form-horizontal contactForm" method="post" action="/contact">
+                    <div class="form-group">
+                        <label for="nameSurname" class="col-sm-2 control-label">İsim Soyisim*: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nameSurname" name="nameSurname" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyName" class="col-sm-2 control-label">Şirket Adı:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="companyName" id="companyName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email*:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Telefon:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="phone" id="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="col-sm-2 control-label">Mesajınız*:</label>
+                        <div class="col-sm-10">
+                            <textarea id="message" class="form-control" name="message" rows="6" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="captcha" class="col-sm-2 control-label">Doğrulama Kodu:</label>
+                        <div class="col-sm-10">
+                            <script type="text/javascript" src="//www.google.com/recaptcha/api.js" async></script>
+                            @Html.Recaptcha()
+                            @Html.ValidationMessage("ReCaptcha")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-long-arrow-right"></i> Gönder </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

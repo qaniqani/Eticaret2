@@ -1,0 +1,380 @@
+﻿@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+
+    if (Model.Contains("Master"))
+    {
+        <ul class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="widget-menu"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Menu App">
+                    <i class="icon-document-edit"></i>
+                    <span>Menu</span>
+                </a>
+                <ul data-url="Menu">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Menu/Add" title="Menu Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Menu/List" title="Menu List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Menu/Order" title="Menu Order"><i class="entypo-newspaper"></i><span>Order</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Content App">
+                    <i class="icon-document-edit"></i>
+                    <span>Content</span>
+                </a>
+                <ul data-url="Content">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Content/Add" title="Content Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Content/List" title="Content List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Content/Order" title="Content Order"><i class="entypo-newspaper"></i><span>Order</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (Model.Contains("Order"))
+    {
+        <ul class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="widget-menu"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Order App">
+                    <i class="icon-document-edit"></i>
+                    <span>Order</span>
+                </a>
+                <ul data-url="Order">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Order/List" title="Order List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Basket App">
+                    <i class="icon-document-edit"></i>
+                    <span>Basket</span>
+                </a>
+                <ul data-url="Basket">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Basket/List" title="Basket List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (Model.Contains("Product"))
+    {
+        <ul class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="widget-menu"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Product App">
+                    <i class="icon-document-edit"></i>
+                    <span>Product</span>
+                </a>
+                <ul data-url="Product">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Product/Add" title="Product Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Product/List" title="Product List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Comment App">
+                    <i class="icon-document-edit"></i>
+                    <span>Product Comment</span>
+                </a>
+                <ul data-url="Comment">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Comment/List" title="Comment List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Campaign App">
+                    <i class="icon-document-edit"></i>
+                    <span>Campaign</span>
+                </a>
+                <ul data-url="Campaign">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Campaign/Add" title="Campaign Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Campaign/List" title="Comment List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (Model.Contains("Users"))
+    {
+        <ul class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="widget-menu"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="User App">
+                    <i class="icon-document-edit"></i>
+                    <span>Users</span>
+                </a>
+                <ul data-url="User">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/User/List" title="User List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (Model.Contains("Media"))
+    {
+        <ul class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="design-kit"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            @*<li>
+                <a class="tooltip-tip ajax-load" href="#" title="Gallery App">
+                    <i class="icon-document-edit"></i>
+                    <span>Gallery</span>
+                </a>
+                <ul data-url="Gallery|MultiGallery">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/MultiGallery/Add" title="Gallery Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Gallery/List" title="Gallery List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Gallery/Order" title="Gallery Order"><i class="entypo-newspaper"></i><span>Order</span></a>
+                    </li>
+                </ul>
+            </li>*@
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Slider App">
+                    <i class="icon-document-edit"></i>
+                    <span>Slider</span>
+                </a>
+                <ul data-url="Slider">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Slider/Add" title="Slider Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Slider/List" title="Slider List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Slider/SliderOrder" title="Slider Order"><i class="entypo-newspaper"></i><span>Slider Order</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Slider/VideoOrder" title="Video Order"><i class="entypo-newspaper"></i><span>Video Order</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="File App">
+                    <i class="icon-document-edit"></i>
+                    <span>File/ Picture</span>
+                </a>
+                <ul data-url="File">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/File/Add" title="File Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/File/List" title="File List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (Model.Contains("Setting"))
+    {
+        <ul id="menu-showhide" class="topnav menu-left-nest main-left-menu">
+            <li>
+                <a href="#" style="border-left: 0px solid !important;" class="title-menu-left">
+                    <span class="component"></span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Brand App">
+                    <i class="icon-document-edit"></i>
+                    <span>Brand</span>
+                </a>
+                <ul data-url="Brand">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Brand/Add" title="Brand Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Brand/List" title="Brand List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Measure App">
+                    <i class="icon-document-edit"></i>
+                    <span>Property</span>
+                </a>
+                <ul data-url="Property">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Property/Add" title="Property Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Property/List" title="Property List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Measure App">
+                    <i class="icon-document-edit"></i>
+                    <span>Measure</span>
+                </a>
+                <ul data-url="Measure">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Measure/Add" title="Measure Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Measure/List" title="Measure List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Bank App">
+                    <i class="icon-document-edit"></i>
+                    <span>Bank</span>
+                </a>
+                <ul data-url="Bank">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Bank/Add" title="Bank Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Bank/List" title="Bank List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Cargo App">
+                    <i class="icon-document-edit"></i>
+                    <span>Cargo</span>
+                </a>
+                <ul data-url="Cargo">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Cargo/Add" title="Cargo Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Cargo/List" title="Cargo List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Country App">
+                    <i class="icon-document-edit"></i>
+                    <span>Country</span>
+                </a>
+                <ul data-url="Country">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/AddCountry" title="Country Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/ListCountry" title="Country List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="City App">
+                    <i class="icon-document-edit"></i>
+                    <span>City</span>
+                </a>
+                <ul data-url="Country">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/AddCity" title="City Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/ListCity" title="City List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Region App">
+                    <i class="icon-document-edit"></i>
+                    <span>Region</span>
+                </a>
+                <ul data-url="Country">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/AddRegion" title="Region Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Country/ListRegion" title="Region List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Admin App">
+                    <i class="icon-document-edit"></i>
+                    <span>Admin</span>
+                </a>
+                <ul data-url="Admin">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Admin/Add" title="Admin Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Admin/List" title="Admin List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="#" title="Language App">
+                    <i class="icon-document-edit"></i>
+                    <span>Language</span>
+                </a>
+                <ul data-url="Language">
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Language/Add" title="Language Add"><i class="entypo-doc-text"></i><span>Add</span></a>
+                    </li>
+                    <li>
+                        <a class="tooltip-tip2 ajax-load" href="/Admin/Language/List" title="Language List"><i class="entypo-newspaper"></i><span>List/ Edit</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="tooltip-tip ajax-load" href="/Admin/Settings" title="Settings App">
+                    <i class="icon-document-edit"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    }
+}

@@ -1,0 +1,57 @@
+﻿@model AdminProject.Infrastructure.Models.Region
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Region</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Country/AddRegion" method="get">
+                            <div class="form-group">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width:100px;"><label for="Country">Country</label></td>
+                                        <td style="width:240px;">@Html.DropDownList("countryId", ViewBag.CountryList as SelectList, new { @class = "form-control", style = "width:200px;" })</td>
+                                        <td><button class="btn btn-default">Get Citys</button></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                        <form role="form" action="/Admin/Country/AddRegion" method="post">
+                            <div class="form-group">
+                                <label for="CityId">City</label>
+                                @Html.DropDownListFor(model => model.CityId, ViewBag.CityList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: Kadıköy", @class = "form-control validate[required,minSize[1]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="SequenceNr">Sequence Number</label>
+                                @Html.TextBoxFor(model => model.SequenceNr, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

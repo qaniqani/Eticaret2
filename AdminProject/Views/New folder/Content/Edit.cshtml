@@ -1,0 +1,132 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Models
+
+@model AdminProject.Infrastructure.Models.Content
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //set category name
+        var categoryId = $("#CategoryId").val();
+        if (categoryId != "0") {
+            var selectedText = $(".sortable li .cat" + categoryId).text();
+            $("#CategoryName").text(selectedText);
+        }
+
+        //select category
+        $(".sortable li div").click(function() {
+            var text = $(this).text();
+            var id = $(this).attr("data-id");
+
+            $("#CategoryName").text(text);
+            $("#CategoryId").val(id);
+        });
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-8">
+            <form role="form" action="/Content/Edit" method="post" enctype="multipart/form-data">
+                <div class="nest" id="basicClose1">
+                    <div class="title-alt">
+                        <h6>Content Detail</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#basic">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="basic">
+                        <div class="form-group">
+                            <label for="CategoryId">Selected Category</label>
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.CategoryId)
+                            <strong style="display:block" id="CategoryName">Not selected category</strong>
+                        </div>
+                        <div class="form-group">
+                            <label for="ContentType">Content Type</label>
+                            @Html.DropDownListFor(model => model.ContentType, ViewBag.ContentTypeList as SelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Subject</label>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Detail">Content</label>
+                            @Html.TextAreaFor(model => model.Detail, new { required = "required", @class = "richEditor" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Picture">Picture</label>
+                            @Html.TextBox("Picture", "", new { type = "file", @class = "form-control" })
+                            @if (!string.IsNullOrEmpty(Model.Picture))
+                            {
+                                <br />
+                                <img src="/Content/@Model.Picture" style="max-height:150px; max-width:200px; display: block;"/>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest" id="basicClose2">
+                    <div class="title-alt">
+                        <h6>Seo</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#seo">
+                                <span class="entypo-down-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="seo" style="display: none;">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Keyword">Keyword</label>
+                            @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Url">Url</label>
+                            @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Save</h6>
+                    </div>
+                    <div class="body-nest">
+                        <div class="form-group">
+                            <label for="Status">Status</label>
+                            @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                        </div>
+                        <button class="btn btn-info" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Categories</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#menus">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="menus">
+                    @Html.Raw(Utility.RenderMenu(ViewBag.Menu as IEnumerable<MenuItem>))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

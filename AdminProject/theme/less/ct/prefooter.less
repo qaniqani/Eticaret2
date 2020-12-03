@@ -1,0 +1,197 @@
+.ct-dividedSection{
+  h3{
+    text-transform: uppercase;
+  }
+  .ct-dividedSection-left{
+    color: @color-default;
+    background-color: #f8f8f8;
+    padding: 23px 35px;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -30px;
+      width: 30px;
+      height: 100%;
+      background-color: #f8f8f8;
+    }
+
+    h3{
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    form{
+      .form-control{
+        font-style: italic;
+        font-size: 14px;
+        height: 36px;
+        padding: 0 16px;
+      }
+      .input-group{
+        max-width: 435px;
+
+        .btn{
+          font-size:14px;
+          border: 1px solid transparent !important;
+          &:hover, &:active, &:focus{
+            background-color: #fff !important;
+            border: 1px solid #e8e8e8 !important;
+          }
+        }
+
+        .form-control:focus + span .btn:hover{
+          border: 1px solid #000 !important;
+        }
+      }
+    }
+  }
+  .ct-dividedSection-right{
+    color: #acacac;
+    background-color: #000;
+    padding: 23px 22px 26px 3px;
+    font-size: 14px;
+    text-align: right;
+    position: relative;
+    line-height: 25px;
+
+    h3{
+      color: @color-secondary;
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .ct-dividedSection-right-triangle{
+      position: absolute;
+      background: -webkit-linear-gradient(to left top, #000 50%, transparent 50%);
+      background: -o-linear-gradient(to left top, #000 50%, transparent 50%);
+      background: -moz-linear-gradient(to left top, #000 50%, transparent 50%);
+      background: linear-gradient(to left top, #000 50%, transparent 50%);
+      width: 139px;
+      height: 100%;
+      top: 0;
+      left: -139px;
+    }
+  }
+}
+
+@media (min-width: @screen-md) AND (max-width: @screen-lg) {
+  .ct-dividedSection .ct-dividedSection-left form .input-group{
+    max-width: 340px;
+  }
+  .ct-dividedSection .ct-dividedSection-right{
+    line-height: 19px;
+
+    img{
+      display: none;
+    }
+  }
+}
+
+@media (max-width: @screen-lg){
+  .ct-dividedSection .ct-dividedSection-right{
+    font-size: 14px;
+    padding: 23px 22px 19px 3px;
+  }
+}
+
+@media (max-width: @screen-md){
+  .ct-dividedSection .ct-dividedSection-left{
+    &:after{
+      display: none;
+    }
+  }
+
+  .ct-dividedSection .ct-dividedSection-right{
+    font-size: 14px;
+    padding: 25px 22px 23px 10px;
+  }
+}
+
+@media (max-width: @screen-xs){
+  .ct-dividedSection .ct-dividedSection-left form .input-group{
+    max-width: 100%;
+    display: block;
+
+    .form-control{
+      float:none;
+    }
+
+    .input-group-btn{
+      white-space: normal;
+      display: block;
+      width: 100%;
+
+      &:last-child > .btn{
+        margin-left: 0;
+      }
+      .btn{
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+// TOOLTIPS -------------------------------------------------------
+
+.tooltip-inner {
+  max-width: 150px;
+  padding: 18px 15px;
+  font-size: 14px;
+  background-color: #fff;
+  font-family: "Droid Serif", Arial;
+  color: #000;
+  border: 1px solid #eeeeee;
+  .ct-m-transition(all,0.3s,ease);
+}
+
+.tooltip.top .tooltip-arrow {
+  bottom: -4px;
+  margin-left: -10px;
+  border-width: 10px 10px 0;
+  border-top-color: #eeeeee;
+
+  &:after{
+    content: "";
+    position: absolute;
+    left: -13px;
+    bottom: 1px;
+    border-width: 13px 13px 0;
+    border-style: solid;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+  }
+}
+
+.tooltip.in{
+  .ct-m-opacity(1);
+}
+
+.tooltip.top{
+  margin-top: -15px;
+}
+
+.ct-tooltips{
+  ul {
+    li {
+      padding: 0 0 10px 0;
+
+      color: #eeeeee;
+      cursor: pointer;
+      .ct-m-transition(all,0.3s,ease);
+
+      &:hover {
+        color: @color-default;
+      }
+    }
+  }
+}
+
+
+
+
+

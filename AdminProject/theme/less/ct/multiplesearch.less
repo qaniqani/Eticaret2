@@ -1,0 +1,126 @@
+.ct-searchBox{
+  border: 1px solid #eeeeee;
+  .dropdown-colorselector{
+    a.dropdown-toggle {
+      display: none;
+    }
+
+    ul.dropdown-menu{
+      text-align: center;
+      margin-top: 25px;
+      margin-bottom: 35px;
+    }
+  }
+}
+.ct-searchBookmark{
+  .ct-searchBookmark-header{
+    position: relative;
+    color: #000;
+    background-color: #f8f8f8;
+    padding: 5px 20px 5px 70px;
+
+    &:before{
+      position: absolute;
+      font-family: fontawesome;
+      content: "\f0d7";
+      top: 50%;
+      left: 21px;
+      margin-top: -13px;
+      font-size: 19px;
+    }
+
+    &:after{
+      content: "|";
+      position: absolute;
+      top: 50%;
+      left: 47px;
+      margin-top: -10px;
+      color: #e8e8e8;
+    }
+  }
+
+  a.active .ct-searchBookmark-header::before{
+    content: "\f0d8";
+  }
+}
+.ct-searchContent{
+  display: none;
+  .ct-searchContent-category{
+    background-color: #f8f8f8;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 7px;
+    font-size: 18px;
+  }
+
+  .ct-searchContent-category--transparent{
+    background-color: transparent;
+    margin: 0 25px 10px 25px;
+    border-bottom: 1px solid #f7f7f7;
+  }
+
+  .ct-searchContent-description{
+    label{
+      padding:0;
+      margin:0;
+      width: 20%;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    input[type=checkbox]:checked + span{
+      background-color: #000;
+      color: #fff;
+    }
+
+    span{
+      display: block;
+      padding: 14px 0;
+      width: 100%;
+      text-align: center;
+      border-right: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 15px;
+    }
+  }
+}
+
+.ct-searchContent-slider{
+  padding:35px 20px;
+  text-align: center;
+
+  .form-control{
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    height: 40px;
+    margin: 0px 15px;
+  }
+}
+
+
+@media(max-width: @screen-sm){
+  .ct-searchContent .ct-searchContent-description{
+    label{
+      width: 33.33%;
+    }
+  }
+}
+
+@media(max-width: @screen-xs){
+  .ct-searchContent .ct-searchContent-description{
+    label{
+      width: 100%;
+
+      &:last-child{
+        span{
+          border-bottom: none;
+        }
+      }
+    }
+    span{
+      border-right: none;
+    }
+  }
+}

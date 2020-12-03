@@ -1,0 +1,612 @@
+
+// MAIN SLIDER -----------------------------------------------------------------------------------------------
+
+.ct-mainCarousel{
+  .item{
+    background-position: center;
+    .ct-m-backgroundSize(cover);
+    display: table;
+    width: 100%;
+    .inner{
+      display: table-cell;
+      vertical-align: middle;
+      font-size:30px;
+      text-align:center;
+
+      h1{
+        font-size:50px;
+        line-height: 52px;
+      }
+      .btn{
+        text-transform: capitalize !important;
+      }
+    }
+  }
+
+  &.ct-mainCarousel--arrowsMiddle, &.ct-mainCarousel--arrowsTop, &.ct-mainCarousel--arrowsTopRight, &.ct-mainCarousel--arrowsTopLeft, &.ct-mainCarousel--arrowsCenter{
+    .owl-controls{
+      .ct-m-opacity(0);
+      margin:0;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      .ct-m-transition(all,0.3s,ease);
+
+      .owl-buttons{
+        clear: both;
+
+        div{
+          margin:0;
+          padding:0;
+          .ct-m-opacity(1);
+          .ct-m-rounded(0);
+          background: transparent;
+        }
+
+        .owl-prev, .owl-next{
+          background-color: @color-default;
+          min-height: 55px;
+          min-width: 55px;
+          color: @motive-color;
+          text-align: center;
+          border: 1px solid transparent;
+          .ct-m-opacity(0.8);
+          .ct-m-transition(all,0.2s,ease);
+
+          &:hover{
+            .ct-m-opacity(1);
+          }
+
+          &:before {
+            font-family: fontawesome;
+             font-size:20px;
+            color: @color-secondary;
+            line-height: 52px;
+          }
+
+          &:hover{
+            border: 1px solid lighten(@motive-color,20%);
+            color: @motive-color;
+          }
+        }
+
+        .owl-prev{
+          float:left;
+          position: relative;
+          left:5px;
+          &:before {
+            content: "\f053";
+          }
+        }
+        .owl-next{
+          float: right;
+          position: relative;
+          right:5px;
+          &:before {
+            content: "\f054";
+          }
+        }
+      }
+    }
+    &:hover{
+      .owl-controls{
+        .ct-m-opacity(1);
+      }
+    }
+  }
+
+  &.ct-mainCarousel--arrowsMiddle .owl-controls{
+    top: 45%;
+  }
+  &.ct-mainCarousel--arrowsTop .owl-controls{
+    top: 2%;
+  }
+  &.ct-mainCarousel--arrowsTopRight .owl-controls{
+    top: 2%;
+
+    .owl-buttons{
+      float: right;
+      .owl-prev{
+        float: none;
+        margin-right: 20px;
+      }
+      .owl-next{
+        float: none;
+      }
+    }
+  }
+  &.ct-mainCarousel--arrowsTopLeft .owl-controls, &.ct-mainCarousel--arrowsCenter .owl-controls{
+    top: 2%;
+
+    .owl-buttons{
+      float: left;
+      .owl-prev{
+        float: none;
+        margin-right: 20px;
+      }
+      .owl-next{
+        float: none;
+      }
+    }
+  }
+  &.ct-mainCarousel--arrowsCenter .owl-controls .owl-buttons{
+    float: none;
+    text-align: center;
+  }
+}
+
+
+// PRODUCT SHOP SLIDER --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+.ct-productShop{
+  max-width: 285px;
+  min-height:340px;
+  padding: 2px 25px 20px 25px;
+  position: relative;
+  border-right: 1px solid #f0f0f0;
+  margin:0 auto;
+
+  .ct-productShop-h5{
+    text-transform: uppercase;
+    color: #acacac;
+    font-size: 15px;
+    display: inline-block;
+    float: right;
+    padding: 8px 13px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
+  .ct-productShop-h5-new{
+    text-transform: uppercase;
+    background-color:@motive-color;
+    color:@color-secondary;
+    font-size: 15px;
+    display: inline-block;
+    float: left;
+    padding: 8px 13px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
+  .ct-productShop-content{
+    text-align: center;
+
+    h3{
+      font-weight: 400;
+      font-size: 15px;
+      color:@color-default;
+      line-height: 22px;
+      margin:0;
+      padding-bottom: 7px;
+    }
+
+    span{
+      display: block;
+      padding-top: 10px;
+      font-size: 22px;
+      color:@motive-color;
+
+      del{
+        font-size: 18px;
+        color:#b2b2b2;
+      }
+    }
+  }
+}
+
+.ct-productShop--zoom{
+  .ct-productShop-shopCart{
+    position: absolute;
+    bottom:10px;
+    right:0;
+
+    .btn{
+      position: absolute;
+      bottom:0;
+      right:0;
+      background: none;
+      border:none;
+      visibility: hidden;
+    }
+    .btn-default{
+      padding: 11px;
+    }
+  }
+  .ct-productShop-content-description{
+    padding-top: 5px;
+
+    .btn{
+      visibility: hidden;
+      padding:0 5px;
+      width: 60px;
+      height: 60px;
+      line-height: 59px;
+      font-size: 27px;
+      .ct-m-opacity(0);
+
+    }
+    &:hover{
+      .btn{
+        visibility: visible;
+        background-color: @motive-color !important;
+        color: @color-secondary !important;
+        .ct-m-opacity(0.8);
+
+
+        .ct-m-transition(all,0.4s,ease);
+
+        &:hover{
+          .ct-m-opacity(1);
+        }
+      }
+      .btn-hidden {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+.ct-productShop--default{
+  &:hover{
+    .ct-productShop-shopCart{
+      .ct-m-opacity(1);
+      visibility: visible;
+    }
+  }
+
+  .ct-productShop-shopCart{
+    position: absolute;
+    .ct-m-opacity(0);
+    .ct-m-transition(all,0.4s, ease);
+    visibility: hidden;
+    left: 50%;
+    top: 30%;
+    margin-left: -70px;
+
+    .btn{
+      padding:0 5px;
+      width: 60px;
+      font-size: 27px;
+      height: 60px;
+      line-height: 59px;
+      display: inline-block;
+      border:none;
+      .ct-m-opacity(0.8);
+      .ct-m-transition(all,0.4s, ease);
+
+      &:hover{
+        border:none;
+        background-color: @color-default !important;
+        .ct-m-opacity(1);
+        color:@color-secondary !important;
+      }
+    }
+  }
+}
+
+.ct-productCarousel{
+  .owl-wrapper-outer{
+    &:before{
+      position: absolute;
+      content: "";
+      top: 0;
+      right: 0;
+      background-color: rgb(255, 255, 255);
+      width: 1px;
+      height: 100%;
+      z-index: 9999;
+    }
+  }
+  .owl-item{
+    border-right: 1px solid #f0f0f0;
+    .ct-productShop{
+      border: none;
+    }
+  }
+
+  .owl-controls{
+    margin:0;
+    position: absolute;
+    width: 100%;
+    top: -85px;
+    left: 0;
+
+    .owl-buttons{
+      div{
+        margin:0;
+        padding:0;
+        .ct-m-opacity(1);
+        .ct-m-rounded(0);
+        background: transparent;
+      }
+
+      .owl-prev, .owl-next{
+        min-height: 40px;
+        min-width: 40px;
+        color: @motive-color;
+        text-align: center;
+        border: 1px solid transparent;
+        .ct-m-transition(border, 0.3s, ease);
+
+        &:before {
+          font-family: fontawesome;
+          font-size:20px;
+          line-height: 40px
+        }
+
+        &:hover{
+          border: 1px solid lighten(@motive-color,20%);
+          color: @motive-color;
+        }
+      }
+
+      .owl-prev{
+
+        &:before {
+          content: "\f177";
+        }
+      }
+      .owl-next{
+
+        &:before {
+          content: "\f178";
+        }
+      }
+    }
+  }
+}
+
+.ct-productCarousel--arrowsTop{
+  .owl-controls{
+    .owl-buttons{
+      .owl-prev{
+        float:left;
+      }
+      .owl-next{
+        float:right;
+      }
+    }
+  }
+}
+
+.ct-productCarousel--arrowsTopRight{
+  .owl-controls{
+    .owl-buttons{
+      text-align: right;
+      .owl-prev{
+        float:none;
+      }
+      .owl-next{
+        float:none;
+      }
+    }
+  }
+}
+
+//This rule is needed for hiding 1px border last slider element
+.ct-sliderShop{
+  position: relative;
+
+  &:before{
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    width: 1px;
+    height: 100%;
+    z-index: 9999;
+  }
+}
+
+
+// MEDIA QUERIES FOR MAIN SLIDER -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@media (max-width: @screen-md) {
+  .ct-mainCarousel {
+    .item .inner {
+      hr{
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-md){
+  .ct-mainCarousel{
+    .item .inner{
+      h1{
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+      }
+      .ct-sliderHr {
+        text-align: center;
+      }
+      
+      .ct-mobileCenter{
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media(max-width: @screen-sm){
+  .ct-mainCarousel{
+    .item .inner{
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0, 0.4);
+
+      h1{
+        text-align: center;
+        font-size:30px;
+
+      }
+      h2{
+        text-align: center;
+        font-size:24px;
+      }
+      .ct-sliderHr{
+        text-align: center;
+        hr{
+          width:235px;
+        }
+      }
+
+      .btn-slider{
+        font-size: 20px;
+      }
+      .ct-mobileCenter{
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media(max-width: @screen-xs) {
+  .ct-mainCarousel {
+    .item .inner {
+      h1 {
+        font-size: 20px;
+      }
+      h2 {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// OWL TEAM MEMBERS, about us
+
+.ct-personBox{
+  max-width: 100%;
+  padding: 0 14px;
+  display: inline-block;
+  vertical-align: top;
+
+  .btn{
+    width: 43px;
+    height: 43px;
+    padding:0;
+    line-height: 42px;
+  }
+
+  .ct-personBox-image{
+    max-width: 100%;
+    text-align: center;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background-color: #ebebeb;
+
+    img{
+      -webkit-transform: scale3d(1,1,1);
+      transform: scale3d(1,1,1);
+      transition: transform 0.6s;
+    }
+
+
+    &:after{
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      right:0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 196px 196px;
+      border-color: transparent transparent rgba(0,0,0,0.35) transparent;
+      -webkit-transform:  translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+      transition: transform 0.35s;
+    }
+
+    &:before{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.35);
+      content: '';
+      -webkit-transition: -webkit-transform 0.6s;
+      transition: transform 0.6s;
+      -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
+      transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
+      z-index: 600;
+    }
+
+    .ct-personBox-image-link{
+      display: none;
+      position: absolute;
+      z-index: 800;
+      bottom: 3%;
+      right: 14%;
+      font-size: 33px;
+    }
+  }
+
+  .ct-personBox-bottomBar{
+    .ct-m-transition(all, 0.3s, ease);
+    opacity: 1;
+    position: absolute;
+    bottom:0;
+    left:0;
+    width: 100%;
+    height: 7px;
+    background-color: rgba(0,0,0,0.35);
+  }
+
+  .ct-personBox-name{
+    a{
+      color: @color-default;
+
+      &:hover{
+        color: @color-hover-link;
+      }
+    }
+  }
+
+  &:hover .ct-personBox-image{
+    .ct-personBox-bottomBar{
+      opacity: 0;
+    }
+
+    .ct-personBox-image-link{
+      display: inline-block;
+      -webkit-animation-name: fadeInRight;
+      animation-name: fadeInRight;
+      -webkit-animation-duration: .5s;
+      animation-duration: .5s;
+      animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+    }
+
+    img{
+      transition: transform 0.6s;
+      -webkit-transform: scale3d(1.05,1.05,1);
+      transform: scale3d(1.05,1.05,1);
+    }
+
+    &:before{
+      -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
+      transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
+    }
+
+    &:after{
+      transition: transform 0.35s;
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+@media(max-width: @screen-xs){
+  .ct-personBox .ct-socials{
+    text-align: left !important;
+  }
+}

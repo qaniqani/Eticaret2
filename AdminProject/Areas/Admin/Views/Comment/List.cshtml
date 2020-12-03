@@ -1,0 +1,113 @@
+﻿@using AdminProject.Services.Models
+@model CommentSearchRequestDto
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>
+                        Comment Search
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#searchJob">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="searchJob">
+                    <form action="/Admin/Comment/List" method="post">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.ProductName, new { placeholder = "Product Name", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.UserName, new { placeholder = "User Name", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.UserSurname, new { placeholder = "User Surname", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.CommentTypes, new { @class = "form-control" })
+                                    </td>
+                                    <td><button type="submit" class="btn btn-success">Search</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Comments
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <div id="tip" class="body-nest">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>P. Name</th>
+                                    <th>Name Surname</th>
+                                    <th>Email</th>
+                                    <th>Detail</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var comment in (List<CommentResultDto>)ViewBag.Comments)
+                                    {
+                                        <tr>
+                                            <td><a href="/Admin/Product/Edit/@comment.ProductId" target="_blank">@comment.ProductName</a></td>
+                                            <td><a href="/Admin/User/Edit/@comment.CommentId" target="_blank">@comment.UserName @comment.UserSurname</a></td>
+                                            <td>@comment.UserEmail</td>
+                                            <td><div class="col-md-12 commentDetail" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="@comment.CommentDetail">Detail</div></td>
+                                            <td>@comment.CreateDate </td>
+                                            <td>@comment.Status</td>
+                                            <td>
+                                                <a href="/Admin/Comment/ChangeStatus/@comment.CommentId?status=New&userId=@comment.UserId" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="New"><i class="fontawesome-star-empty"></i></a>
+                                                <a href="/Admin/Comment/ChangeStatus/@comment.CommentId?status=Active&userId=@comment.UserId" class="btn btn-success commentDetail"  data-toggle="tooltip" data-placement="top" title="Active"><i class="entypo-check"></i></a>
+                                                <a href="/Admin/Comment/ChangeStatus/@comment.CommentId?status=Deactive&userId=@comment.UserId" class="btn btn-warning commentDetail" data-toggle="tooltip" data-placement="top" title="Deactive"><i class="entypo-cancel"></i></a>
+                                                <a href="/Admin/Comment/ChangeStatus/@comment.CommentId?status=Deleted&userId=@comment.UserId" class="btn btn-danger commentDetail" onclick="return confirm('Are you sure you want to continue?')" data-toggle="tooltip" data-placement="top" title="Delete"><i class="icon icon-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="pagination pagination-centered"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

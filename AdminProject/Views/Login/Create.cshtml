@@ -1,0 +1,114 @@
+﻿@model AdminProject.Models.UserCreateRequestDto
+@{
+    ViewBag.Title = "Yeni Kullanıcı";
+    ViewBag.Description = "Payidar olarak ürünlerimizi alabilmeniz için kullanıcı kaydı oluşturabilmek için...";
+    ViewBag.Keyword = "payidar, yeni kullanıcı, üye ol, yeni kullanıcı kaydı, üyelik";
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = "Yeni Kullanıcı Oluşturma";
+    ViewBag.Description = "Payidar olarak ürünlerimizi alabilmeniz için kullanıcı kaydı oluşturabilmek için...";
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Yeni Üye Kaydı</h4>
+                <div class="ct-u-size16 ct-fw-700 ct-u-paddingBottom20 ct-u-paddingTop30">Lütfen aşağıdaki formu eksiksiz doldurunuz...</div>
+                <form class="form-horizontal" method="post" action="/user/create">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="Name" class="control-label">Adınız*</label>
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="Surname" class="control-label change-label">Soyadınız*</label>
+                                @Html.TextBoxFor(model => model.Surname, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="TcNr" class="control-label">T.C. Kimlik No*</label>
+                                @Html.TextBoxFor(model => model.TcNr, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="Gender" class="control-label change-label">Cinsiyet*</label>
+                                @Html.DropDownListFor(model => model.Gender, ViewBag.Gender as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="Phone" class="control-label">Telefon*</label>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="Gsm" class="control-label change-label">Gsm No*</label>
+                                @Html.TextBoxFor(model => model.Gsm, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" class="control-label">Email*</label>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="Password" class="control-label">Şifre*</label>
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", required = "required", type="password" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="PasswordAgain" class="control-label change-label">Şifre Tekrar*</label>
+                                @Html.TextBoxFor(model => model.PasswordAgain, new { @class = "form-control", required = "required", type = "password" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ct-privacy">
+                                    Hesap oluşturarak <a href="/content/kullanici-sozlesmesi">kullanıcı sözleşmesi</a> ve <a href="/content/gizlilik-politasi">gizlilik politakamızı</a> kabul etmiş olursunuz.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ct-u-paddingBottom50">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default">
+                                    Kaydet <i class="fa fa-long-arrow-right fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Bizi Takip Edin</h4>
+                <div class="ct-u-paddingBottom20 ct-u-paddingTop30">
+                    <ul class="ct-socials ct-socials--small ct-socials--black list-inline list-unstyled">
+                        <li><a href="//www.facebook.com/payidarcomtr"><i class="fa fa-facebook fa-fw"></i></a></li>
+                        <li><a href="//www.instagram.com/payidarcomtr"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        <li><a href="//www.twitter.com/payidarcomtr"><i class="fa fa-twitter fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+</div>

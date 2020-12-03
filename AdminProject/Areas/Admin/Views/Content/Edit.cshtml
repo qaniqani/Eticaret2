@@ -1,0 +1,157 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Models
+
+@model AdminProject.Infrastructure.Models.Content
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //set category name
+        var categoryId = $("#CategoryId").val();
+        if (categoryId != "0") {
+            var selectedText = $("#sortable li .cat" + categoryId).text();
+            $("#CategoryName").text(selectedText);
+        }
+
+        //select category
+        $("#sortable li div").click(function () {
+            var text = $(this).text();
+            var id = $(this).attr("data-id");
+
+            $("#CategoryName").text(text);
+            $("#CategoryId").val(id);
+        });
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-6">
+            <form role="form" action="/Admin/Content/Edit" method="post" enctype="multipart/form-data">
+                <div class="nest" id="basicClose1">
+                    <div class="title-alt">
+                        <h6>Content Detail</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#basic">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="basic">
+                        <div class="form-group">
+                            <label for="CategoryId">Selected Category</label>
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.CategoryId)
+                            <strong style="display:block" id="CategoryName">Not selected category</strong>
+                        </div>
+                        <div class="form-group">
+                            <label for="ContentType">Content Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.DropDownListFor(model => model.ContentType, ViewBag.ContentTypeList as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Subject</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control validate[required,minSize[3]", maxlength = "200" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Detail">Content</label>
+                            @Html.TextAreaFor(model => model.Detail, new { @class = "richEditor" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Picture">Picture</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBox("Picture", "", new { type = "file", @class = "form-control" })
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.Picture))
+                            {
+                                <br />
+                                <img src="/Content/@Model.Picture" style="max-height:150px; max-width:200px; display: block;" />
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest" id="basicClose2">
+                    <div class="title-alt">
+                        <h6>Seo</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#seo">
+                                <span class="entypo-down-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="seo" style="display: none;">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Keyword">Keyword</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Url">Url</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Save</h6>
+                    </div>
+                    <div class="body-nest">
+                        <div class="form-group">
+                            <label for="Status">Status</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <button class="btn btn-info" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Categories</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#menus">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="menus">
+                    @Html.Raw(Utility.RenderMenu(ViewBag.Menu as IEnumerable<MenuItem>).Insert(3, " id=\"sortable\""))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

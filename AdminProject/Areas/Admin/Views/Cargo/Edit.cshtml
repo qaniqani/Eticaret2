@@ -1,0 +1,58 @@
+﻿@model AdminProject.Infrastructure.Models.Cargo
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Cargo</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/Cargo/Edit" method="post" enctype="multipart/form-data">
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.TextBoxFor(model => model.Name, new {@class = "form-control validate[required,minSize[1]"})
+                            </div>
+                            <div class="form-group">
+                                <label for="Price">Price</label>
+                                @Html.TextBoxFor(model => model.Price, new {@class = "form-control"})
+                            </div>
+                            <div class="form-group">
+                                <label for="IsPayDoor">Is Pay Door?</label>
+                                @Html.CheckBoxFor(model => model.IsPayDoor)
+                            </div>
+                            <div class="form-group">
+                                <label for="DefaultCargo">Is Default Cargo?</label>
+                                @Html.CheckBoxFor(model => model.DefaultCargo)
+                            </div>
+                            <div class="form-group">
+                                <label for="Logo">Logo</label>
+                                @Html.TextBoxFor(model => model.Logo, new {type = "file", @class = "form-control"})
+                                <div class="clearfix"></div>
+                                <img src="@Model.Logo" style="max-width:150px;" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new {@class = "form-control"})
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

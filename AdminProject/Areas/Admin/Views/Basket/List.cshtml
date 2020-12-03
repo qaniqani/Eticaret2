@@ -1,0 +1,142 @@
+﻿@using AdminProject.Services.Models
+@model BasketSearchDto
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<script>
+    $(document).ready(function() {
+        $('#StartDate').datepicker();
+        $('#EndDate').datepicker();
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>
+                        Basket Search
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#searchJob">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="searchJob">
+                    <form action="/Admin/Basket/List" method="get">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Name, new { placeholder = "User Name", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Surname, new { placeholder = "User Surname", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.StartDate, "{0:dd.MM.yyyy}", new { placeholder = "Start Date Range (dd.MM.yyyy)", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.EndDate, "{0:dd.MM.yyyy}", new { placeholder = "End Date Range (dd.MM.yyyy)", @class = "form-control" })
+                                    </td>
+                                    <td><button type="submit" class="btn btn-success">Search</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Baskets
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <div id="tip" class="body-nest">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>Name Surname</th>
+                                    <th>P. Code</th>
+                                    <th>P. Name</th>
+                                    <th>Unit</th>
+                                    <th>P. Type</th>
+                                    <th>Stock Type</th>
+                                    <th>Detail</th>
+                                    <th>Price</th>
+                                    <th>Kdv Amount</th>
+                                    <th>Total Amount</th>
+                                    <th>Add Date</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var basket in (List<ProductDto>)ViewBag.Baskets)
+                                    {
+                                        <tr>
+                                            <td>@basket.UserName @basket.UserSurname </td>
+                                            <td>@basket.Code</td>
+                                            <td>@basket.ProductName </td>
+                                            <td>
+                                                <form action="/Admin/Basket/ChangeUnit/@basket.BasketId" method="post">
+                                                    
+                                                    <input type="hidden" name="Name" value="@Model.Name"/>
+                                                    <input type="hidden" name="Surname" value="@Model.Surname"/>
+                                                    <input type="hidden" name="EndDate" value="@Model.EndDate.ToString("dd.MM.yyyy HH:mm:ss")"/>
+                                                    <input type="hidden" name="StartDate" value="@Model.StartDate.ToString("dd.MM.yyyy HH:mm:ss")"/>
+
+                                                    <input type="number" name="unit" value="@basket.Unit" style="width: 50px"/>
+                                                    <button class="btn btn-danger commentDetail" onclick="return confirm('Are you sure you want to continue?')" data-toggle="tooltip" data-placement="top" title="Update">
+                                                        <i class="icon icon-clockwise"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>@basket.ProductType </td>
+                                            <td>@basket.StockType </td>
+                                            <td>
+                                                @foreach (var item in basket.Detail)
+                                                {
+                                                    <b>@item.Name -></b> @item.Value <br />
+                                                }
+                                            </td>
+                                            <td>@basket.ProductPrice.ToString("n2") TL</td>
+                                            <td>@basket.KdvAmount.ToString("n2") TL</td>
+                                            <td>@basket.TotalAmount.ToString("n2") TL</td>
+                                            <td>@basket.DateTime.ToString("dd.MM.yyyy HH:mm:ss") </td>
+                                            <td>
+                                                <a href="/Admin/Basket/Delete/@basket.BasketId" class="btn btn-danger commentDetail" onclick="return confirm('Are you sure you want to continue?')" data-toggle="tooltip" data-placement="top" title="Delete"><i class="icon icon-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="pagination pagination-centered"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

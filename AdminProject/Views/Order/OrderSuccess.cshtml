@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Siparişiniz Onayladı! | Payidar.com.tr";
+    ViewBag.Description = "Siparişiniz onaylanmıştır. En yakın zamanda siparişleriniz kargolanacaktır.";
+    ViewBag.Keyword = "sipariş, onaylandı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Siparişiniz Onayladı!</h4>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>Siparişiniz onaylanmıştır. Sipariş numaranız: <strong>@TempData["OrderNumber"]</strong></p>
+                <p>Havale/ EFT seçeneğini kullandıysanız ödemeniz onaylandıktan sonra siparişiniz gönderilecektir.</p>
+                <p>Havale/ EFT seçeneğini kullanan müşterilerimiz en geç 3 (üç) gün içerisinde ödemeleri onaylanmadığı takdir de siparişleri iptal olacaktır.</p>
+                <p>Bizi tercih ettiğiniz için teşekkür ederiz.</p>
+                <h6>Payidar.com.tr</h6>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

@@ -1,0 +1,4 @@
+﻿@using AdminProject.Helpers
+<nav class="ct-menuMobile">
+    @Html.Raw(Utility.RenderUlMainMenu(Model).Insert(3, " class=\"ct-menuMobile-navbar\""))
+</nav>

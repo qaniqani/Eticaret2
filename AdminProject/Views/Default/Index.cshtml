@@ -1,0 +1,111 @@
+﻿@using AdminProject.Infrastructure.Models
+@{
+    ViewBag.Title = "Hediyelik Tesbih, Yüzük, Alyans, Kolye, Bileklik | Payidar.com.tr";
+    ViewBag.Description = "Hediyelik tesbih, yüzük, alyans, kolye, bileklik, takı, özel günler, kol saati, kombinler aradığınız her çeşit aksesuar bizde mevcut.";
+    ViewBag.Keyword = "tesbih, yüzük, alyans, kolye, bileklik, takı, özel günler, kol saati, kombinler";
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr";
+    ViewBag.Title = "Payidar.com.tr | Hediyelik Tesbih, Yüzük, Alyans, Kolye, Bileklik";
+    ViewBag.Description = "Hediyelik tesbih, yüzük, alyans, kolye, bileklik, takı, özel günler, kol saati, kombinler aradığınız her çeşit aksesuar bizde mevcut...";
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="ct-contentWrapper" id="mobileMenu2">
+    <div class="container">
+        <h4 class="ct-u-paddingTop10">Kategoriler</h4>
+        <div class="row">
+            @foreach (var category in ((List<Category>)ViewBag.Category))
+            {
+                <div class="col-xs-6 ct-u-paddingBottom20 ct-u-paddingTop20">
+                    <span class="ct-productShop-h5">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        <a href="/product/@category.Url/list" class="parentCategoryLink">@category.Name</a>
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</div>*@
+
+<!--slider-->
+<div class="ct-contentWrapper">
+    <div class="container">
+        @{
+            Html.RenderAction("GetSliders", "Partial");
+        }
+    </div>
+</div>
+
+<!--content wrapper-->
+<!--content wrapper-->
+<div class="ct-contentWrapper">
+    <div class="container">
+
+        <!-- FIRST SHOP ELEMENTS SLIDER - FEATURED ITEMS -->
+        @{
+            Html.RenderAction("FeaturedItems", "Default");
+        }
+        <!-- HIGHLIGHTS SECTION boxes -->
+        <h4 class="ct-headerBox ct-u-borderBottom3 ct-u-paddingBottom15 text-center ct-u-paddingTop25">İndirimler</h4>
+        <section class="ct-u-paddingTop10">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="ct-u-marginBoth20">
+                        <a href="#">
+                            <div class="ct-highlightsItem">
+                                <div class="ct-highlightsItem-content" data-bg="/theme/images/content/highlights-background.jpg">
+                                    <span class="ct-highlightsItem-content-firstTitle ct-u-size30 text-uppercase">Ücretsiz</span>
+                                    <br>
+                                    <span class="ct-highlightsItem-content-secondTitle ct-u-size34 text-uppercase ct-fw-600">Kargo</span>
+                                    <br>
+                                    <span class="ct-highlightsItem-content-thirdTitle ct-u-size16">50TL ve Üzeri</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ct-u-marginBoth20">
+                        <a href="#">
+                            <div class="ct-highlightsItem">
+                                <div class="ct-highlightsItem-content" data-bg="/theme/images/content/highlights-background.jpg">
+                                    <span class="ct-highlightsItem-content-firstTitle ct-u-size30 text-uppercase">%40'a Varan</span>
+                                    <br>
+                                    <span class="ct-highlightsItem-content-secondTitle ct-u-size34 text-uppercase ct-fw-600">İndirim!</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ct-u-marginBoth20">
+                        <a href="#">
+                            <div class="ct-highlightsItem">
+                                <div class="ct-highlightsItem-content" data-bg="/theme/images/content/highlights-background.jpg">
+                                    <span class="ct-highlightsItem-content-firstTitle ct-u-size35">Hediye Paketi</span>
+                                    <br>
+                                    <span class="ct-highlightsItem-content-secondTitle ct-u-size28">Ücretsiz Hediye Paketi</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Son eklenen urunler -->
+        @{
+            Html.RenderAction("LastAddedItems", "Default");
+        }
+
+        <!-- THIRD SHOP ELEMENTS SLIDER - TOP RATED PRODUCTS -->
+        @{
+            Html.RenderAction("TopRatedItems", "Default");
+        }
+    </div>
+
+    @Html.Partial("../Partial/Bulletin")
+</div>

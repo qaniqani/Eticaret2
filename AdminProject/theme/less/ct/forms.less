@@ -1,0 +1,126 @@
+button{
+  .ct-m-transition(all, 0.2s, ease);
+}
+select, button, select:focus, input:hover, button:active, option, input, input:active, input:focus, textarea, textarea:active, textarea:focus{
+  outline: none !important;
+}
+
+.form-control:focus{
+  box-shadow: none;
+}
+
+.form-control{
+  box-shadow: none;
+  font-size: 16px;
+  height: 50px;
+}
+.control-label{
+  font-size: 16px;
+  font-weight: 400;
+  padding-top: 4px;
+}
+label{
+  margin-bottom: 10px;
+}
+.form-horizontal {
+  .control-label {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    padding-top: 14px;
+  }
+  label{
+    margin-bottom: 4px;
+  }
+}
+
+textarea{
+  resize: vertical;
+  &.form-control{
+    padding-top: 14px;
+  }
+}
+
+.radio, .checkbox {
+  margin: 0;
+}
+
+input[type=checkbox], input[type=radio]{
+  display: none;
+}
+
+.checkbox label:before{
+  width: 20px;
+  display: inline-block;
+  content: "\f096";
+  font-family: fontawesome;
+  font-size: 17px;
+  color: #696969;
+}
+
+.radio label:before{
+  width: 20px;
+  display: inline-block;
+  content: "\f10c";
+  font-family: fontawesome;
+  font-size: 15px;
+  color: #696969;
+  margin-right: 15px;
+}
+
+.radio input[type=radio]:checked + label:before {
+  content: "\f192";
+  font-size: 15px;
+}
+
+
+.checkbox input[type=checkbox]:checked + label:before {
+  content: "\f046";
+  font-size: 17px;
+}
+
+.radio label, .checkbox label{
+  padding-left: 0;
+}
+.form-horizontal .checkbox{
+  padding-top:0;
+}
+
+.ct-stickedInput{
+  width: 250px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.ct-u-searchForm{
+  position: relative;
+
+  &:after{
+    position: absolute;
+    font-family: fontawesome;
+    top: 50%;
+    margin-top: -12px;
+    right: 19px;
+    content: "\f002";
+    font-size: 18px;
+    color: #acacac;
+  }
+}
+
+
+
+@media(max-width: @screen-sm){
+  //ADd extra padding to elements where we have input forms next to each other, then on sm they switch below each other and there is no any space
+  //that is why we needa add it
+  .change-label{
+    padding-top:17px;
+  }
+
+  .form-horizontal{
+    label{
+      margin-bottom: 10px;
+    }
+  }
+}
+

@@ -1,0 +1,41 @@
+﻿@model AdminProject.Infrastructure.Models.Content
+
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.Description = Model.Description;
+    ViewBag.Keyword = Model.Keyword;
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = Model.Name;
+    ViewBag.Description = Model.Description;
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">@Model.Name</h4>
+                <div class="ct-blogBox ct-u-paddingTop30">
+                    @if (!string.IsNullOrEmpty(Model.Picture))
+                    {
+                        <div class="ct-blogBox-image ct-u-paddingBottom25">
+                            <img src="/Content/@Model.Picture" alt="@Model.Name" style="max-height:350px;">
+                        </div>
+                    }
+                    <div class="ct-blogDescription ct-u-size15 ct-u-paddingTop15">
+                        @Html.Raw(Model.Detail)
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

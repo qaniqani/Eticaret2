@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Slider>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Sliders
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <p class="lead well">Please note that other languages when the data update.</p>
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Subject
+                                </th>
+                                <th>
+                                    Slider Type
+                                </th>
+                                <th>
+                                    Create Date
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var slider in Model)
+                                {
+                                    <tr>
+                                        <td>@slider.Name</td>
+                                        <td>@(slider.IsVideoLink == AdminProject.Models.VideoTypes.IsNotVideo ? slider.PictureType.ToString() : slider.IsVideoLink.ToString())</td>
+                                        <td>@string.Format("{0:dd.MM.yyyy HH:mm:ss}", slider.CreateDate)</td>
+                                        <td>
+                                            <span class="@(slider.Status == AdminProject.Models.StatusTypes.Active ? "status-metro status-active" : "status-metro status-suspended")">
+                                                @(slider.Status == AdminProject.Models.StatusTypes.Active ? "Active" : "Deactive")
+                                            </span>
+                                        </td>
+                                        <td style="width:150px;">
+                                            <a href="/Slider/Edit/@slider.Id">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="/Slider/Delete/@slider.Id" onclick="return confirm('Are you sure you want to continue?')">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

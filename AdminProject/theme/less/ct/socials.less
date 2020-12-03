@@ -1,0 +1,137 @@
+ul.ct-socials{
+  margin: 0;
+  > li {
+    padding-left: 0;
+  }
+
+  > li > a{
+    display: block;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+}
+
+ul.ct-socials.ct-socials--small{
+  > li{
+    padding-right: 3px;
+
+    > a{
+      width: 21px;
+      height: 21px;
+      font-size: 15px;
+      line-height: 20px;
+
+    }
+  }
+}
+
+ul.ct-socials.ct-socials--medium{
+  > li{
+    padding-right: 3px;
+
+    > a{
+      width: 43px;
+      height: 43px;
+      font-size: 20px;
+
+      i{
+        line-height: 42px;
+      }
+    }
+  }
+}
+
+ul.ct-socials.ct-socials--large{
+  > li{
+    padding-right: 12px;
+
+    > a{
+      width: 55px;
+      height: 55px;
+      font-size: 40px;
+
+      i{
+        line-height: 55px;
+      }
+    }
+  }
+}
+
+ul.ct-socials.ct-socials--blackBorder{
+  > li > a{
+    &:hover{
+      border: 2px solid #000;
+    }
+  }
+}
+ul.ct-socials.ct-socials--whiteBorder{
+  > li > a{
+    &:hover{
+      border: 2px solid #fff;
+    }
+  }
+}
+
+ul.ct-socials.ct-socials--white{
+  > li > a{
+    color: @color-default;
+    background-color: @color-secondary;
+
+    &:hover{
+      color: @color-secondary;
+      background-color: @color-default;
+    }
+  }
+}
+
+ul.ct-socials.ct-socials--black{
+  > li > a{
+    color: @color-secondary;
+    background-color: @color-default;
+
+    &:hover{
+      color: @color-default;
+      background-color: @color-secondary;
+    }
+  }
+}
+
+@media (max-width: @screen-sm){
+  ul.ct-socials.ct-socials--large > li, ul.ct-socials.ct-socials--small > li,{
+    padding-bottom: 10px;
+  }
+  ul.ct-socials.ct-socials--large > li > a{
+    padding-left: 0;
+  }
+  ul.ct-socials.ct-socials--small > li > a{
+    padding-left: 0;
+    font-size: 32px;
+    width: 40px;
+    height: 40px;
+  }
+  ul.ct-socials.ct-socials--small > li > a > i{
+    line-height: 39px;
+  }
+  footer ul.ct-socials.ct-socials--large, footer ul.ct-socials.ct-socials--small{
+    text-align: center;
+  }
+  footer ul.ct-socials.ct-socials--large > li{
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  footer ul.ct-socials.ct-socials--small > li{
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+@media (max-width: @screen-xs){
+  ul.ct-socials{
+    text-align: center;
+  }
+}
+
+.fb-like{
+  width: 350px;
+}
+

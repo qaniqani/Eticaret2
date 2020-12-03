@@ -1,0 +1,174 @@
+﻿@model AdminProject.Infrastructure.Models.Slider
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    $(window).load(function() {
+        VideoTypeChange();
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Slider</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <form role="form" action="/Slider/Edit" method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(a => a.Id)
+                        <div class="form-group">
+                            <label for="VideoType">Slider Type</label>
+                            @Html.DropDownList("VideoType", ViewBag.VideoTypeList as SelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Subject</label>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Detail1">Detail</label>
+                            @Html.TextAreaFor(model => model.Detail1, new { @class = "form-update" })
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label for="Detail2">Detail 2</label>
+                            @Html.TextAreaFor(model => model.Detail2, new { @class = "form-update" })
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label for="Detail3">Detail 3</label>
+                            @Html.TextAreaFor(model => model.Detail3, new { @class = "form-update" })
+                        </div>
+
+                        <div id="VideoUrl" style="display: none;">
+                            <div class="form-group">
+                                <label for="VideoUrl">Video Url</label>
+                                @Html.TextBoxFor(model => model.VideoUrl, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div id="EmbedCode" style="display: none;">
+                            <div class="form-group">
+                                <label for="VideoEmbedCode">Embed Code</label>
+                                @Html.TextAreaFor(model => model.VideoEmbedCode, new { @class = "form-update" })
+                            </div>
+                        </div>
+
+                        <div id="PictureUpload" style="display: block;">
+                            <div class="form-group">
+                                <label for="PictureType">Picture Type</label>
+                                @Html.DropDownListFor(model => model.PictureType, ViewBag.PictureTypeList as SelectList, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture1">Picture 1</label>
+                                @Html.TextBoxFor(model => model.Picture1, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture1))
+                                {
+                                    <img src="/Content/@Model.Picture1" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture2">Picture 2</label>
+                                @Html.TextBoxFor(model => model.Picture2, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture2))
+                                {
+                                    <img src="/Content/@Model.Picture2" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture3">Picture 3</label>
+                                @Html.TextBoxFor(model => model.Picture3, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture3))
+                                {
+                                    <img src="/Content/@Model.Picture3" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture4">Picture 4</label>
+                                @Html.TextBoxFor(model => model.Picture4, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture4))
+                                {
+                                    <img src="/Content/@Model.Picture4" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture5">Picture 5</label>
+                                @Html.TextBoxFor(model => model.Picture5, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture5))
+                                {
+                                    <img src="/Content/@Model.Picture5" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture6">Picture 6</label>
+                                @Html.TextBoxFor(model => model.Picture6, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture6))
+                                {
+                                    <img src="/Content/@Model.Picture6" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture7">Picture 7</label>
+                                @Html.TextBoxFor(model => model.Picture7, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture7))
+                                {
+                                    <img src="/Content/@Model.Picture7" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture8">Picture 8</label>
+                                @Html.TextBoxFor(model => model.Picture8, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture8))
+                                {
+                                    <img src="/Content/@Model.Picture8" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture9">Picture 9</label>
+                                @Html.TextBoxFor(model => model.Picture9, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture9))
+                                {
+                                    <img src="/Content/@Model.Picture9" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Picture10">Picture 10</label>
+                                @Html.TextBoxFor(model => model.Picture10, new { @type = "file", @class = "form-control" })
+                                @if (!string.IsNullOrEmpty(Model.Picture10))
+                                {
+                                    <img src="/Content/@Model.Picture10" style="max-height: 150px; max-width:200px;" />
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SequenceNumber">Sequence Number</label>
+                            @Html.TextBoxFor(model => model.SequenceNumber, new { @class = "form-control", @Value = "99" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Status">Status</label>
+                            @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                        </div>
+                        <button class="btn btn-info" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

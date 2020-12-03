@@ -1,0 +1,189 @@
+﻿@model List<AdminProject.Infrastructure.Models.Address>
+@{
+    ViewBag.Title = "Teslimat Adresleri";
+    ViewBag.Description = "Üyeliğinize ait teslimat adreslerinizi buradan düzenleyebilirsiniz.";
+    ViewBag.Keyword = "üyelik, teslimat, adresler, kargo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ct-u-paddingBottom50">
+                @{
+                    Html.RenderPartial("UserMenu");
+                }
+            </div>
+
+            <div class="col-md-8 ct-u-paddingBottom50">
+                <div class="col-md-6">
+                    <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Teslimat Bilgileriniz</h4>
+                </div>
+                <div class="col-md-6 ct-u-borderBottom ct-u-paddingBottom20 ct-u-paddingTop10">
+                    <a href="javascript:;" class="btn btn-success btn-sms" id="deliveryNew">Yeni Adres Ekle</a>
+                </div>
+
+                <div class="col-md-12">
+                    <div id="deliveryNewPanel" style="display:none;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="addressNewSaveName" class="control-label">Kayıt Adı*</label>
+                                    <input type="text" id="addressNewSaveName" name="AddressNewSaveName" class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="nameNewSurname" class="control-label change-label">Ad Soyad*</label>
+                                    <input type="text" id="nameNewSurname" name="NewNameSurname" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="tcNewNr" class="control-label">T.C. Kimlik No*</label>
+                                    <input type="text" id="tcNewNr" name="NewTcNr" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="phoneNew" class="control-label">Telefon*</label>
+                                    <input type="text" id="phoneNew" name="NewPhone" class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="gsmNew" class="control-label">Gsm*</label>
+                                    <input type="text" id="gsmNew" name="NewGsm" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="cityNew" class="control-label">İl*</label>
+                                    <input type="text" id="cityNew" name="NewCity" class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="regionNew" class="control-label">İlçe*</label>
+                                    <input type="text" id="regionNew" name="NewRegion" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressNewDetail" class="control-label">Adres Detayı*</label>
+                            <textarea id="addressNewDetail" name="AddresNewDetail" class="form-control" rows="4" cols="50"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressNewNote" class="control-label">Adres Notu</label>
+                            <textarea id="addressNewNote" name="AddresNewNote" class="form-control" rows="4" cols="50"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="statusNew" class="control-label">Durumu*</label>
+                                    @Html.DropDownList("statusNew", ViewBag.Status as SelectList, new { @class = "form-control", id= "statusNew" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ct-u-paddingTop20">
+                            <a href="javascript:;" class="btn btn-default btn-default--submit" id="deliveryNewCancel">İptal</a>
+                            <a href="javascript:;" class="btn btn-default btn-default--submit" data-redirect="/user/address/delivery" id="deliveryNewSave">Kaydet <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Kayıt Adı</td>
+                            <td>İl/ İlçe</td>
+                            <td>Tarih</td>
+                            <td>#</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.AddressSaveName </td>
+                                <td>@item.City/ @item.Region</td>
+                                <td>@item.CreateDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sms accountDeliveryEdit" href="javascript:;" data-id="@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn btn-danger btn-sms accountDeliveryDelete" href="javascript:;" data-id="@item.Id"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div id="deliveryUpdatePanel" style="display:none;">
+                    <input type="hidden" id="id" />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="addressSaveName" class="control-label">Kayıt Adı*</label>
+                                <input type="text" id="addressSaveName" name="AddressSaveName" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="nameSurname" class="control-label change-label">Ad Soyad*</label>
+                                <input type="text" id="nameSurname" name="NameSurname" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="tcNr" class="control-label">T.C. Kimlik No*</label>
+                                <input type="text" id="tcNr" name="TcNr" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="phone" class="control-label">Telefon*</label>
+                                <input type="text" id="phone" name="Phone" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="gsm" class="control-label">Gsm*</label>
+                                <input type="text" id="gsm" name="Gsm" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="city" class="control-label">İl*</label>
+                                <input type="text" id="city" name="City" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="region" class="control-label">İlçe*</label>
+                                <input type="text" id="region" name="Region" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addresDetail" class="control-label">Adres Detayı*</label>
+                        <textarea id="addressDetail" name="AddresDetail" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="addresNote" class="control-label">Adres Notu</label>
+                        <textarea id="addressNote" name="AddresNote" class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="status" class="control-label">Durumu*</label>
+                                @Html.DropDownList("status", ViewBag.Status as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ct-u-paddingTop20">
+                        <a href="javascript:;" class="btn btn-default btn-default--submit" id="deliveryCancel">İptal</a>
+                        <a href="javascript:;" class="btn btn-default btn-default--submit" id="deliverySave">Kaydet <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

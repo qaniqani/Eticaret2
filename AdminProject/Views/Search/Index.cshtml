@@ -1,0 +1,160 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using AdminProject.Helpers
+@using AdminProject.Models
+@using AdminProject.Services.Models
+
+@{
+    ViewBag.Title = ViewBag.Key + " Sonuçları - Sayfa " + ViewBag.Page;
+    ViewBag.Description = ViewBag.Key + " hakkında daha fazla sonuç... - Sayfa " + ViewBag.Page;
+    ViewBag.Keyword = ViewBag.Key + ", " + ViewBag.Key + " ürünleri, " + ViewBag.Key + " hakkında, " + ViewBag.Key + " aramaları - Sayfa " + ViewBag.Page;
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = ViewBag.Key + " Sonuçları - Sayfa " + ViewBag.Page;
+    ViewBag.Description = ViewBag.Key + " hakkında daha fazla sonuç... - Sayfa " + ViewBag.Page;
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h1 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">
+            @ViewBag.Key ile İlgili Arama Sonuçları
+        </h1>
+        <form action="/search?key=@ViewBag.Key" method="get">
+            <input type="hidden" name="key" value="@ViewBag.Key" />
+            <div class="ct-sortingBar ct-u-paddingRight10 ct-u-paddingLeft10 ct-u-marginTop40 ct-u-marginBottom60">
+                <ul class="ct-sortBy list-inline list-unstyle pull-left ct-u-paddingBoth15">
+                    <li class="ct-showElements is-active" id="ct-js-showTiles">
+                        <a href="#">
+                            <i class="fa fa-th fa-fw"></i>
+                        </a>
+                    </li>
+                    <li class="ct-showElements" id="ct-js-showList">
+                        <a href="#">
+                            <i class="fa fa-th-list fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="ct-sortBy-text ct-u-paddingRight10">Sırala:</span>
+                        @Html.DropDownList("order", ViewBag.ProductOrder as SelectList, new { @class = "ct-select ct-select--default", onchange = "form.submit();" })
+                        <span id="test"></span>
+                    </li>
+                </ul>
+                <ul class="ct-showPages list-inline list-unstyled pull-right ct-u-paddingBoth15">
+                    <li>
+                        <span class="ct-u-paddingRight10">Sayfa Başı:</span>
+                        @Html.DropDownList("take", ViewBag.ProductTakeCount as SelectList, new { @class = "ct-select ct-select--small", onchange = "form.submit();" })
+                        <span class="ct-u-paddingLeft10">Gösterim</span>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <input type="hidden" name="page" value="@ViewBag.Page" />
+        </form>
+
+        <div class="ct-showProducts ct-showProducts--default">
+            @{
+                var products = ((StaticPagedList<ProductViewDto>)ViewBag.Product);
+                if (products.Any())
+                {
+                    <ul class="ct-productsList ct-productsList--noSidebar list-unstyled list-inline">
+                        @foreach (var item in products)
+                        {
+                            <li>
+                                <div class="ct-productShop ct-productShop--default ct-productShop--smaller">
+                                    <div class="ct-productShop-category">
+                                        @if (item.StockType == StockTypes.OutStock)
+                                        {
+                                            <div class="showDiscountAmount">
+                                                STOKTA YOK
+                                            </div>
+                                        }
+
+                                        @if (item.IsDiscountApplied)
+                                        {
+                                            <div class="showDiscountAmount">
+                                                %@item.DiscountOdd.ToString("0")
+                                                <span>
+                                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        }
+                                        <span class="ct-productShop-h5">@item.BrandName</span>
+                                        <div class="clearfix"></div>
+                                        <div class="text-center">
+                                            <img src="@item.MinPicture" data-zoom-image="@item.BigPicture" alt="@item.Name">
+                                        </div>
+                                    </div>
+                                    <div class="ct-productShop-content">
+                                        <div class="ct-productShop-content-description">
+                                            <div class="ct-productShop-content-description-h5 text-uppercase">@Utility.AllStockConvert[item.StockType]</div>
+                                            <a href="/product/@item.Url/detail">
+                                                <h3>@item.Name</h3>
+                                                @if (item.IsDiscountApplied)
+                                                {
+                                                    <span><del>@item.Price.ToString("n2") </del> @item.DiscountedPrice.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@item.Price.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                                }
+                                            </a>
+                                            <div class="ct-listElementDescription">
+                                                <div class="ct-u-paddingTop10 ct-u-paddingBottom15">
+                                                    <a class="ct-detailsLink" href="/product/@item.Url/detail"><i class="fa fa-long-arrow-right fa-fw"></i> Ürün Detayı</a>
+                                                </div>
+                                                <div>
+                                                    <input type="hidden" class="basketId" value="@item.Id" />
+                                                    <input type="hidden" class="basketName" value="@item.Name" />
+                                                    <input type="hidden" class="basketUnit" value="1" />
+                                                    <a class="btn btn-default addBasket" href="javascript:;" role="button"><i class="fa fa-shopping-cart"></i></a>
+                                                    <div class="ct-or text-uppercase ct-u-paddingBottom20">
+                                                        veya
+                                                    </div>
+                                                    <a class="btn btn-default ct-u-size18 text-uppercase addBasket" data-redirect="/basket" href="javascript:;" role="button">Kasaya Git <i class="fa fa-long-arrow-right ct-u-paddingLeft10"></i></a>
+                                                </div>
+                                            </div>
+                                            <span class="ct-productShop-shopCart">
+                                                <input type="hidden" class="basketId" value="@item.Id" />
+                                                <input type="hidden" class="basketName" value="@item.Name" />
+                                                <input type="hidden" class="basketUnit" value="1" />
+                                                <a class="btn btn-default addBasket" href="javascript:;" role="button"><i class="fa fa-shopping-cart fa-fw"></i></a>
+                                                <a class="btn btn-default btn-hidden" href="/product/@item.Url/detail" role="button"><i class="fa fa-arrow-right fa-fw"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <div class="ct-pagination ct-u-paddingBoth15">
+                        <div class="ct-totalItems pull-left">Toplam @products.TotalItemCount ürün bulundu.</div>
+                        <div class="ct-pages pull-right">
+                            @Html.PagedListPager(products, page => string.Format("{0}{1}page={2}", ViewBag.UrlAddress, (ViewBag.Asd != null ? "&" : "?"), page), new PagedListRenderOptions
+                       {
+                           UlElementClasses = new List<string> { "list-inline", "list-unstyled", "ct-numerPages", "pagination" },
+                           LinkToFirstPageFormat = "<<",
+                           LinkToPreviousPageFormat = "<",
+                           LinkToNextPageFormat = ">",
+                           LinkToLastPageFormat = ">>"
+                       })
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+                else
+                {
+                    <h2>Aradığınız kelimede sonuç bulunamadı.</h2>
+                }
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

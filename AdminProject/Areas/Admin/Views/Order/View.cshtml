@@ -1,0 +1,277 @@
+﻿@using AdminProject.Helpers
+@model AdminProject.Services.Models.OrderResult
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrap">
+    <div class="page-extra">
+        <!-- Main content -->
+        <section class="content invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12 invoice-header-detail">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> @Model.UserDetail.Name @Model.UserDetail.Surname
+                        <small class="pull-right">Date: @Model.OrderDetail.CreateDate.ToString("dd.MM.yyyy")</small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-3 invoice-col">
+                    User
+                    <address>
+                        <strong>@Model.UserDetail.Name @Model.UserDetail.Surname</strong>
+                        <br>@Model.AddressDetail.AddressDetail
+                        <br>@Model.AddressDetail.City/ @Model.AddressDetail.Region
+                        <br>Phone: @Model.AddressDetail.Phone
+                        <br>Gsm: @Model.AddressDetail.Gsm
+                        <br>Email: @Model.UserDetail.Email
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 invoice-col">
+                    Invoice
+                    <address>
+                        <strong>@Model.InvoiceDetail.NameSurname - @Utility.AllInvoiceConvert[Model.InvoiceDetail.InvoiceType] </strong>
+                        <br>@Model.InvoiceDetail.Address
+                        <br>@Model.InvoiceDetail.Country/ @Model.InvoiceDetail.City/ @Model.InvoiceDetail.Region
+                        <br>Phone: @Model.InvoiceDetail.Phone
+                        <br>Gsm: @Model.InvoiceDetail.Gsm
+                        <br>Tax: @Model.InvoiceDetail.TaxOffice/ Tax Nr: @Model.InvoiceDetail.TaxNr
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 invoice-col">
+                    <b>Order Nr #@Model.OrderDetail.OrderNr </b>
+                    <br />
+                    <br />
+                    <b>Order ID:</b> @Model.OrderDetail.Id
+                    <br />
+                    <b>Payment Due:</b> @Model.OrderDetail.CreateDate.ToString("dd.MM.yyyy")
+                    <br />
+                    <b>Account:</b> @Model.UserDetail.Id
+                </div>
+                <div class="col-sm-3 invoice-col">
+                    <b>Order Note: </b> @Model.OrderDetail.OrderNote
+                    <hr />
+                    <b>Cause Of Refund</b>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Stock</th>
+                                <th>P. Type</th>
+                                <th>Unit</th>
+                                <th>Name</th>
+                                <th>Detail</th>
+                                <th>Price</th>
+                                <th>Is Kdv?</th>
+                                <th>Kdv</th>
+                                <th>Kdv Amount</th>
+                                <th>Discount Odd</th>
+                                <th>Discount A.</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>#</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Products)
+                            {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>@item.StockType</td>
+                                    <td>@item.ProductType</td>
+                                    <td>@item.Unit</td>
+                                    <td>@item.ProductName</td>
+                                    <td>
+                                        @{
+                                            if (item.Detail.Any())
+                                            {
+                                                foreach (var detail in item.Detail)
+                                                {
+                                                    <b>@detail.Name -></b> @detail.Value <br />
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>@item.ProductPrice.ToString("n2") TL</td>
+                                    <td>@(item.IsKdv ? "Evet" : "Hayır")</td>
+                                    <td>@item.KdvOdd.ToString("0")</td>
+                                    <td>@((item.KdvAmount * item.Unit).ToString("n2") ) TL</td>
+                                    <td>@item.DiscountOdd.ToString("0")</td>
+                                    <td>@item.DiscountAmount.ToString("n2") TL</td>
+                                    <td>@item.TotalAmount.ToString("n2") TL</td>
+                                    <td class="row-status">@Utility.AllOrderConvert[item.OrderType]</td>
+                                    <td style="position:relative">
+                                        <div class="order-row-update-box">
+                                            <table class="table">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <select class="order-row-status form-control">
+                                                            @foreach (var selectItem in ViewBag.OrderTypeList as SelectList)
+                                                            {
+                                                                <option value="@selectItem.Value" @(item.OrderType.ToString() == selectItem.Value ? "selected" : "")>@selectItem.Text</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="order-row-causeRefund form-control" placeholder="Cause Of Refund" style="color:#333;" value="@item.CauseOfRefund" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-success commentDetail update-order-row" data-id="@item.BasketId" data-toggle="tooltip" data-placement="top" title="Update">
+                                                            <i class="icon icon-checkmark"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <a class="btn btn-warning commentDetail show-update-order-row" data-id="@item.BasketId" data-toggle="tooltip" data-placement="bottom" title="Order Status Change">
+                                            <i class="icon icon-clockwise"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="/Admin/Order/DeleteOrderProductRow">
+                                            <input name="id" type="hidden" value="@item.BasketId" />
+                                            <input name="orderId" type="hidden" value="@Model.OrderDetail.Id" />
+                                            <button type="submit" class="btn btn-danger commentDetail" onclick="return confirm('Are you sure you want to continue!!!')" data-toggle="tooltip" data-placement="top" title="WARNING DELETE!!!">
+                                                <i class="entypo-cancel-circled"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <hr />
+            <div class="row" style="margin-top:20px;">
+                <!-- accepted payments column -->
+                <div class="col-xs-4">
+                    <p class="lead">Order Statuses:</p>
+                    <div class="table-responsive">
+                        <form action="/Admin/Order/View/@Model.OrderDetail.Id" method="post">
+                            <table class="table">
+                                <tr>
+                                    <th style="width: 50%">Sipariş Durumu:</th>
+                                    <td>@Html.DropDownList("OrderType", ViewBag.OrderTypeList as SelectList, new { @class = "form-control" })</td>
+                                </tr>
+                                <tr>
+                                    <th>Ödeme Tipi:</th>
+                                    <td>@Html.DropDownList("PayType", ViewBag.PayTypeList as SelectList, new { @class = "form-control", disabled="disabled" })</td>
+                                </tr>
+                                <tr>
+                                    <th>İade Sebebi:</th>
+                                    <td>@Html.TextBoxFor(model => model.OrderDetail.CauseOfRefund, new { @class = "form-control" })</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td><button type="submit" class="btn btn-success">Save Changes</button></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4" style="background:#efefef;">
+                    <p class="lead">Applied Campaigns</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Campaign Names:</th>
+                                <td>@Model.CampaignSumCalculate.CampaingName</td>
+                            </tr>
+                            <tr>
+                                <th>Discount Items</th>
+                                <td>
+                                    <table class="table">
+                                        @foreach (var item in Model.CampaignSumCalculate.DiscountItems)
+                                        {
+                                            <tr>
+                                                <td style="border: 0; color:red;"><strong>@item.Name</strong></td>
+                                                <td style="border:0">@item.DiscountAmount.ToString("n2") TL</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Total Discount Odd:</th>
+                                <td>@Model.CampaignSumCalculate.DiscountOdd.ToString("n2")</td>
+                            </tr>
+                            <tr>
+                                <th>Total Discount:</th>
+                                <td>@Model.CampaignSumCalculate.DiscountTotalAmount.ToString("n2")</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <p class="lead">Bottom Total</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>@Model.TotalSum.SubTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Tax (@Model.TotalSum.KdvOdd%)</th>
+                                <td>@Model.TotalSum.KdvTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Cargo:</th>
+                                <td>@Model.TotalSum.CargoAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Discounted Total Amount:</th>
+                                <td>@Model.TotalSum.TotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Normal Total Amount:</th>
+                                <td>@Model.TotalSum.OrginalTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <p class="lead">Payment Methods:</p>
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                        <img src="/assets/img/credit/visa.png" alt="Visa" />
+                        <img src="/assets/img/credit/mastercard.png" alt="Mastercard" />
+                        <img src="/assets/img/credit/american-express.png" alt="American Express" />
+                        <img src="/assets/img/credit/paypal2.png" alt="Paypal" />
+                        Kullanılan ödeme yöntemi: <strong>@Utility.AllPayConvert[Model.OrderDetail.PayType]</strong>
+                    </p>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                    <a href="/Admin/Order/List" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Back</a>
+                    @*<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>*@
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

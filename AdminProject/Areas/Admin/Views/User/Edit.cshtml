@@ -1,0 +1,91 @@
+﻿@model AdminProject.Infrastructure.Models.User
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>User</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/User/Edit/@Model.Id" method="post">
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="form-group">
+                                <label for="TcNr">Tc Nr</label>
+                                @Html.TextBoxFor(model => model.TcNr, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: John", @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Surname">Surname</label>
+                                @Html.TextBoxFor(model => model.Surname, new { placeholder = "Sample: Doe", @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Country">Country</label>
+                                @Html.TextBoxFor(model => model.Country, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="City">City</label>
+                                @Html.TextBoxFor(model => model.City, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Region">Region</label>
+                                @Html.TextBoxFor(model => model.Region, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Address">Address</label>
+                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Gender">Gender</label>
+                                @Html.TextBoxFor(model => model.Gender, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Gsm">Gsm</label>
+                                @Html.TextBoxFor(model => model.Gsm, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Phone">Phone</label>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="ActivationCode">Activation Code</label>
+                                @Html.TextBoxFor(model => model.ActivationCode, new { @class = "form-control validate[required]" })
+                            </div>
+                            <div class="form-group">
+                                <label for="BannedMessage">Banned Message</label>
+                                @Html.TextAreaFor(model => model.BannedMessage, new { @class = "form-update" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.UserTypes as SelectList, new { @class = "form-control", style="width:200px;" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

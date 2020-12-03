@@ -1,0 +1,147 @@
+﻿@using AdminProject.Infrastructure.Models
+@model List<Invoice>
+@{
+    ViewBag.Title = "Fatura Adresi";
+    ViewBag.Description = "Üyeliğinize ait fatura adreslerinizi buradan düzenleyebilirsiniz.";
+    ViewBag.Keyword = "üyelik, fatura, adresler, kargo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Teslimat ve Fatura Adresi</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="col-md-12 ct-u-paddingBottom50">
+                    <div class="col-md-6">
+                        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop50">Fatura Adresleriniz</h4>
+                    </div>
+                    <div class="col-md-6 ct-u-borderBottom ct-u-paddingBottom20 ct-u-paddingTop50">
+                        <a href="javascript:;" class="btn btn-success btn-sms" id="invoiceNew">Yeni Fatura Adresi Ekle</a>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div id="invoiceNewPanel" style="display:none;">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="invoiceNewSaveName" class="control-label">Kayıt Adı*</label>
+                                        <input type="text" id="invoiceNewSaveName" name="InvoiceNewSaveName" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="nameNewSurname" class="control-label change-label">Ad Soyad*</label>
+                                        <input type="text" id="nameNewSurname" name="NameNewSurname" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="invoiceNewType" class="control-label change-label">Tipi*</label>
+                                        <select id="invoiceNewType" name="InvoiceNewType" class="form-control">
+                                            <option value="0">Bireysel</option>
+                                            <option value="1">Kurumsal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="phoneNew" class="control-label">Telefon*</label>
+                                        <input type="text" id="phoneNew" name="PhoneNew" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="gsmNew" class="control-label">Gsm*</label>
+                                        <input type="text" id="gsmNew" name="GsmNew" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="countryNew" class="control-label">Ülke*</label>
+                                        <input type="text" id="countryNew" name="CountryNew" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="cityNew" class="control-label">İl*</label>
+                                        <input type="text" id="cityNew" name="CityNew" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="regionNew" class="control-label">İlçe*</label>
+                                        <input type="text" id="regionNew" name="RegionNew" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="addressNew" class="control-label">Adres Detayı*</label>
+                                <textarea id="addressNew" name="AddresNew" class="form-control" rows="4" cols="50"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6" id="taxOfficeNewBox">
+                                        <label for="taxOfficeNew" class="control-label">Vergi Dairesi*</label>
+                                        <input type="text" id="taxOfficeNew" name="TaxOfficeNew" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="taxNrNew" class="control-label">Vergi/ T.C. Kimlik No*</label>
+                                        <input type="text" id="taxNrNew" name="TaxNrNew" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="statusNew" class="control-label">Durumu*</label>
+                                        @Html.DropDownList("statusNew", ViewBag.Status as SelectList, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ct-u-paddingTop20">
+                                <a href="javascript:;" class="btn btn-default btn-default--submit" id="invoiceNewCancel">İptal</a>
+                                <a href="javascript:;" class="btn btn-default btn-default--submit" data-redirect="/order/invoice-address?delivery=@ViewBag.DeliveryId" id="invoiceNewSave">Kaydet <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                            </div>
+                        </div>
+                        <form action="/order/invoice-address?delivery=@ViewBag.DeliveryId" method="post">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Fatura Seç</td>
+                                        <td>Fatura Tipi</td>
+                                        <td>Kayıt Adı</td>
+                                        <td>İsim</td>
+                                        <td>İl/ İlçe</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <input type="radio" id="invoice_@item.Id" class="invoiceSelected" name="invoiceId" value="@item.Id">
+                                                    <label for="invoice_@item.Id">
+                                                        <span class="ct-u-size15">Seç</span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>@(item.InvoiceType == AdminProject.Models.InoviceTypes.Personal ? "Bireysel" : "Kurumsal") </td>
+                                            <td>@item.InvoiceSaveName </td>
+                                            <td>@item.NameSurname </td>
+                                            <td>@item.City/ @item.Region</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="col-md-4 col-md-offset-8">
+                                <button type="submit" class="btn btn-success" id="btnInvoiceSubmit" name="btnInvoiceSubmit" style="display:none;">Ödemeye Git <i class="fa fa-long-arrow-right fa-fw ct-u-paddingLeft10"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("OrderSummary")
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

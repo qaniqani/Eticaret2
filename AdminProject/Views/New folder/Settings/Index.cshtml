@@ -1,0 +1,59 @@
+﻿@model AdminProject.Infrastructure.Models.Settings
+
+@{
+    ViewBag.Title = "Modified";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Settings</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Settings/Index" method="post">
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Keyword">Keyword</label>
+                                @Html.TextBoxFor(model => model.Keyword, new {@class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="MailAddress">Mail Address</label>
+                                @Html.TextBoxFor(model => model.MailAddress, new {@class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="MailPassword">Mail Password</label>
+                                @Html.TextBoxFor(model => model.MailPassword, new {@class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Smtp">SMTP</label>
+                                @Html.TextBoxFor(model => model.Smtp, new {@class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Port">Port</label>
+                                @Html.TextBoxFor(model => model.Port, new {@class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@model AdminProject.Infrastructure.Models.Gallery
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <form role="form" action="/Gallery/Add" method="post" enctype="multipart/form-data">
+                <div class="nest" id="basicClose">
+                    <div class="title-alt">
+                        <h6>Gallery</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#basic">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="body-nest" id="basic">
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: Office", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Definition">Definition</label>
+                            @Html.TextAreaFor(model => model.Definition, new { placeholder = "Sample: gallery info", @class = "form-update" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest" id="basicClose2">
+                    <div class="title-alt">
+                        <h6>Seo</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#seo">
+                                <span class="entypo-down-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="seo" style="display: none;">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Keyword">Keyword</label>
+                            @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Url">Url</label>
+                            @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Upload</h6>
+                    </div>
+                    <div class="body-nest">
+                        <div class="form-group">
+                            <input type="file" name="FileUpload" class="multi with-preview max-20 accept-gif|jpg|png|jpeg|bmp maxsize-10240" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Save</h6>
+                    </div>
+                    <div class="body-nest">
+                        <div class="form-group">
+                            <label for="SequenceNumber">Sequence Number</label>
+                            @Html.TextBoxFor(model => model.SequenceNumber, new { @class = "form-control", required = "required", @Value = "99" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Status">Status</label>
+                            @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                        </div>
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@using AdminProject.Helpers
+@model List<AdminProject.Services.Models.ProductDto>
+
+@{
+    Layout = null;
+}
+
+@Styles.Render("~/main-css")
+
+<style>
+    .table{width:100%; color:#777; font-size:10px;}
+    .table thead{line-height:30px; font-weight:bold; vertical-align:middle; text-align:center;}
+    .table tbody{border:1px solid #efefef;}
+    .table tbody tr:hover{background-color:#eee;}
+</style>
+
+<h4>Sipariş Detayı</h4>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Ürün Kodu</td>
+            <td>Ürün Adı</td>
+            <td>Adeti</td>
+            <td>Fiyatı</td>
+            <td>KDV Tutarı</td>
+            <td>Toplam Tutar</td>
+            <td>Sipariş Durumu</td>
+            <td>Detay</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Code</td>
+                <td>@item.ProductName</td>
+                <td>@item.Unit</td>
+                <td>@item.ProductPrice</td>
+                <td>@item.KdvAmount.ToString("n2")</td>
+                <td>@item.TotalAmount.ToString("n2")</td>
+                <td>@Utility.AllOrderConvert[item.OrderType]</td>
+                <td>
+                    @foreach (var size in item.Detail)
+                    {
+                        <span>@size.Name</span> <i class="fa fa-arrow-right" aria-hidden="true"></i> <span>@size.Value</span><br />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

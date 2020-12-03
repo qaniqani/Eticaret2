@@ -1,0 +1,85 @@
+﻿@model AdminProject.Models.UserLoginDto
+@{
+    ViewBag.Title = "Kullanıcı Girişi";
+    ViewBag.Description = "Payidar.com.tr üye girişi";
+    ViewBag.Keyword = "payidar giriş, üye girişi, üyelik, kullanıcı girişi";
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = "Kullanıcı Girişi | Payidar.com.tr";
+    ViewBag.Description = "Payidar.com.tr üye girişi";
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Zaten bir üye misiniz? <span class="ct-u-colorGrey">Giriş</span></h4>
+                <div class="ct-u-size16 ct-fw-700 ct-u-paddingBottom20 ct-u-paddingTop30">Çok Kolay...</div>
+                <form method="post" action="/user/login" class="form-horizontal ct-u-paddingBottom20">
+                    <div class="form-group">
+                        <label for="Email" class="col-sm-2 control-label">E-Mail: </label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(a => a.Email, new { @class="form-control", reqired="required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" class="col-sm-2 control-label">Şifre:</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(a => a.Password, new{@class = "form-control", reqired = "required", type="password"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="pull-left ct-rememberPassword">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="IsRememberMe" id="rememberPassword" value="true" />
+                                    <label for="rememberPassword">
+                                        <input type="hidden" name="IsRememberMe" value="false" />
+                                        <span class="ct-rememberPassword-text ct-u-size14 ct-u-colorGrey">Beni Hatırla</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="pull-right ct-forgotPassword">
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 col-xs-12">
+                            <button type="submit" class="btn btn-default btnLogin">
+                                Giriş <i class="fa fa-long-arrow-right fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 col-xs-12 ct-forgotPassword">
+                            <a href="/user/forgot-password" class="ct-forgotPassword-text">Şifrenizi mi Unuttunuz?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Bizi Takip Edin</h4>
+                <div class="ct-u-paddingBottom20 ct-u-paddingTop30">
+                    <ul class="ct-socials ct-socials--small ct-socials--black list-inline list-unstyled">
+                        <li><a href="//www.facebook.com/payidarcomtr"><i class="fa fa-facebook fa-fw"></i></a></li>
+                        <li><a href="//www.instagram.com/payidarcomtr"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        <li><a href="//www.twitter.com/payidarcomtr"><i class="fa fa-twitter fa-fw"></i></a></li>
+                    </ul>
+                </div>
+                <div class="tweets_display">
+                    <a href="/user/create" class="btn btn-default btnLogin">Üye Değil misiniz?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

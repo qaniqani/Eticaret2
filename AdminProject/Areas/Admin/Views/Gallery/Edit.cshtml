@@ -1,0 +1,196 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Infrastructure.Models
+@using AdminProject.Models
+@model Gallery
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<script src="/assets/js/multi.file.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //set category name
+        var categoryId = $("#CategoryId").val();
+        if (categoryId != "0") {
+            var selectedText = $("#sortable li .cat" + categoryId).text();
+            $("#CategoryName").text(selectedText);
+        }
+
+        //select category
+        $("#sortable li div").click(function () {
+            var text = $(this).text();
+            var id = $(this).attr("data-id");
+
+            $("#CategoryName").text(text);
+            $("#CategoryId").val(id);
+        });
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-6">
+            <form role="form" action="/Admin/Gallery/Edit" method="post" enctype="multipart/form-data">
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CategoryId)
+
+                <div class="nest" id="basicClose">
+                    <div class="title-alt">
+                        <h6>Gallery</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#basic">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="body-nest" id="basic">
+                        <div class="form-group">
+                            <label for="CategoryId">Selected Category</label>
+                            @Html.HiddenFor(model => model.CategoryId)
+                            <i style="display:block" id="CategoryName">Not selected category</i>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Name, new { placeholder = "Sample: Office", @class = "form-control validate[required,minSize[3]", maxlength = "200" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Definition">Definition</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextAreaFor(model => model.Definition, new { placeholder = "Sample: gallery info", @class = "form-update" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest" id="basicClose2">
+                    <div class="title-alt">
+                        <h6>Seo</h6>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#seo">
+                                <span class="entypo-down-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="seo" style="display: none;">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Keyword">Keyword</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Url">Url</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Menus</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#menus">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="menus">
+                    @Html.Raw(Utility.RenderMenu(ViewBag.Menu as IEnumerable<MenuItem>).Insert(3, " id=\"sortable\""))
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>Upload</h6>
+                </div>
+                <div class="body-nest full-width pull-left">
+                    <div class="form-group">
+                        <input type="file" name="FileUpload" class="multi with-preview max-20 accept-gif|jpg|png|jpeg|bmp maxsize-10240" />
+                    </div>
+                    <div class="form-group MultiFile-list">
+                        @{
+                            var galleryDetail = ViewBag.GalleryDetail as List<GalleryDetail>;
+                            if (galleryDetail != null && galleryDetail.Any())
+                            {
+                                foreach (var item in galleryDetail)
+                                {
+                                    <div id="image-@item.Id" class="col-md-3">
+                                        <div class="MultiFile-label full-width pull-left">
+                                            <a href="javascript:;" class="MultiFile-remove" data-id="@item.Id" style="top:0; left:0;">X</a>
+                                            <span class="MultiFileImg">
+                                                <img src="/Content/Gallery/@item.PictureUrl" style="max-height: 100px; max-width: 150px;" />
+                                            </span>
+                                            <span>
+                                                <input type="hidden" id="EditPictureId" name="EditPictureId" value="@item.Id" />
+                                                <input type="text" id="EditFileName" name="EditFileName" class="form-control" value="@item.Name" placeholder="Picture Name" />
+                                            </span>
+                                            <span>
+                                                <textarea id="EditFileDescription" name="EditFileDescription" placeholder="Edit Description" class="form-update">@item.Description</textarea>
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>Save</h6>
+                </div>
+                <div class="body-nest">
+                    <div class="form-group" style="display: none;">
+                        <label for="SequenceNumber">Sequence Number</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                            @Html.TextBoxFor(model => model.SequenceNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Status">Status</label>
+                        @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                    </div>
+                    <button class="btn btn-success" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

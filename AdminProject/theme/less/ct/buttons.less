@@ -1,0 +1,327 @@
+button, button:hover, button:focus, button:active{
+  outline: none !important;
+}
+
+.btn{
+  text-transform: uppercase;
+  padding:0 25px;
+  border-width: 2px;
+  line-height: 49px;
+  font-size:18px;
+
+  &:focus, &:active{
+    .ct-m-boxShadow(none);
+    outline: none;
+  }
+  i{
+    margin: 0 5px;
+  }
+}
+
+.btn-sm{
+  padding: 0px 15px;
+  line-height: 34px;
+}
+
+.btn-md{
+  padding: 0px 22px;
+  line-height: 43px;
+  font-size: 16px;
+}
+
+.btn-default{
+  background-color: #000;
+  border-color: #000;
+  color: #fff !important;
+
+  &:hover, &:active, &:focus{
+    border-color: #000 !important;
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+}
+
+.btn-white{
+  background-color: #fff;
+  border-color: #000;
+
+  &:hover, &:active, &:focus{
+    border-color: #000 !important;
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.btn-blackTransparent{
+   border: 1px solid #000;
+   background-color: #000;
+   color: #fff;
+
+   &:hover{
+     border: 1px solid #000;
+     background: transparent;
+     color: #000 !important;
+   }
+ }
+
+.btn-blackTransparent--white{
+  &:hover{
+    border: 1px solid #fff;
+    color: #fff !important;
+  }
+}
+
+.btn-transparentWhite{
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+
+  &:hover{
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000 !important;
+  }
+}
+
+.ct-btn-shadowBar{
+  height:64px;
+  width: 100%;
+  display: block;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.3);
+  padding:22px 0;
+  font-size:16px;
+  color:@color-secondary;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &:hover{
+    background-color: rgb(41, 41, 41);
+    background-color: rgba(0,0,0, 1);
+    color:white !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.btn{
+  background-color: @color-default;
+  padding:0;
+  border: 2px solid transparent;
+}
+
+.btn-default{
+  color: @color-secondary;
+  height: 56px;
+  line-height: 56px;
+  padding:0 25px;
+  &:hover{
+    border: 2px solid @color-default !important;
+    background-color: @color-secondary !important;
+    color: @color-default !important;
+  }
+}
+
+.btn-default--submit{
+  padding: 0 35px;
+}
+
+.btn-default--thin{
+  height: 42px;
+  line-height: 42px;
+
+  i{
+    padding-left: 10px;
+  }
+}
+
+.btn-default--thinIconLeft{
+  height: 42px;
+  line-height: 42px;
+
+  i{
+    padding-right: 10px;
+  }
+}
+
+.btn-default--arrow{
+  height: 38px;
+  width: 50px;
+  line-height: 38px;
+  padding:0;
+
+}
+
+.btn-default--buttonX{
+  padding:0;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+}
+
+.btn-default--social{
+  padding:0;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  font-size: 19px;
+  border: 2px solid transparent !important;
+
+  &:hover{
+    border: 2px solid @color-default !important;
+  }
+}
+
+.btn-default--sticked{
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+}
+.btn-default--stickedWhite{
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  background-color: #fff;
+  color: #000;
+
+  &:hover{
+    border-color: transparent !important;
+  }
+}
+.btn-default--stickedNoPadding{
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  padding:0;
+}
+.btn-default--height50{
+  height: 50px;
+  line-height: 50px;
+}
+
+.btn-icon{
+  color: @color-secondary;
+  height: 56px;
+  line-height: 56px;
+  width:58px;
+  font-size: 27px;
+}
+
+.btn-icon--slider{
+  .ct-m-opacity(0.8);
+  &:hover{
+    color: @color-secondary !important;
+    .ct-m-opacity(1);
+  }
+}
+.btn-icon--bordered{
+  &:hover{
+    background-color: @color-secondary !important;
+    border: 2px solid @color-default !important;;
+    color: @color-default !important;
+  }
+}
+
+.btn-slider{
+  line-height: 58px;
+  height:58px;
+  padding:0 20px;
+  font-size: 22px;
+  &:hover{
+    background: @color-secondary;
+    color: @color-default !important;
+  }
+}
+
+.btn-slider--transparent{
+  border: 1px solid #000;
+
+  &:hover{
+    border: 1px solid #000;
+    background: transparent;
+  }
+}
+
+.btn-slider--transparentWhite{
+  border: 1px solid #000;
+
+  &:hover{
+    color:#fff !important;
+    border: 1px solid #fff;
+    background: transparent;
+  }
+}
+
+.btn-slider--transparentToWhite{
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: transparent !important;
+
+  &:hover{
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+}
+
+
+.ct-btn-shadowBar{
+  height:64px;
+  width: 100%;
+  display: block;
+  font-size: 30px;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.3);
+  padding:22px 0;
+  font-size:16px;
+  color:@color-secondary;
+  &:hover{
+    background-color: rgb(41, 41, 41);
+    background-color: rgba(0,0,0, 1);
+    color:white !important;
+  }
+}
+
+.btn-white{
+  color:@color-secondary;
+  background-color: lighten(@motive-color, 15%);
+  display: inline-block;
+  padding:15px 13px;
+  min-width: 55px;
+  &:hover{
+    color:@motive-color;
+    background-color: @color-secondary;
+    .ct-m-boxShadow(inset 0 3px 5px rgba(0, 0, 0, 0.125));
+  }
+}
+
+
+
+
+@media(max-width: @screen-sm){
+  form{
+    .btn-default--submit{
+      width:100%;
+    }
+  }
+}
+
+
+*/

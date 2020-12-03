@@ -1,0 +1,21 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Models
+@model IEnumerable<MenuItem>
+<nav class="navbar yamm">
+    <div class="container">
+        @Html.Raw(Utility.RenderUlMainMenu(Model).Insert(3, " class=\"nav navbar-nav ct-navbar--fadeIn main-navigation\""))
+        <div id="ct-js-navSearch" class="ct-navbar-navSearch navbar-search pull-right">
+            <i class="fa fa-fw fa-search"></i>
+        </div>
+        <div class="ct-navbar-search">
+            <form action="/search" method="get" role="form">
+                <div class="form-group">
+                    <input type="text" name="key" class="form-control" placeholder="Aradığınız kelimeyi yazın..." required>
+                </div>
+                <button class="ct-navbar-search-button" type="submit">
+                    <i class="fa fa-search fa-fw"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>

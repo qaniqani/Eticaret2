@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AdminProject.Infrastructure.Models.Slider>
+
+<div class="ct-js-owl owl-carousel ct-mainCarousel ct-mainCarousel--arrowsMiddle" data-snap-ignore="true" data-pagination="false" data-items="1" data-autoPlay="false" data-bg="true" data-animations="true" data-height="300" data-navigation="true">
+    @foreach (var item in Model)
+    {
+        <a href="@item.Detail2" style="display: block; width:100%; height:100%;">
+            <div class="item" data-bg="/Content/@item.Picture1">
+                <div class="inner">
+                    @*<div class="container">
+                        <div class="row">
+                            <div class="col-md-11">
+                                @Html.Raw(item.Detail1)
+                                @*<div class="ct-mobileCenter ct-u-paddingTop40">
+                                        <a class="btn btn-blackTransparent animated" data-fx="bounceInUp" href="@item.Detail2" role="button">@item.Name <i class="fa fa-angle-double-right"></i></a>
+                                    </div
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </a>
+    }
+</div>

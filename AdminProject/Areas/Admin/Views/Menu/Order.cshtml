@@ -1,0 +1,38 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Models
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Menu Order</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#menus">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="menus">
+                    <div class="alert alert-info alert-dismissable savechange" style="display:none;">
+                        <i class="fa fa-coffee"></i>
+                        Changes have been successfully applied.
+                    </div>
+                    <form role="form" action="/Admin/Menu/OrderMenu" method="post">
+                        <div class="table-order">
+                            @Html.Raw(Utility.RenderMenu(ViewBag.Menu as IEnumerable<MenuItem>).Insert(3, " class=\"sortable\""))
+                        </div>
+                    </form>
+                    <div class="form-group" style="margin-top:20px;">
+                        <a href="javascript:;" id="saveOrderMenu" class="btn btn-success">Save Changes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

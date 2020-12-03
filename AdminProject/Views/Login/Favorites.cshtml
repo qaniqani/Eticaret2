@@ -1,0 +1,53 @@
+﻿@model List<AdminProject.Infrastructure.Models.Favorite>
+
+@{
+    ViewBag.Title = "Favori Ürünler";
+    ViewBag.Description = "Favori ürünlerinizi görebilir, silebilir, listeyebilirsiniz.";
+    ViewBag.Keyword = "favori ürünler, favorileriniz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ct-u-paddingBottom10">
+                @{
+                    Html.RenderPartial("UserMenu");
+                }
+            </div>
+
+            <div class="col-md-9 ct-u-paddingBottom10">
+                <div class="col-md-12">
+                    <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Favorileriniz</h4>
+                </div>
+
+                <div class="col-md-12 ct-u-paddingTop30 ct-u-paddingBottom30">
+                    <table class="table filterTable">
+                        <thead>
+                            <tr>
+                                <td>Ürün Adı</td>
+                                <td>Git</td>
+                                <td>#</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td><a href="/product/@item.ProductUrl/detail" target="_blank">Git</a></td>
+                                    <td>
+                                        <a href="/user/favorite/@item.Id/delete" style="color:#333;" onclick="return confirm('Ürünü favorilerinizden çıkarmak istediğinize emin misiniz?');">Favorilerden Çıkar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

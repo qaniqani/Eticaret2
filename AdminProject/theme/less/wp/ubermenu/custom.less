@@ -1,0 +1,327 @@
+@import "../../variables.less";
+@import "../../ct/mixins.less";
+
+.ubermenu{
+  position:static;
+  .ubermenu-nav{
+    > .ubermenu-item{
+      > .ubermenu-target{
+        color:@menu-text-color;
+        position: relative;
+        font-size: 14px;
+        padding: 29px 35px 26px;
+        text-transform: uppercase;
+
+        &:not(:last-child){
+          &:before{
+            content: "|";
+            position: absolute;
+            display: block;
+            top: 29px;
+            right: -12px;
+            font-size: 10px;
+          }
+        }
+
+        &:after{
+          content: "\f103";
+        }
+
+        &:visited, &:active{
+         // background-color: @menu-background-color;
+        }
+        &:hover{
+          color: @color-hover-link;
+          //background-color: @menu-background-color;
+        }
+      }
+      &:first-child{
+        > .ubermenu-target{
+          padding-left: 0;
+        }
+      }
+
+      &.active{
+        > .ubermenu-target{
+          color: @color-hover-link;
+        }
+      }
+    }
+    .ubermenu-item .ubermenu-target{
+      span{
+      }
+    }
+    @media (max-width:991px){
+      >.ubermenu-item >{
+        margin:0;
+      }
+    }
+  }
+  a{
+    color: inherit;
+    &:hover, &:focus, &:active{
+      color: @brand-primary;
+    }
+  }
+  a, .ubermenu-accessible input:not(:hover):focus, .ubermenu-accessible:not(:hover) .ubermenu-target:focus{
+    box-shadow: none !important;
+    outline: none !important;
+  }
+  .ubermenu-divider{
+    padding: 0 !important;
+    width: 100%;
+  }
+  .ubermenu-custom-content-padded{
+    padding: 10px 20px;
+  }
+
+  // Dropdown Menu
+  .ubermenu-submenu{
+    background-color: #fff;
+    padding: 0 10px;
+    a{
+      color: @menu-text-color;
+      span, i{
+        color: inherit;
+      }
+    }
+
+    .ubermenu-target:after{
+      display: none;
+    }
+    .ubermenu-target:before{
+      //content: "\f0da";
+      font-family: fontawesome;
+      position: absolute;
+      margin-left: -15px;
+      //.ct-m-transition(all, 0.2s, ease);
+     // .ct-m-opacity(0);
+    }
+    .ubermenu-target:hover:before{
+//      .ct-m-opacity(1);
+    }
+    .ubermenu-item{
+      &.ubermenu-active{
+        > .ubermenu-submenu-type-flyout{
+          top: 3px;
+        }
+      }
+    }
+    .ubermenu-item-header{
+      .ubermenu-target{
+        color: @menu-text-color;
+        &:before{
+          display: none;
+        }
+      }
+    }
+  }
+
+  // Flyout Menu
+  .ubermenu-submenu .ubermenu-submenu-type-flyout{
+    clip: auto;
+  }
+  .ubermenu-submenu-type-flyout {
+    padding: 10px 27px;
+    .ubermenu-item{
+      text-align: left;
+
+      &:not(:first-child){
+        border-top:1px solid #f4f4f4;
+      }
+    }
+    a{
+      text-transform: uppercase;
+      padding: 14px 0;
+      background-color: @menu-background-color;
+      color: @menu-text-color;
+
+      &:hover{
+        color:@color-hover-link;
+      }
+    }
+    .ubermenu-submenu{
+      top: 6px;
+      margin-left: 28px;
+      &:before{
+        content: "";
+        width: 20px;
+        position: absolute;
+        left: -15px;
+        height: 47px;
+        top: 0;
+      }
+      &:after{
+        content: "";
+        display: none;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5.5px 7px 5.5px 0;
+        border-color: transparent blue transparent transparent;
+        position: absolute;
+        left: -7px;
+        top: 14px;
+      }
+    }
+
+    .ubermenu-has-submenu-drop>.ubermenu-target{
+      &:before{
+        right:0;
+        content: "\f103";
+      }
+    }
+  }
+  .ubermenu-submenu-type-stack{
+    >.ubermenu-item-normal{
+      >.ubermenu-target{
+        padding: 10px 15px;
+      }
+    }
+  }
+  .ubermenu-item-type-column>.ubermenu-submenu-type-stack{
+    >.ubermenu-item-normal{
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+
+
+.ubermenu .ubermenu-active>.ubermenu-submenu.ubermenu-submenu-type-mega{
+  .ct-m-boxShadow(@shadow-box);
+  margin-top: 2px;
+  padding: 35px 27px 40px 27px;
+
+  > .ubermenu-item {
+
+    > .ubermenu-target {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    > .ubermenu-submenu{
+      > .ubermenu-item{
+        > .ubermenu-target{
+          &:before{
+            content: "\f105";
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.ubermenu-nojs.ubermenu-transition-shift .ubermenu-item:hover>.ubermenu-submenu-drop, .ubermenu-transition-shift .ubermenu-item.ubermenu-active>.ubermenu-submenu-drop{
+  .ct-m-boxShadow(@shadow-box);
+  margin-top: 2px;
+}
+
+
+.ubermenu-sub-indicators .ubermenu-has-submenu-drop>.ubermenu-target:after{
+////  content: "\f0d7";
+//  font-family: fontawesome;
+//  text-align: center;
+//  position: absolute;
+//  top: 70px;
+//  font-size: 10px;
+//  left: 0;
+//  width: 100%;
+}
+
+.ct-menuMobile{
+  .ubermenu .ubermenu-nav{
+    width:100%;
+  }
+  .ubermenu .ubermenu-nav>.ubermenu-item>{
+    display:block;
+    float:none;
+    .ubermenu-target{
+      line-height: 40px;
+      span{
+        font-weight: normal;
+        text-transform: none;
+      }
+    }
+    .ubermenu-submenu{
+      li{
+        width:100%;
+      }
+    }
+  }
+  .ubermenu-responsive.ubermenu-responsive-collapse{
+    max-height: none !important;
+    visibility: visible !important;
+    overflow: visible !important;
+  }
+
+  .ubermenu-responsive-toggle{
+    color: #000;
+    font-size: 17px;
+  }
+}
+
+@media(max-width: @screen-md) {
+  .ubermenu {
+    .ubermenu-nav {
+      > .ubermenu-item {
+        > .ubermenu-target {
+          padding: 29px 29px 26px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .ubermenu {
+    .ubermenu-nav {
+      > .ubermenu-item {
+        > .ubermenu-target {
+          font-size: 18px;
+          text-align: center;
+          padding: 29px 35px 26px;
+          padding-left: 0;
+          letter-spacing: 4px;
+
+          &:not(:last-child) {
+            &:before {
+              display: none;
+            }
+          }
+
+          &:after{
+            right: 40px;
+          }
+
+        }
+      }
+    }
+    .ubermenu-item-level-0>.ubermenu-submenu-drop{
+      clip: auto;
+    }
+  }
+
+  .ct-navbar-search {
+    bottom:0;
+  }
+  .ubermenu-responsive-default.ubermenu-responsive.ubermenu-responsive-collapse{
+    max-height: 0;
+    overflow: hidden!important;
+    visibility: visible;
+    display: none;
+  }
+  .navbar .ubermenu-responsive-toggle{
+    color: #000;
+    font-size: 19px;
+    padding: 0;
+    float: left;
+    display: inline-block;
+    line-height: 74px;
+  }
+}

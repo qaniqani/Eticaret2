@@ -1,0 +1,472 @@
+//Importing important fonts
+@import url(//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
+@import "../css/jquery.nouislider.css";
+
+//Importing main staff
+@import "variables.less";
+@import "yamm.less";
+@import "animate.less";
+@import "flexslider.less";
+
+//Sliders
+@import "../plugins/owl/owl.carousel.css";
+@import "../plugins/owl/owl.theme.css";
+@import "../plugins/owl/owl.transitions.css";
+
+//Importing own components
+@import "ct/mixins.less";
+@import "ct/utilities.less";
+@import "ct/buttons.less";
+@import "ct/socials.less";
+@import "ct/topBar.less";
+@import "ct/header.less";
+@import "ct/menu.less";
+@import "ct/sliders.less";
+@import "ct/content.less";
+@import "ct/prefooter.less";
+@import "ct/footer.less";
+@import "ct/sidebar.less";
+@import "ct/forms.less";
+@import "ct/portfolio.less";
+@import "magnific-popup.less";
+@import "ct/mediasections.less";
+@import "ct/multiplesearch.less";
+@import "spinner.less";
+@import "ct/paypal.less";
+
+//Main css for page styles ----------------------------------------
+
+body{
+  overflow-x: hidden;
+  font-family: "Droid Serif", Arial;
+  font-weight: 400;
+  color: @color-default;
+  background-image:url(../images/background.jpg);
+  font-size:14px;
+  height: 100%;
+  max-width: 100%;
+}
+
+body.black{
+  background: #000;
+}
+
+.ct-preloader{
+  position:fixed;
+  z-index:99998;
+  width:100vw;
+  height:100vh;
+  background: #fff;
+  overflow:hidden;
+
+  .ct-preloader-content{
+    position:absolute;
+    z-index:99999;
+    top:50%;
+    margin-top:-22px;
+    left:50%;
+    margin-left:-22px;
+    height: 44px; width: 44px;
+    background: url("../images/rings.svg");
+  }
+}
+
+a, a:link, a:visited{
+  .ct-m-transition(all, 0.2s, ease);
+  color:@color-secondary;
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+
+  &:hover, &:active{
+    color:@color-hover-link;
+    text-decoration: none;
+  }
+  &:visited{
+    text-decoration: none;
+  }
+}
+p{
+  line-height: 30px;
+  font-weight: 400;
+  margin: 0;
+}
+img{
+  max-width: 100%;
+}
+
+hr{
+  border-top: 1px solid #f6f6f6;
+  margin:0 auto;
+  width:100%;
+}
+
+.hr-gray  {
+  border-top-color: #eeeeee;
+}
+
+.hr-slider{
+  height:1px;
+  border-top:1px solid #bfcad7;
+  background-color: #eff3f8;
+  text-align: left;
+  width:500px;
+}
+
+// Font awesome, another size---------------------
+.fa-6x {
+  font-size: 6em;
+}
+// WHOLE MAIN CONTENT WRAPPER --------------------
+.ct-contentWrapper{
+  max-width: 1220px;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: rgba(0,0,0,0.02) solid 6px;
+  z-index: 500;
+  position: relative;
+}
+
+.ct-contentWrapper--black{
+  background-color: #000;
+}
+
+.ct-contentWrapper--transparent{
+  background-color: transparent;
+  outline: none;
+}
+// ZOOM INDEX FOR ZOOM CONTAINERS HOVERED
+.zoomContainer{
+  z-index: 9990;
+}
+
+// Wrapper and Snap.js // ----------------------------
+.ct-pageWrapper{
+  overflow: hidden;
+}
+
+@media(max-width: @screen-xs-max){
+  .ct-pageWrapper{
+    overflow: hidden;
+    position: relative;
+  }
+}
+// Main headers ----------------------------------------
+.ct-headerBox{
+  font-size:24px;
+  color: #000;
+  margin:0;
+}
+
+@media(max-width: @screen-sm){
+  .ct-widgetHeader{
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+
+
+@media(max-width: @screen-xs){
+  .ct-headerBox{
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+// Highlights informations on main page -----------------
+.ct-highlightsItem{
+  .ct-m-transition(all, 0.3s, ease);
+  display: table;
+  color: @color-secondary;
+  max-width: 350px;
+  width: 100%;
+  height:193px;
+  margin: 0 auto;
+
+  .ct-highlightsItem-content{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    //background: url(../images/demo-content/highlights-background.jpg) center;
+  }
+}
+
+.ct-googleMap img{
+  max-width: none;
+}
+
+// We need this class to avoid of overwriting class .animated which was in headroom script as well
+.animatedHeadroom {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.cssAnimate .animated{
+  opacity: 0;
+  filter:alpha(opacity=0);
+}
+.cssAnimate .activate{
+  opacity: 1;
+  filter:alpha(opacity=100);
+}
+
+// STACKABLE CSS for product tables
+
+.stacktable { width: 100%; }
+.st-head-row { padding-top: 1em; text-align: center }
+.st-head-row.st-head-row-main { font-size: 1.5em; padding-top: 0; }
+.st-key { width: 30%; text-align: right; padding-right: 1%; }
+.st-val { width: 69%; padding-left: 1%; }
+
+.stacktable.large-only { display: table; }
+.stacktable.small-only { display: none; }
+
+@media(max-width: @screen-sm){
+  .stacktable.large-only { display: none; }
+  .stacktable.small-only { display: table; }
+}
+
+// Spinner in wishlist, shop cart, checkout
+
+.ui-spinner{
+  border-radius: 0;
+  border: 1px solid #e8e8e8;
+}
+
+.ui-spinner-input{
+  width: 80px;
+  height: 45px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default{
+  border: none;
+  background: none;
+}
+
+.ui-spinner .ui-icon-triangle-1-s {
+  background-position: -65px -21px;
+}
+
+.ui-icon-triangle-1-n {
+  background-position: 0px -10px;
+}
+
+.ui-state-default .ui-icon {
+  background-image: url("http://code.jquery.com/ui/1.11.2/themes/smoothness/images/ui-icons_222222_256x240.png");
+}
+
+// CHANGE FOR OWL WITH DIFFERENT CLASSES FOR DIFFERENT OWL SLIDERS
+.ct-mainCarousel{
+  .btn{
+    font-size: 22px;
+    text-transform: capitalize;
+    line-height: 54px;
+    height: 56px;
+  }
+}
+
+.widget{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/*
+ * A colorselector for Twitter Bootstrap which lets you select a color from a predefined set of colors only.
+ * https://github.com/flaute/bootstrap-colorselector
+ *
+ * Copyright (C) 2014 Flaute
+ * Modifed By Nuno Maduro
+ *
+ * Licensed under the MIT license
+ */
+
+.dropdown-colorselector>.dropdown-menu {
+  width: 100%;
+  font-size: 14px;
+  list-style: none;
+  background-color: transparent;
+  -webkit-background-clip: none;
+  background-clip: none;
+  border: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: block;
+}
+
+.dropdown-colorselector>.dropdown-menu>li {
+  display: inline-block;
+  border: 1px solid #d8d8d8;
+  padding: 2px;
+  margin-right: 6px;
+}
+
+.dropdown-colorselector>.dropdown-menu>li>.color-btn {
+  display: block;
+  width: 34px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  position: relative;
+  -webkit-transition: all ease 0.1s;
+  transition: all ease 0.1s;
+}
+
+.dropdown-colorselector>.dropdown-menu>li>.color-btn:hover {
+  text-decoration: none;
+  opacity: 0.8;
+  -webkit-transform: scale(1.08);
+  -ms-transform: scale(1.08);
+  transform: scale(1.08);
+}
+
+.dropdown-colorselector>.dropdown-menu>li>.color-btn.selected:after {
+  content: "\f00c";
+  font-family: fontawesome;
+  display: inline-block;
+  font-size: 16px;
+  color: #FFF;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 29px;
+}
+
+.btn-colorselector {
+  display: none;
+  width: 34px;
+  height: 30px;
+  background-color: red;
+  vertical-align: middle;
+  border-radius: 0;
+}
+
+.dropdown-colorselector > .dropdown-menu{
+  position: static !important;
+  margin-bottom: 10px;
+}
+
+.ct-productQuantity .select2-container .select2-selection--single{
+  height:32px;
+  font-size: 15px;
+}
+
+.ct-productQuantity .select2-container--default .select2-selection--single .select2-selection__arrow{
+  height: 28px;
+  right:1px;
+}
+.ct-productQuantity .select2-container .select2-selection--single .select2-selection__rendered{
+  padding-left: 12px;
+}
+
+.ct-productQuantity .select2-container--default .select2-selection--single .select2-selection__rendered{
+  line-height: 30px;
+}
+
+.ct-section{
+  display: table;
+  width: 100%;
+
+  .ct-mediaSection-inner{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+
+    h1{
+      font-size:50px;
+      line-height: 52px;
+    }
+  }
+}
+
+.successMessage{
+  display: none;
+  font-size: 17px;
+  background: rgba(154, 229, 154, 0.93);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ct-dividedSection .successMessage{
+  display: none;
+  margin-left: 15px;
+  font-size: 17px;
+  background: #9ae59a;
+  margin-right: 15px;
+  padding: 25px 50px 25px 25px;
+  text-align: center;
+  margin-bottom: 20px;
+  position: absolute;
+  top: -62px;
+  left: 26px;
+  border-radius: 50%;
+  z-index: 5000;
+
+  &:after{
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 7.5px 0 7.5px;
+    border-color: rgba(154, 229, 154, 0.93) transparent transparent transparent;
+    position: absolute;
+    top: 92%;
+    left: 50%;
+  }
+
+  .close{
+    position: absolute;
+    top: 36%;
+    right: 23px;
+    font-size: 24px;
+  }
+}
+
+.ct-dividedSection{
+  span.error{
+    display: none;
+  }
+}
+
+.error{
+  border: 2px solid rgb(226, 21, 21);
+}
+
+.tweets_display{
+  padding-bottom: 30px;
+  a{
+    color: #acacac !important;
+    &:hover{
+      color: #000 !important;
+    }
+  }
+
+  .tweet_list{
+    li{
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.lead{
+  margin-bottom: 0px;
+}
+
+@media(max-width: 500px){
+  .hr-slider{
+    width: auto;
+  }
+}
+
+/*.ct-padding {
+  padding-bottom: 100px!important;
+}*/

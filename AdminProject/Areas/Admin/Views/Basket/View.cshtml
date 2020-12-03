@@ -1,0 +1,158 @@
+﻿@using AdminProject.Helpers
+@model AdminProject.Services.Models.BasketProductList
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrap">
+    <div class="page-extra">
+        <!-- Main content -->
+        <section class="content invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12 invoice-header-detail">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> @Model.UserDetail.Name @Model.UserDetail.Surname
+                        <small class="pull-right">Date: @Model.OrderDetail.CreateDate.ToString("dd.MM.yyyy")</small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-3 invoice-col">
+                    User
+                    <address>
+                        <strong>@Model.UserDetail.Name @Model.UserDetail.Surname</strong>
+                        <br>@Model.AddressDetail.AddressDetail
+                        <br>@Model.AddressDetail.City/ @Model.AddressDetail.Region
+                        <br>Phone: @Model.AddressDetail.Phone
+                        <br>Gsm: @Model.AddressDetail.Gsm
+                        <br>Email: @Model.UserDetail.Email
+                    </address>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Unit</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock Type</th>
+                                <th>Product Type</th>
+                                <th>Discount</th>
+                                <th>Is Kdv?</th>
+                                <th>Kdv</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProductList)
+                            {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>@item.Unit</td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.ProductPrice.ToString("n2") TL</td>
+                                    <td>@item.StockType</td>
+                                    <td>@item.ProductType</td>
+                                    <td>@item.DiscountOdd.ToString("0")</td>
+                                    <td>@(item.IsKdv ? "Evet" : "Hayır")</td>
+                                    <td>@item.KdvOdd.ToString("0")</td>
+                                    <td>@item.TotalPrice.ToString("n2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <hr />
+            <div class="row" style="margin-top:20px;">
+                <!-- accepted payments column -->
+                <div class="col-xs-4">
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4" style="background:#efefef;">
+                    <p class="lead">Applied Campaigns</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Campaign Names:</th>
+                                <td>@Model.BasketCampigns.CampaingName</td>
+                            </tr>
+                            <tr>
+                                <th>Discount Items</th>
+                                <td>
+                                    <table class="table">
+                                        @foreach (var item in Model.BasketCampigns.DiscountItems)
+                                        {
+                                            <tr>
+                                                <td style="border: 0; color:red;"><strong>@item.Name</strong></td>
+                                                <td style="border:0">@item.DiscountAmount.ToString("n2") TL</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Total Discount Odd:</th>
+                                <td>@Model.BasketCampigns.DiscountOdd.ToString("n2")</td>
+                            </tr>
+                            <tr>
+                                <th>Total Discount:</th>
+                                <td>@Model.BasketCampigns.DiscountTotalAmount.ToString("n2")</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <p class="lead">Bottom Total</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>@Model.BasketTotalSum.SubTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Tax (@Model.BasketTotalSum.KdvOdd%)</th>
+                                <td>@Model.BasketTotalSum.KdvTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Cargo:</th>
+                                <td>@Model.BasketTotalSum.CargoAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Discounted Total Amount:</th>
+                                <td>@Model.BasketTotalSum.TotalAmount.ToString("n2") TL</td>
+                            </tr>
+                            <tr>
+                                <th>Normal Total Amount:</th>
+                                <td>@Model.BasketTotalSum.OrginalTotalAmount.ToString("n2") TL</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                    <a href="/Admin/Basket/List" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Back</a>
+                    @*<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>*@
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+</div>

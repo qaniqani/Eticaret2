@@ -1,0 +1,105 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Models
+@model AdminProject.Infrastructure.Models.File
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //set category name
+        var categoryId = $("#CategoryId").val();
+        if (categoryId != "0") {
+            var selectedText = $("#sortable li .cat" + categoryId).text();
+            $("#CategoryName").text(selectedText);
+        }
+
+        //select category
+        $("#sortable li div").click(function () {
+            var text = $(this).text();
+            var id = $(this).attr("data-id");
+
+            $("#CategoryName").text(text);
+            $("#CategoryId").val(id);
+        });
+    });
+</script>
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>File</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#basic">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form_center">
+                        <form role="form" action="/Admin/File/Edit" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="CategoryId">Selected Category</label>
+                                @Html.HiddenFor(model => model.CategoryId)
+                                <i style="display:block" id="CategoryName">Not selected category</i>
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                @Html.HiddenFor(model => model.Id)
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Name, new {@class = "form-control validate[required,minSize[3]", maxlength = "40"})
+                            </div>
+                                </div>
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.Description, new {@class = "form-control validate[required]"})
+                            </div>
+                                </div>
+                            <div class="form-group">
+                                <label for="FileUrl">File/ Picture</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">@TempData["LanguageTag"]</span>
+                                @Html.TextBoxFor(model => model.FileUrl, new {@type = "file", @class = "form-control"})
+                            </div>
+                                </div>
+                            <div class="form-group">
+                                <label>File Url</label>
+                                <a href="/Content/File/@Model.FileUrl" target="_blank">@Model.FileUrl</a>
+                            </div>
+                            <div class="form-group">
+                                @*<div class="form-group" style="display: none;">*@
+                                <label for="Status">Status</label>
+                                @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                            </div>
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="nest" id="basicClose">
+                <div class="title-alt">
+                    <h6>Categories</h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#menus">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="menus">
+                    @Html.Raw(Utility.RenderMenu(ViewBag.Menu as IEnumerable<MenuItem>).Insert(3, " id=\"sortable\""))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

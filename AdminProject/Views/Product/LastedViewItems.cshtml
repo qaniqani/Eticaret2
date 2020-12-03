@@ -1,0 +1,57 @@
+﻿@model List<AdminProject.Models.ProductViewDto>
+
+<div class="ct-js-owl owl-carousel ct-productCarousel ct-productCarousel--arrowsTopRight" data-single="false" data-pagination="false" data-navigation="true" data-items="4" data-snap-ignore="true">
+    
+    @foreach (var item in Model)
+    {
+        <div class="item">
+            <div class="ct-productShop ct-productShop--zoom">
+                <div class="ct-productShop-category">
+                    @if (item.IsDiscountApplied)
+                    {
+                        <div class="showDiscountAmount"><span>@*+@item.DiscountAmount.ToString("n2") TL*@</span></div>
+                            <div class="showDiscountAmount">
+                                %@item.DiscountOdd.ToString("0")
+                                <span>
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                    }
+                    <span class="ct-productShop-h5">@item.BrandName</span>
+                    <div class="clearfix"></div>
+                    <img class="ct-js-zoomImage" src="@item.MinPicture" data-zoom-image="@item.BigPicture" alt="@item.Name">
+                </div>
+                <div class="ct-productShop-content">
+                    <div class="ct-productShop-content-description">
+                        <a href="/product/@item.Url/detail">
+                            <h3>@item.Name</h3>
+                            @if (item.StockType == AdminProject.Models.StockTypes.OutStock)
+                            {
+                                <span>STOKTA YOK</span>
+                            }
+
+                            @if (item.IsDiscountApplied)
+                            {
+                                <span><del>@item.Price.ToString("n2") </del> @item.DiscountedPrice.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                            }
+                            else
+                            {
+                                <span>@item.Price.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                            }
+                        </a>
+                        <span class="ct-productShop-shopCart">
+                            <input type="hidden" class="basketId" value="@item.Id" />
+                            <input type="hidden" class="basketName" value="@item.Name" />
+                            <input type="hidden" class="basketUnit" value="1" />
+                            @if (item.StockType != AdminProject.Models.StockTypes.OutStock)
+                            {
+                                <a class="btn btn-default addBasket" href="javascript:;" role="button"><i class="fa fa-shopping-cart fa-fw"></i></a>
+                            }
+                            <a class="btn btn-default btn-hidden" href="/product/@item.Url/detail" role="button"><i class="fa fa-arrow-right fa-fw"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

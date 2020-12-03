@@ -1,0 +1,147 @@
+﻿@model Iyzipay.Model.CheckoutFormInitialize
+@using AdminProject.Infrastructure.Models
+@{
+    ViewBag.Title = "Ödeme Seçenekleri";
+    ViewBag.Description = "Ödeme seçeneklerinde kredi kartı, havale, eft veya kapıda ödeme seçeneklerini kullanabilirsiniz.";
+    ViewBag.Keyword = "kredi kartı, havale, eft, kapıda ödeme, kargo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Raw(ViewBag.Form)
+
+<style>
+    table.creditCard tr{line-height:63px !important;}
+    table.creditCard td{padding-right:5px !important;}
+    .btn{line-height:38px !important;}
+</style>
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Ödeme Bilgileri</h4>
+        <div class="row">
+            <div class="col-md-12 ct-u-paddingBottom50 ct-u-paddingTop20">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#creditCard">Kredi Kartı</a></li>
+                        <li><a data-toggle="tab" href="#transmitter">Havale/ EFT</a></li>
+                        <li><a data-toggle="tab" href="#doorPayment">Kapıda Ödeme</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="creditCard" class="tab-pane fade in active">
+                            <h3>Kredi Kartı ile Ödeme</h3>
+                            <div class="clearfix"></div>
+                            <div id="iyzipay-checkout-form" class="responsive"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="transmitter" class="tab-pane fade">
+                            <h3>Havale/ EFT Seçenekleri</h3>
+                            <div class="clearfix"></div>
+                            <form method="post" action="/order/payment/transmitter">
+                                <input type="hidden" name="delivery" value="@ViewBag.Delivery" />
+                                <input type="hidden" name="invoice" value="@ViewBag.Invoice" />
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Ödenecek Tutar</td>
+                                        <td>Banka Adı</td>
+                                        <td>IBAN</td>
+                                        <td>Para Birimi</td>
+                                        <td>Şube Adı</td>
+                                        <td>Hesap No</td>
+                                        <td>Şube Kodu</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in (List<Bank>) ViewBag.Banks)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <input type="radio" id="bank_@item.Id" class="bankSelected" name="bankId" value="@item.Id">
+                                                    <label for="bank_@item.Id">
+                                                        <span class="ct-u-size15">Seç</span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center; background-color: green; color: white;">@ViewBag.Payment <i class="fa fa-try" aria-hidden="true"></i></td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Iban</td>
+                                            <td>@item.ExchangeType</td>
+                                            <td>@item.Branch</td>
+                                            <td>@item.AccountNo</td>
+                                            <td>@item.BranchCode</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="8">
+                                            <button id="btnPayBank" style="display: none;" class="btn btn-success" type="submit"><i class="fa fa-try" aria-hidden="true"></i> Hesabı Onayla</button>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
+                        </div>
+                        <div id="doorPayment" class="tab-pane fade">
+                            <h3>Kapıda Ödeme</h3>
+                            <form action="/order/payment/pay-door" method="post">
+                                <input type="hidden" name="delivery" value="@ViewBag.Delivery" />
+                                <input type="hidden" name="invoice" value="@ViewBag.Invoice" />
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Ödenecek Tutar</td>
+                                        <td></td>
+                                        <td>Kargo Adı</td>
+                                        <td>Ücreti</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in (List<Cargo>) ViewBag.PayDoors)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <input type="radio" id="payDoor_@item.Id" class="payDoorSelected" name="payDoorId" value="@item.Id">
+                                                    <label for="payDoor_@item.Id">
+                                                        <span class="ct-u-size15">Seç</span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center; background-color: green; color: white;">
+                                                @((ViewBag.PaymentPrice + item.Price).ToString("n2")) 
+                                                <i class="fa fa-try" aria-hidden="true"></i>
+                                            </td>
+                                            <td class="text-center"><img src="@item.Logo" alt="@item.Name" style="max-height: 30px; max-width: 100px;"/></td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Price <i class="fa fa-try" aria-hidden="true"></i></td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <strong>Bilgilendirme: Kredi kartı veya havale ile ödeme gerçekleştirirseniz kapıda ödeme ücretini ödemezsiniz.</strong>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="col-md-5 col-lg-offset-7 col-xs-12">
+                                    <button id="btnPayDoor" class="btn btn-success" style="display: none;" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ödemeyi Onayla</button>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

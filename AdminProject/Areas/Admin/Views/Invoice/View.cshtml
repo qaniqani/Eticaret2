@@ -1,0 +1,74 @@
+﻿@model AdminProject.Infrastructure.Models.Invoice
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/loader-style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/extra-pages.css">
+
+    <link rel="shortcut icon" href="/assets/ico/minus.png">
+</head>
+<body style="background: none repeat scroll 0 0 #fff !important;">
+    <!--  PAPER WRAP -->
+    <!-- CONTENT -->
+    <div class="content-wrap">
+        <div class="page-extra">
+            <div class="row">
+                <div class="col-xs-12 invoice-header">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i>Save Name: @Model.InvoiceSaveName
+                    </h2>
+                </div>
+                <div class="body-nest" id="basic">
+                    <div class="form-group">
+                        <label for="InvoiceType">Invoice Type: </label>
+                        @Html.DisplayFor(model => model.InvoiceType)
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Name Surname: </label>
+                        @Html.DisplayFor(model => model.NameSurname)
+                    </div>
+                    <div class="form-group">
+                        <label for="Country">Country/ City/ Region: </label>
+                        @Html.DisplayFor(model => model.Country) / @Html.DisplayFor(model => model.City) / @Html.DisplayFor(model => model.Region)
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Address: </label>
+                        @Html.DisplayFor(model => model.Address)
+                    </div>
+                    <div class="form-group">
+                        <label for="Gsm">Gsm: </label>
+                        @Html.DisplayFor(model => model.Gsm)
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Phone: </label>
+                        @Html.DisplayFor(model => model.Phone)
+                    </div>
+                    <div class="form-group">
+                        <label for="TaxOffice">Tax Office / Number: </label>
+                        @Html.DisplayFor(model => model.TaxOffice) / @Html.DisplayFor(model => model.TaxNr)
+                    </div>
+                    <div class="form-group">
+                        <label for="IsEInvoice">Is E-Invoice? </label>
+                        @Html.CheckBoxFor(model => model.IsEInvoice, new { disabled = "disabled" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Status">Status: </label>
+                        @Html.DisplayFor(model => model.Status)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

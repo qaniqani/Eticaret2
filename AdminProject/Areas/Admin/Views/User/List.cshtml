@@ -1,0 +1,164 @@
+﻿@using AdminProject.Infrastructure.Models
+@using AdminProject.Services.Models
+@model UserSearchRequestDto
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="nest">
+                <div class="title-alt">
+                    <h6>
+                        User Search
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#searchJob">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="searchJob">
+                    <form action="/Admin/User/List" method="get">
+                        @Html.HiddenFor(a => a.CityName, new { id="CityName"})
+                        @Html.HiddenFor(a => a.RegionName, new { id = "RegionName" })
+                        @Html.HiddenFor(a => a.CountryName, new { id = "CountryName" })
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Surname, new { placeholder = "Surname", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.TcNr, new { placeholder = "Tc No", @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(model => model.Take, (SelectList)ViewBag.TakeList, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DropDownList("CountryUser", (SelectList)ViewBag.CountryList, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        <select name="CityUser" id="CityUser" class="form-control"></select>
+                                    </td>
+                                    <td>
+                                        <select name="RegionUser" id="RegionUser" class="form-control"></select>
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.UserTypes, new { @class = "form-control" })
+                                    </td>
+                                    <td><button type="submit" class="btn btn-success">Search</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="nest" id="FootableClose">
+                <div class="title-alt">
+                    <h6>
+                        Users
+                    </h6>
+                    <div class="titleToggle">
+                        <a class="nav-toggle-alt" href="#Footable">
+                            <span class="entypo-up-open"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="body-nest" id="Footable">
+                    <table class="table footable metro-blue">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Location
+                                </th>
+                                <th>
+                                    Tc Nr
+                                </th>
+                                <th>
+                                    Last Login
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var user in ((PagerList<User>)ViewBag.Users).List)
+                                {
+                                    <tr>
+                                        <td>@user.Name @user.Surname</td>
+                                        <td>@user.Email</td>
+                                        <td>@user.Country/ @user.City/ @user.Region </td>
+                                        <td>@user.TcNr</td>
+                                        <td>@user.LastLoginDate.ToString("dd.MM.yyyy HH:mm:ss") </td>
+                                        <td>
+                                            <span class="@(user.Status == AdminProject.Models.UserTypes.Active ? "status-metro status-active" : "status-metro status-suspended")">
+                                                @(user.Status == AdminProject.Models.UserTypes.Active ? "Active" : user.Status.ToString())
+                                            </span>
+                                        </td>
+                                        <td style="width: 200px;">
+                                            <a href="/Admin/User/View/@user.Id" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="Detail View"><i class="entypo-user"></i></a>
+                                            <a href="/Admin/User/Comment/@user.Id" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="Comments"><i class="entypo-chat"></i></a>
+                                            <a href="/Admin/User/Edit/@user.Id" class="btn btn-default commentDetail" data-toggle="tooltip" data-placement="top" title="Edit"><i class="entypo-pencil"></i></a>
+                                            <a href="/Admin/User/Delete/@user.Id" class="btn btn-danger commentDetail" onclick="return confirm('Are you sure you want to continue?')" data-toggle="tooltip" data-placement="top" title="Delete"><i class="icon icon-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered">
+                                        <ul>
+                                            @{
+                                                var recordCount = ((PagerList<User>)ViewBag.Users).TotalCount;
+                                                var pageCount = recordCount / Model.Take + 1;
+
+                                                var url = ViewBag.UrlAddress;
+                                                for (var i = 1; i < pageCount + 1; i++)
+                                                {
+                                                    <li class="footable-page">
+                                                        <a href="@string.Format("{0}&Skip={1}", url, i)">@(i)</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div style="float: right; color:black;">
+                                        There are @recordCount records in total.
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿@model AdminProject.Models.BasketListDto
+
+@{
+    ViewBag.Title = "Sepet | Payidar.com.tr";
+    ViewBag.Description = "Bizden almak istediğiniz ürünlerin tüm listesi... | Payidar.com.tr";
+    ViewBag.Keyword = "sepet, payidar, ürün";
+
+    ViewBag.AppId = "298309987280028";
+    ViewBag.OgType = "article";
+    ViewBag.Url = "https://payidar.com.tr" + Request.RawUrl;
+    ViewBag.Title = "Sepet | Payidar.com.tr";
+    ViewBag.Description = "Bizden almak istediğiniz ürünlerin tüm listesi... | Payidar.com.tr";
+    ViewBag.Image = "https://payidar.com.tr/theme/images/content/logo_big.png";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ct-contentWrapper">
+    <div class="container">
+        <h4 class="ct-headerBox ct-u-borderBottom ct-u-paddingBottom20 text-left ct-u-paddingTop10">Sepet</h4>
+        <table class="ct-wishList ct-js-wishList ct-js-cartShop ct-u-marginBoth30">
+            <thead>
+                <tr>
+                    <th class="ct-wishList-image"></th>
+                    <th class="ct-wishList-description">Ürün Adı</th>
+                    <th class="ct-wishList-price">Birim Fiyat</th>
+                    <th class="ct-wishList-quantity">Adet</th>
+                    <th class="ct-wishList-total">Toplam</th>
+                    <th class="ct-wishList-button"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProductList)
+                {
+                    <tr>
+                        <td class="ct-wishList-image"><img src="@item.MinPicture" alt="@item.ProductName"></td>
+                        <td class="ct-wishList-description"><a class="ct-wishList-itemLink" href="/product/@item.Url/detail" target="_blank">@item.ProductName</a></td>
+                        <td class="ct-wishList-price">
+                            @if (item.DiscountAmount <= 0)
+                            {
+                                @item.Price.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <span><del>@item.Price.ToString("n2") </del> @item.DiscountPrice.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                            }
+                        </td>
+                        <td class="ct-wishList-quantity">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6" style="padding:0">
+                                    <input type="number" class="spinner form-control basketListUpdateItemNumber" value="@item.Unit">
+                                </div>
+                                <div class="col-md-6 col-xs-6" style="padding:0">
+                                    <a class="btn btn-warning basketListUpdateItemButton" data-basketId="@item.BasketId" href="javascript:;" style="height:50px;"><i class="fa fa-refresh"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="ct-wishList-total">
+                            @item.SubTotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i>
+                        </td>
+                        <td class="ct-wishList-button">
+                            <a class="btn btn-default btn-md basketListItemDelete" data-basketId="@item.BasketId" href="javascript:;">X</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- this div will appear if we will close each element in this table or there won't be any element here in the beggining. This is generating by JS in main.js-->
+        <div class="ct-wishList-noProducts ct-u-size15 ct-u-paddingBottom30">Henüz sepetiniz boş.</div>
+        <div class="ct-shopSections">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="ct-cartLeftSection">
+                        @if (!string.IsNullOrEmpty(Model.BasketCampigns.CampaingName))
+                        {
+                            <h2 class="ct-u-paddingBottom20">Uygulanan Kampanyalar</h2>
+                            <table class="table" style="border-top:0;">
+                                <tr>
+                                    <th style="width: 30%; border-top:0;">Kampanyalar:</th>
+                                    <td style="border-top:0;">@Model.BasketCampigns.CampaingName</td>
+                                </tr>
+                                <tr>
+                                    <th>İndirimler</th>
+                                    <td>
+                                        <table class="table" style="margin:0;">
+                                            @foreach (var item in Model.BasketCampigns.DiscountItems)
+                                            {
+                                                <tr>
+                                                    <td style="border: 0; padding-left: 0; text-align: right;"><strong>@item.Name</strong></td>
+                                                    <td style="border: 0; padding-left: 0; text-align: right;">@item.DiscountAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Toplam İndirim:</th>
+                                    <td style="text-align: right;">@Model.BasketCampigns.DiscountTotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></td>
+                                </tr>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-5">
+                    <div class="ct-cartRightSectionBasket">
+                        <div class="ct-u-size15">
+                            <div class="ct-u-paddingBottom20">
+                                <span class="pull-left">Toplam</span>
+                                <span class="pull-right">@Model.BasketTotalSum.SubTotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="ct-u-paddingBottom20">
+                                <span class="pull-left">KDV (@Model.BasketTotalSum.KdvOdd.ToString("n"))</span>
+                                <span class="pull-right">@Model.BasketTotalSum.KdvTotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="ct-u-paddingBottom30">
+                                <span class="pull-left">Kargo Ücreti</span>
+                                <span class="pull-right">@Model.BasketTotalSum.CargoAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            @if (Model.BasketCampigns.DiscountTotalAmount > 0)
+                            {
+                                <div class="ct-u-paddingBottom20">
+                                    <span class="pull-left">İndirim Miktarı</span>
+                                    <span class="pull-right">@Model.BasketCampigns.DiscountTotalAmount.ToString("n2") <i class="fa fa-try" aria-hidden="true"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            }
+                            <hr class="ct-u-paddingBottom30">
+                            <div class="ct-u-paddingBottom30">
+                                <span class="pull-left">Genel Toplam</span>
+                                <span class="pull-right ct-u-size20">@((Model.BasketTotalSum.TotalAmount + Model.BasketTotalSum.CargoAmount).ToString("n2")) <i class="fa fa-try" aria-hidden="true"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="ct-u-paddingBottom40 ct-cartRightSection-buttons">
+                                <a href="/" class="btn btn-default btn-md pull-left"><i class="fa fa-long-arrow-left fa-fw"></i> Alışverişe Devam Et</a>
+                                <a href="/order/delivery-address" class="btn btn-default btn-md pull-right">Ödemeye Git <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PreFOOTER -->
+    @Html.Partial("../Partial/Bulletin")
+</div>

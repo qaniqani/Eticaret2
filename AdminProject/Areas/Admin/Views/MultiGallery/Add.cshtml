@@ -1,0 +1,170 @@
+﻿@using AdminProject.Helpers
+@using AdminProject.Infrastructure.Models
+@using AdminProject.Models
+@model Gallery
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add";
+}
+
+<script src="/assets/js/multi.file.js"></script>
+
+<div class="content-wrap">
+    <div class="row">
+        <form role="form" action="/Admin/MultiGallery/Add" method="post" enctype="multipart/form-data">
+
+            @{
+                var languages = ViewBag.Languages as List<Language>;
+                if (languages != null || languages.Any())
+                {
+                    @Html.Hidden("hfLanguages", string.Join(",", languages.Select(a => a.UrlTag).ToArray()))
+                    foreach (var item in languages)
+                    {
+                        <div class="col-sm-4">
+                            <div class="nest">
+                                <div class="title-alt">
+                                    <h6>Category - @item.Name</h6>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#category_@item.UrlTag">
+                                            <span class="entypo-down-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="body-nest" id="category_@item.UrlTag">
+                                    <div class="form-group GalleryCategory">
+                                        <input type="text" style="width:0; height:0; border:0; float: right;" name="CategoryId_@item.UrlTag" id="CategoryId_@item.UrlTag" class="validate[required]" />
+                                        <label for="CategoryId" class="lblSelectGalleryCategory">Select Category</label>
+
+                                        <i style="display: block" id="CategoryName_@item.UrlTag">Not selected category</i>
+
+                                        <div class="galleryCategories" style="display: none;">
+                                            <em>Close</em>
+                                            @Html.Raw(Utility.RenderMenu(TempData[item.UrlTag] as IEnumerable<MenuItem>).Insert(3, " id=\"sortable\""))
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nest" id="basicClose">
+                                <div class="title-alt">
+                                    <h6>Gallery - @item.Name</h6>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#basic_@item.UrlTag">
+                                            <span class="entypo-up-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="body-nest" id="basic_@item.UrlTag">
+                                    <div class="form-group">
+                                        <label for="Name">Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("Name_{0}", item.UrlTag), "", new { placeholder = "Sample: Office", @class = "form-control validate[required]" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Definition">@item.UrlTag Definition</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextArea(string.Format("Definition_{0}", item.UrlTag), "", new { placeholder = "Sample: gallery info", @class = "form-update" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nest" id="basicClose2">
+                                <div class="title-alt">
+                                    <h6>Seo - @item.Name</h6>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#seo_@item.UrlTag">
+                                            <span class="entypo-down-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="body-nest" id="seo_@item.UrlTag" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="Title_@item.UrlTag">Title</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("Title_{0}", item.UrlTag), "", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Description_@item.UrlTag">Description</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("Description_{0}", item.UrlTag), "", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Keyword_@item.UrlTag">Keyword</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("Keyword_{0}", item.UrlTag), "", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Url_@item.UrlTag">Url</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("Url_{0}", item.UrlTag), "", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nest">
+                                <div class="title-alt">
+                                    <h6>Settings - @item.Name</h6>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#setting_@item.UrlTag">
+                                            <span class="entypo-down-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="body-nest" id="setting_@item.UrlTag" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="SequenceNumber_@item.UrlTag">Sequence Number</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">@item.UrlTag.ToUpper()</span>
+                                            @Html.TextBox(string.Format("SequenceNumber_{0}", item.UrlTag), "", new { @class = "form-control", required = "required", @Value = "99" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Status_@item.UrlTag">Status</label>
+                                        @Html.DropDownList(string.Format("Status_{0}", item.UrlTag), ViewBag.StatusList as SelectList, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+            <div class="col-sm-12">
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Upload</h6>
+                    </div>
+                    <div class="body-nest pull-left full-width">
+                        <div class="form-group">
+                            <input type="file" name="FileUpload" class="validate[required] multi with-preview max-20 accept-gif|jpg|png|jpeg|bmp maxsize-10240" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nest">
+                    <div class="title-alt">
+                        <h6>Save</h6>
+                    </div>
+                    <div class="body-nest">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
